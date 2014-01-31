@@ -12,4 +12,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <!-- CirclePageIndicator theme. -->
+    <style name="Widget"></style>
+
 </resources>

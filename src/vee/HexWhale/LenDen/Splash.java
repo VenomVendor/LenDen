@@ -1,32 +1,31 @@
+
 package vee.HexWhale.LenDen;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.os.Handler;
 
 public class Splash extends Activity {
 
-	@SuppressWarnings("deprecation")
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.splash);
+    final long time = 1500;
 
-		final RelativeLayout mRR = (RelativeLayout) findViewById(R.id.settings);
-		final TextView mTextView = (TextView) findViewById(R.id.textView1);
-		mRR.setBackgroundResource(R.drawable.splash);
-		int width = getWindowManager().getDefaultDisplay().getWidth();
-		int height = getWindowManager().getDefaultDisplay().getHeight();
-		mTextView.setText("0 ");
-		Toast.makeText(getApplicationContext(), "Click to go to next screen", Toast.LENGTH_LONG).show();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash);
+        Handler mHandler = new Handler();
 
-	}
+        mHandler.postDelayed(new Runnable() {
 
-	public void NextActivity(View v) {
-		startActivity((new Intent(getApplicationContext(), Splash1.class)));
-	}
+            @Override
+            public void run() {
+                startActivity(new Intent(getApplicationContext(), WalkThrough.class));
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                finish();
+            }
+        }, time);
+
+    }
+
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Colors A-Z -->
+
+    <color name="black">#000000</color>
+    <color name="blue_normal">#33B5E5</color>
+    <color name="blue_pressed">#00bbff</color>
+    <color name="brown">#57464E</color>
+    <color name="green_normal">#99cc00</color>
+    <color name="green_pressed">#BBFF00</color>
+    <color name="orange">#FF6600</color>
+    <color name="red_normal">#FF4444</color>
+    <color name="red_pressed">#FF0000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Colors A-Z -->
+
+</resources>
