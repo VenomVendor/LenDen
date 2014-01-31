@@ -6,9 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class Splash extends Activity {
+public class Splash4 extends Activity {
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -18,15 +17,14 @@ public class Splash extends Activity {
 
 		final RelativeLayout mRR = (RelativeLayout) findViewById(R.id.settings);
 		final TextView mTextView = (TextView) findViewById(R.id.textView1);
-		mRR.setBackgroundResource(R.drawable.splash);
+		mRR.setBackgroundResource(R.drawable.splash2);
 		int width = getWindowManager().getDefaultDisplay().getWidth();
 		int height = getWindowManager().getDefaultDisplay().getHeight();
-		mTextView.setText("0 ");
-		Toast.makeText(getApplicationContext(), "Click to go to next screen", Toast.LENGTH_LONG).show();
+		mTextView.setText("FullScreen 4");
 
 	}
 
 	public void NextActivity(View v) {
-		startActivity((new Intent(getApplicationContext(), Splash1.class)));
+		startActivity((new Intent(getApplicationContext(), Splash5.class)));
 	}
 }
