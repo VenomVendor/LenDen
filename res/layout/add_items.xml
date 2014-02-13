@@ -17,12 +17,12 @@
         tools:ignore="HardcodedText,ContentDescription" >
 
         <ListView
-            android:padding="5dp"
             android:id="@android:id/list"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#BBBBBB" />
+            android:background="#BBBBBB"
+            android:padding="5dp" />
 
         <ScrollView
             android:layout_width="0dp"
@@ -46,7 +46,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#1DA988"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="Sales"
                         android:padding="5dp"
                         android:singleLine="true"
                         android:text="Sales"
@@ -59,8 +61,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#F09000"
+                        android:clickable="true"
                         android:ellipsize="marquee"
                         android:gravity="center"
+                        android:onClick="Exchage"
                         android:padding="5dp"
                         android:singleLine="true"
                         android:text="Exchange"
@@ -73,7 +77,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#A4A200"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="Both"
                         android:padding="5dp"
                         android:singleLine="true"
                         android:text="Both"
@@ -88,6 +94,7 @@
                     android:weightSum="3" >
 
                     <ImageView
+                        android:id="@+id/add_items_arrow_s"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="0dp"
@@ -97,22 +104,26 @@
                         android:src="@drawable/s_arrow" />
 
                     <ImageView
+                        android:id="@+id/add_items_arrow_e"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="0dp"
-                        android:src="@drawable/s_arrow" />
+                        android:src="@drawable/e_arrow"
+                        android:visibility="invisible" />
 
                     <ImageView
+                        android:id="@+id/add_items_arrow_b"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="0dp"
-                        android:src="@drawable/s_arrow" />
+                        android:src="@drawable/b_arrow"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <TextView

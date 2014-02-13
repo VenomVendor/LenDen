@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DBD2D2"
+    android:orientation="vertical"
+    android:weightSum="5"
+    tools:ignore="HardcodedText,ContentDescription" >
+
+    <include layout="@layout/search_bar" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/input"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:src="@drawable/s_search" />
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#E4E4E4"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="2" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/search_sales_num_bg"
+            android:padding="2dp"
+            android:singleLine="true" >
+
+            <TextView
+                android:id="@+id/search_sales_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:text="5"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/search_txt_big" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/search_sales_num"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:text="sales"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/search_txt" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1px"
+            android:layout_weight="1"
+            android:background="@drawable/search_sales_exch_bg"
+            android:padding="2dp" >
+
+            <TextView
+                android:id="@+id/search_exch_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:text="3"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/search_txt_big" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/search_exch_num"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:text="exchanges"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/search_txt" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/search_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="#FFF" />
+
+</LinearLayout>

@@ -1,7 +1,7 @@
 
 package vee.HexWhale.LenDen.aUI;
 
-import static vee.HexWhale.LenDen.Constants.gridImages;
+import static vee.HexWhale.LenDen.Utils.Constants.gridImages;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,7 +1,7 @@
 
 package vee.HexWhale.LenDen.aUI;
 
-import static vee.HexWhale.LenDen.Constants.menuclass;
+import static vee.HexWhale.LenDen.Utils.Constants.menuclass;
 
 import android.content.Intent;
 import android.os.Bundle;

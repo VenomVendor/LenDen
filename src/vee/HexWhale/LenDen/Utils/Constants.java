@@ -1,7 +1,11 @@
 
-package vee.HexWhale.LenDen;
+package vee.HexWhale.LenDen.Utils;
 
-import vee.HexWhale.LenDen.Utils.Settings;
+import vee.HexWhale.LenDen.AddItems;
+import vee.HexWhale.LenDen.Favorites;
+import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Search;
+import vee.HexWhale.LenDen.Settings;
 
 public class Constants {
 

@@ -1,5 +1,5 @@
 
-package vee.HexWhale.LenDen.Utils;
+package vee.HexWhale.LenDen;
 
 public class Settings {
 

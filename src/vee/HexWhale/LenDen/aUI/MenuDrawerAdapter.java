@@ -1,8 +1,8 @@
 
 package vee.HexWhale.LenDen.aUI;
 
-import static vee.HexWhale.LenDen.Constants.menuImages;
-import static vee.HexWhale.LenDen.Constants.menuText;
+import static vee.HexWhale.LenDen.Utils.Constants.menuImages;
+import static vee.HexWhale.LenDen.Utils.Constants.menuText;
 
 import android.app.Activity;
 import android.content.Context;

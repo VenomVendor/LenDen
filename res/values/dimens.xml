@@ -14,8 +14,11 @@
     <dimen name="signup_et_min_ht">48dp</dimen>
     <dimen name="login_txt_gap">15dp</dimen>
     <dimen name="menu_txt">23sp</dimen>
+    <dimen name="search_txt">14sp</dimen>
+    <dimen name="search_txt_big">23sp</dimen>
     <dimen name="menu_width">140dp</dimen>
     <dimen name="home_grid_text">18sp</dimen>
     <dimen name="add_item_tiny_menu">11sp</dimen>
+    <dimen name="search_corner_radius">10dp</dimen>
 
 </resources>

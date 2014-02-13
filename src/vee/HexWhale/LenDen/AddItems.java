@@ -51,6 +51,45 @@ public class AddItems extends FragmentActivity {
 
     }
 
+    public void Sales(View v) {
+        setEnabled(1);
+    }
+
+    public void Exchage(View v) {
+        setEnabled(2);
+    }
+
+    public void Both(View v) {
+        setEnabled(3);
+    }
+
+    private void setEnabled(int i) {
+        final ImageView im1 = (ImageView) findViewById(R.id.add_items_arrow_s);
+        final ImageView im2 = (ImageView) findViewById(R.id.add_items_arrow_e);
+        final ImageView im3 = (ImageView) findViewById(R.id.add_items_arrow_b);
+
+        im1.setVisibility(View.INVISIBLE);
+        im2.setVisibility(View.INVISIBLE);
+        im3.setVisibility(View.INVISIBLE);
+
+        switch (i) {
+            case 1:
+                im1.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                im2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                im3.setVisibility(View.VISIBLE);
+                break;
+
+            default:
+                im1.setVisibility(View.VISIBLE);
+                break;
+        }
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
