@@ -1,5 +1,5 @@
 
-package vee.HexWhale.LenDen;
+package vee.HexWhale.LenDen.aUI;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import vee.HexWhale.LenDen.R;
 
 public class WalkThroughPager extends PagerAdapter {
 
@@ -39,8 +41,8 @@ public class WalkThroughPager extends PagerAdapter {
         final TextView sTitle = (TextView) v.findViewById(R.id.wt_pager_title);
         final TextView sText = (TextView) v.findViewById(R.id.wt_pager_text);
 
-        sTitle.setText("" + position);
-        sText.setText("" + position);
+        sTitle.setText("" + (position + 1));
+        sText.setText("" + (position + 1));
 
         ((ViewPager) container).addView(v, 0);
 

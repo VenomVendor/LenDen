@@ -1,0 +1,42 @@
+<com.agimind.widget.SlideHolder xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/slideHolder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- Here is any view that will represent your side menu. Don't forget to provide width! -->
+
+    <ListView
+        android:id="@+id/menu_drawer"
+        android:layout_width="@dimen/menu_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="#282828"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="20dp"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:paddingTop="20dp" />
+
+    <!-- And here is your main layout -->
+
+    <RelativeLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <include
+            android:id="@+id/menuinc"
+            layout="@layout/menu_bar" />
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/menuinc" >
+        </FrameLayout>
+    </RelativeLayout>
+
+</com.agimind.widget.SlideHolder>

@@ -24,6 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name="vee.HexWhale.LenDen.WalkThrough" />
+        <activity android:name="vee.HexWhale.LenDen.SignUp" />
+        <activity android:name="vee.HexWhale.LenDen.Login" />
+        <activity android:name="vee.HexWhale.LenDen.Home" />
+        <activity android:name="vee.HexWhale.LenDen.AddItems" />
     </application>
 
 </manifest>

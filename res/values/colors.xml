@@ -13,7 +13,8 @@
     <color name="red_normal">#FF4444</color>
     <color name="red_pressed">#FF0000</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="list_txt">#A0A0A0</color>
+    <color name="menu_bg">#1DA988</color>
     <!-- Colors A-Z -->
 
 </resources>

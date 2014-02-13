@@ -2,12 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/wlk_thrg_rel_lyt"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/walkthrough"
+    android:background="@drawable/walkthrough_bg"
     android:orientation="vertical"
     tools:context=".WalkThrough"
     tools:ignore="ContentDescription" >
+
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/walkthrough" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -56,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:onClick="Login"
             android:src="@drawable/btn_login" />
 
         <ImageView
@@ -63,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:onClick="Signup"
             android:src="@drawable/btn_signup" />
     </LinearLayout>
 

@@ -3,5 +3,16 @@
     android:id="@+id/settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
-    tools:context=".Splash" />
+    android:background="@drawable/bg"
+    tools:context=".Splash" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/splash"
+        tools:ignore="ContentDescription" />
+
+</RelativeLayout>

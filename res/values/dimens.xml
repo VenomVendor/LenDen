@@ -5,5 +5,17 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="big_title">32sp</dimen>
     <dimen name="big_text">23sp</dimen>
+    <dimen name="signup_et_mrg_tp">4dp</dimen>
+    <dimen name="signup_mrgs">20dp</dimen>
+    <dimen name="login_right_mrgs">30dp</dimen>
+    <dimen name="signup_mrg_top">20dp</dimen>
+    <dimen name="signup_dp_mrg_tp">10dp</dimen>
+    <dimen name="signup_et_mrg_lt_rt">10dp</dimen>
+    <dimen name="signup_et_min_ht">48dp</dimen>
+    <dimen name="login_txt_gap">15dp</dimen>
+    <dimen name="menu_txt">23sp</dimen>
+    <dimen name="menu_width">140dp</dimen>
+    <dimen name="home_grid_text">18sp</dimen>
+    <dimen name="add_item_tiny_menu">11sp</dimen>
 
 </resources>
