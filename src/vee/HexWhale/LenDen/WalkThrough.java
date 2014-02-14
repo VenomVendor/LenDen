@@ -9,6 +9,10 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
+import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
+import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
+
 import vee.HexWhale.LenDen.aUI.WalkThroughPager;
 import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
 import vee.HexWhale.LenDen.viewpagerindicator.PageIndicator;
@@ -37,12 +41,61 @@ public class WalkThrough extends Activity {
         indicator.setOnPageChangeListener(new OnPageChangeListener() {
 
             @Override
-            public void onPageSelected(int position) {
-                if (position % 2 == 1) {
-                    mRL.setBackgroundResource(R.drawable.bg);
-                    return;
-                }
-                mRL.setBackgroundResource(R.drawable.walkthrough_bg);
+            public void onPageSelected(final int position) {
+                final ObjectAnimator asdf = new ObjectAnimator();
+
+                asdf.setPropertyName("alpha");
+                asdf.setDuration(100);
+                asdf.setTarget(mRL);
+                asdf.setFloatValues(1.0f, .7f);
+                asdf.start();
+                asdf.setRepeatCount(0);
+                asdf.addListener(new AnimatorListener() {
+
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                        final ObjectAnimator xx = new ObjectAnimator();
+
+                        xx.setPropertyName("alpha");
+                        xx.setDuration(100);
+                        xx.setTarget(mRL);
+                        xx.setFloatValues(.8f, 1f);
+                        xx.start();
+                        xx.setRepeatCount(0);
+                        if (position % 2 == 1) {
+                            mRL.setBackgroundResource(R.drawable.bg);
+                        } else {
+                            mRL.setBackgroundResource(R.drawable.walkthrough_bg);
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                        final ObjectAnimator xx = new ObjectAnimator();
+
+                        xx.setPropertyName("alpha");
+                        xx.setDuration(100);
+                        xx.setTarget(mRL);
+                        xx.setFloatValues(.8f, 1f);
+                        xx.start();
+                        xx.setRepeatCount(0);
+                        if (position % 2 == 1) {
+                            mRL.setBackgroundResource(R.drawable.bg);
+                        } else {
+                            mRL.setBackgroundResource(R.drawable.walkthrough_bg);
+                        }
+                    }
+                });
 
             }
 
@@ -61,7 +114,6 @@ public class WalkThrough extends Activity {
 
     @Override
     public void onBackPressed() {
-
         this.finish();
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         return;
