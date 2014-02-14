@@ -14,6 +14,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import vee.HexWhale.LenDen.aUI.SearchListAdapter;
+
 public class Search extends FragmentActivity {
     static GoogleMap map = null;
     double latitude = 12.971689;
@@ -31,7 +33,7 @@ public class Search extends FragmentActivity {
         setContentView(R.layout.search);
         latlon = new LatLng(latitude, longitude);
         setUpMapIfNeeded(); // Required to check the availability of Maps
-
+        mListView = (ListView)findViewById(R.id.search_list);
         SearchListAdapter adapter = new SearchListAdapter(this);
         mListView.setAdapter(adapter);
     }
