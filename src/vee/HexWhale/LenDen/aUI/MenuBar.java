@@ -21,8 +21,9 @@ import vee.HexWhale.LenDen.R;
 public class MenuBar extends FragmentActivity {
 
     RelativeLayout mRelLayTop;
-    ImageView mImgRight, mImgLeft;
-    TextView mTextCenter;
+    ImageView mImgRight;
+    protected ImageView mImgLeft;
+    protected TextView mTextCenter;
     private SlideHolder mSlideHolder;
     ListView mDrawerList;
 
@@ -50,13 +51,28 @@ public class MenuBar extends FragmentActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 mSlideHolder.toggle();
-
                 startActivity(new Intent(getApplicationContext(), menuclass[position]));
-
+                AnimPrev();
             }
         });
     }
 
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        AnimPrev();
+    }
+
+    private void AnimPrev() {
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        return;
+    }
+
+    private void AnimNext() {
+        overridePendingTransition(R.anim.enter, R.anim.exit);
+        return;
+    }
     public void ToggleMenu(View v) {
         mSlideHolder.toggle();
     }

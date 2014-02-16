@@ -58,22 +58,26 @@ public class HomeGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View sView = convertView;
-        if (sView == null) {
+        //View sView = convertView;
+        ViewHolder holder;
+        if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            sView = layoutInflater.inflate(R.layout.home_grid, null);
+            convertView = layoutInflater.inflate(R.layout.home_grid, null);
+            holder = new ViewHolder();
+            holder.imView = (ImageView) convertView.findViewById(R.id.home_frnt_grid_img);
+            holder.txtView = (TextView) convertView.findViewById(R.id.home_frnt_grid_txt);
+            convertView.setTag(holder);
+        } else {
+            holder =  (ViewHolder) convertView.getTag();
         }
 
-        final ImageView imView = (ImageView) sView.findViewById(R.id.home_frnt_grid_img);
-        final TextView txtView = (TextView) sView.findViewById(R.id.home_frnt_grid_txt);
-
-        imView.setImageResource(gridImages[position % gridImages.length]);
+        holder.imView.setImageResource(gridImages[position % gridImages.length]);
 
         // imageLoader.displayImage("drawable://" + (gridImages[position % gridImages.length]),
         // imView, options);
-        txtView.setText("text-" + (position + 1));
+        holder.txtView.setText("text-" + (position + 1));
 
-        return sView;
+        return convertView;
     }
 
     private void initilizeImageCache() {
@@ -93,5 +97,10 @@ public class HomeGridAdapter extends BaseAdapter {
                 .build();
         ImageLoader.getInstance().init(config); // Do it on Application start
         imageLoader = ImageLoader.getInstance();
+    }
+
+    private static class ViewHolder {
+        ImageView imView;
+        TextView txtView;
     }
 }

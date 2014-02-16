@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import vee.HexWhale.LenDen.aUI.HomeBackFragment;
 import vee.HexWhale.LenDen.aUI.HomeFrontFragment;
+import vee.HexWhale.LenDen.aUI.HomeBackFragment;
 import vee.HexWhale.LenDen.aUI.MenuBar;
 
 public class Home extends MenuBar implements FragmentManager.OnBackStackChangedListener {
@@ -49,12 +49,17 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
         }
         mShowingBack = true;
 
-        FragmentTransaction tx = getSupportFragmentManager().beginTransaction().addToBackStack(null);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.enter, R.anim.exit,R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        ft.replace(R.id.container, new HomeBackFragment());
+        ft.addToBackStack(null);
+        ft.commit();
 
-        tx.replace(R.id.container, new HomeBackFragment())
-        // .setCustomAnimations(R.anim.flip_left_in, R.anim.flip_left_out, R.anim.flip_right_in,
-        // R.anim.flip_right_out)
-                .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit).commit();
+        // ft.setCustomAnimations(
+        // R.animator.fragment_slide_left_enter,
+        // R.animator.fragment_slide_left_exit,
+        // R.animator.fragment_slide_right_enter,
+        // R.animator.fragment_slide_right_exit);
 
         mHandler.post(new Runnable() {
             @Override

@@ -2,6 +2,7 @@
 package vee.HexWhale.LenDen.aUI;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -19,12 +22,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import vee.HexWhale.LenDen.Preview;
 import vee.HexWhale.LenDen.R;
 
 /**
  * A fragment representing the back of the card.
  */
-public class HomeBackFragment extends Fragment {
+public class HomeFrontFragment extends Fragment {
     Activity sActivity;
     GridView mGridView;
     static GoogleMap map = null;
@@ -36,7 +40,7 @@ public class HomeBackFragment extends Fragment {
 
     private static View view;
 
-    public HomeBackFragment() {
+    public HomeFrontFragment() {
         setRetainInstance(true);
     }
 
@@ -59,7 +63,7 @@ public class HomeBackFragment extends Fragment {
                 parent.removeView(view);
         }
         try {
-            view = inflater.inflate(R.layout.home_back, container, false);
+            view = inflater.inflate(R.layout.home_front, container, false);
         }
         catch (InflateException e) {
             Log.wtf("S*****", e.getMessage());
@@ -76,9 +80,27 @@ public class HomeBackFragment extends Fragment {
         HomeGridAdapter adapter = new HomeGridAdapter(sActivity);
         latlon = new LatLng(latitude, longitude);
         mGridView.setAdapter(adapter);
+        mGridView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View parent, int position, long id) {
+
+               Intent i =  new Intent(getActivity(), Preview.class);
+               startActivity(i);
+               AnimNext();
+
+            }
+
+        });
+
         if (isGooglePlay()) {
             setUpMapIfNeeded();
         }
+    }
+
+    protected void AnimNext() {
+        getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+        return;
     }
 
     private boolean isGooglePlay() {

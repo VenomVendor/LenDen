@@ -1,6 +1,8 @@
 
 package vee.HexWhale.LenDen;
 
-public class Favorites {
+import android.support.v4.app.FragmentActivity;
+
+public class Favorites extends FragmentActivity {
 
 }

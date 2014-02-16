@@ -21,8 +21,12 @@ public class Splash extends Activity {
             @Override
             public void run() {
                 startActivity(new Intent(getApplicationContext(), WalkThrough.class));
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 finish();
+                // overridePendingTransition(R.anim.enter, R.anim.exit);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+
+                // overridePendingTransition(R.anim.android_slide_in_right,
+                // R.anim.android_slide_out_left);
             }
         }, time);
 

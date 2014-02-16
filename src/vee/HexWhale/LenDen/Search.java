@@ -33,18 +33,37 @@ public class Search extends FragmentActivity {
         setContentView(R.layout.search);
         latlon = new LatLng(latitude, longitude);
         setUpMapIfNeeded(); // Required to check the availability of Maps
-        mListView = (ListView)findViewById(R.id.search_list);
+        mListView = (ListView) findViewById(R.id.search_list);
         SearchListAdapter adapter = new SearchListAdapter(this);
         mListView.setAdapter(adapter);
     }
 
     public void Finish(View v) {
         finish();
+        AnimPrev();
     }
 
     public void Filter(View v) {
         finish();
+        AnimNext();
     }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        AnimPrev();
+    }
+
+    private void AnimPrev() {
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        return;
+    }
+
+    private void AnimNext() {
+        overridePendingTransition(R.anim.enter, R.anim.exit);
+        return;
+    }
+
 
     @Override
     protected void onResume() {
@@ -83,6 +102,7 @@ public class Search extends FragmentActivity {
         /*
          * Add a Marker Adding marker at 12.971689,77.594504;
          */
+        map.getUiSettings().setZoomControlsEnabled(false);
         map.addMarker(new MarkerOptions().position(latlon)
 
         /*
@@ -106,7 +126,6 @@ public class Search extends FragmentActivity {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, zoom)); // toPosition,
         // ZoomLevel
 
-        map.getUiSettings().setZoomControlsEnabled(false);
     }
 
     @Override

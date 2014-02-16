@@ -17,7 +17,23 @@ public class Login extends FragmentActivity {
 
     public void Signin(View v) {
         startActivity(new Intent(getApplicationContext(), Home.class));
+        AnimNext();
 
     }
 
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        AnimPrev();
+    }
+
+    private void AnimPrev() {
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        return;
+    }
+
+    private void AnimNext() {
+        overridePendingTransition(R.anim.enter, R.anim.exit);
+        return;
+    }
 }

@@ -17,16 +17,22 @@ import vee.HexWhale.LenDen.aUI.WalkThroughPager;
 import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
 import vee.HexWhale.LenDen.viewpagerindicator.PageIndicator;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class WalkThrough extends Activity {
 
     private ViewPager pager;
     PageIndicator mIndicator;
     RelativeLayout mRL;
+    private ScheduledExecutorService scheduleTaskExecutor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.walkthrough);
+        scheduleTaskExecutor = Executors.newScheduledThreadPool(1);
         pager = (ViewPager) findViewById(R.id.pager);
         mRL = (RelativeLayout) findViewById(R.id.wlk_thrg_rel_lyt);
         InitilizePager(); // XXX 1
@@ -110,22 +116,52 @@ public class WalkThrough extends Activity {
             }
         });
 
+        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int next = pager.getCurrentItem() + 1;
+                        next = (next % pager.getAdapter().getCount());
+                        pager.setCurrentItem(next, true);
+                    }
+                });
+            }
+        }, 3000, 3000, TimeUnit.MILLISECONDS);
     }
 
     @Override
     public void onBackPressed() {
+        shutDown();
         this.finish();
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-        return;
     }
 
     public void Signup(View v) {
+        shutDown();
         startActivity(new Intent(getApplicationContext(), SignUp.class));
+        AnimNext();
     }
 
     public void Login(View v) {
+        shutDown();
         startActivity(new Intent(getApplicationContext(), Login.class));
+        AnimNext();
+    }
 
+    @Override
+    protected void onDestroy() {
+        shutDown();
+        super.onDestroy();
+    }
+
+    private void shutDown() {
+        scheduleTaskExecutor.shutdown();
+    }
+
+    private void AnimNext() {
+        overridePendingTransition(R.anim.enter, R.anim.exit);
+        return;
     }
 
 }
