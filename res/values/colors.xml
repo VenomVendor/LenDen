@@ -15,6 +15,7 @@
     <color name="white">#FFFFFF</color>
     <color name="list_txt">#A0A0A0</color>
     <color name="menu_bg">#1DA988</color>
+    <color name="remove">#9A9A9A</color>
     <!-- Colors A-Z -->
 
 </resources>

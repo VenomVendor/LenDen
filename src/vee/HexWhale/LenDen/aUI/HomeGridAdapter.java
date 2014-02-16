@@ -58,7 +58,7 @@ public class HomeGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //View sView = convertView;
+        // View sView = convertView;
         ViewHolder holder;
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -68,7 +68,7 @@ public class HomeGridAdapter extends BaseAdapter {
             holder.txtView = (TextView) convertView.findViewById(R.id.home_frnt_grid_txt);
             convertView.setTag(holder);
         } else {
-            holder =  (ViewHolder) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
 
         holder.imView.setImageResource(gridImages[position % gridImages.length]);

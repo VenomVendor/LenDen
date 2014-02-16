@@ -64,7 +64,6 @@ public class Search extends FragmentActivity {
         return;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();

@@ -57,7 +57,6 @@ public class MenuBar extends FragmentActivity {
         });
     }
 
-
     @Override
     public void onBackPressed() {
         this.finish();
@@ -73,6 +72,7 @@ public class MenuBar extends FragmentActivity {
         overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
+
     public void ToggleMenu(View v) {
         mSlideHolder.toggle();
     }

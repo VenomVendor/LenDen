@@ -4,23 +4,19 @@ package vee.HexWhale.LenDen;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Settings extends FragmentActivity {
+public class EditProfile extends FragmentActivity {
 
     TextView mTitle;
-    ImageView mOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.settings);
+        setContentView(R.layout.edit_profile);
         mTitle = (TextView) findViewById(R.id.menu_center);
-        mTitle.setText("SETTINGS");
-        mOk = (ImageView) findViewById(R.id.menu_right);
-        mOk.setVisibility(View.INVISIBLE);
+        mTitle.setText("EDIT PROFILE");
 
     }
 

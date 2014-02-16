@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import vee.HexWhale.LenDen.aUI.HomeFrontFragment;
 import vee.HexWhale.LenDen.aUI.HomeBackFragment;
+import vee.HexWhale.LenDen.aUI.HomeFrontFragment;
 import vee.HexWhale.LenDen.aUI.MenuBar;
 
 public class Home extends MenuBar implements FragmentManager.OnBackStackChangedListener {
@@ -50,7 +50,7 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
         mShowingBack = true;
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.anim.enter, R.anim.exit,R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         ft.replace(R.id.container, new HomeBackFragment());
         ft.addToBackStack(null);
         ft.commit();

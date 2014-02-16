@@ -12,11 +12,11 @@ import android.widget.TextView;
 
 import vee.HexWhale.LenDen.R;
 
-public class SearchListAdapter extends BaseAdapter {
+public class ProfileListAdapter extends BaseAdapter {
 
     Activity sActivity;
 
-    public SearchListAdapter(Activity activity) {
+    public ProfileListAdapter(Activity activity) {
         this.sActivity = activity;
     }
 
@@ -63,14 +63,14 @@ public class SearchListAdapter extends BaseAdapter {
         if (position % 2 == 1) {
             holder.sTitle.setText("Am Loooooooooooooooooooooooooooooooooong title");
             holder.sBtn.setText("SALE");
-            holder.sBtn.setBackgroundResource(R.drawable.sales_rnd_bg);
+            holder.sBtn.setBackgroundResource(R.drawable.exch_rnd_bg);
             holder.sPrice.setText("$45");
-            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.menu_bg));
+            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.orange));
         } else {
             holder.sTitle.setText("Am small title");
             holder.sBtn.setText("EXCHANGE");
-            holder.sBtn.setBackgroundResource(R.drawable.exch_rnd_bg);
-            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.orange));
+            holder.sBtn.setBackgroundResource(R.drawable.sales_rnd_bg);
+            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.menu_bg));
         }
 
         holder.sTitle.setSelected(true);

@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/signup_name" />
+                android:src="@drawable/name" />
 
             <EditText
                 android:id="@+id/signup_name"

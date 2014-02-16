@@ -85,9 +85,9 @@ public class HomeFrontFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapter, View parent, int position, long id) {
 
-               Intent i =  new Intent(getActivity(), Preview.class);
-               startActivity(i);
-               AnimNext();
+                Intent i = new Intent(getActivity(), Preview.class);
+                startActivity(i);
+                AnimNext();
 
             }
 

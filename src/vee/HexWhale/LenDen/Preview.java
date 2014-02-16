@@ -1,3 +1,4 @@
+
 package vee.HexWhale.LenDen;
 
 import android.annotation.SuppressLint;
@@ -7,32 +8,33 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Locale;
-
-import vee.HexWhale.LenDen.R;
 import vee.HexWhale.LenDen.aUI.MenuBar;
 import vee.HexWhale.LenDen.aUI.PreviewAdapter;
+
+import java.util.Locale;
 
 public class Preview extends MenuBar {
 
     ListView mListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preview);
-        mListView  = (ListView)findViewById(android.R.id.list);
+        mListView = (ListView) findViewById(android.R.id.list);
         PreviewAdapter adapter = new PreviewAdapter(this);
         mListView.setAdapter(adapter);
     }
 
-    @SuppressLint("DefaultLocale") @Override
+    @SuppressLint("DefaultLocale")
+    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-             super.onPostCreate(savedInstanceState);
-             mImgLeft = (ImageView) findViewById(R.id.menu_left);
-             mTextCenter = (TextView) findViewById(R.id.menu_center);
+        super.onPostCreate(savedInstanceState);
+        mImgLeft = (ImageView) findViewById(R.id.menu_left);
+        mTextCenter = (TextView) findViewById(R.id.menu_center);
 
-             mImgLeft.setVisibility(View.INVISIBLE);
-             mTextCenter.setText(("Home").toUpperCase(Locale.UK));
+        mImgLeft.setVisibility(View.INVISIBLE);
+        mTextCenter.setText(("Home").toUpperCase(Locale.UK));
 
     }
 
