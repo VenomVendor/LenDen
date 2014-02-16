@@ -4,39 +4,21 @@ package vee.HexWhale.LenDen.aUI;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import vee.HexWhale.LenDen.R;
 
 /**
- * A fragment representing the back of the card.
+ * A fragment representing the front of the card.
  */
-public class HomeBackFragment extends Fragment {
+public class HomeFrontFragment extends Fragment {
     Activity sActivity;
     GridView mGridView;
-    static GoogleMap map = null;
-    double latitude = 12.971689;
-    double longitude = 77.594504;
 
-    LatLng latlon = null;
-    public static boolean googlePlayOn = false;
-
-    private static View view;
-
-    public HomeBackFragment() {
+    public HomeFrontFragment() {
         setRetainInstance(true);
     }
 
@@ -48,59 +30,15 @@ public class HomeBackFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        if (container == null) {
-            return null;
-        }
-
-        if (view != null) {
-            ViewGroup parent = (ViewGroup) view.getParent();
-            if (parent != null)
-                parent.removeView(view);
-        }
-        try {
-            view = inflater.inflate(R.layout.home_back, container, false);
-        }
-        catch (InflateException e) {
-            Log.wtf("S*****", e.getMessage());
-        }
-        mGridView = (GridView) view.findViewById(R.id.home_grid);
-
-        return view;
-
+        View rootView = inflater.inflate(R.layout.home_front, container, false);
+        mGridView = (GridView) rootView.findViewById(R.id.home_grid);
+        return rootView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         HomeGridAdapter adapter = new HomeGridAdapter(sActivity);
-        latlon = new LatLng(latitude, longitude);
         mGridView.setAdapter(adapter);
-        if (isGooglePlay()) {
-            setUpMapIfNeeded();
-        }
-    }
-
-    private boolean isGooglePlay() {
-        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity());
-        if (status == ConnectionResult.SUCCESS) {
-            return true;
-        } else {
-            GooglePlayServicesUtil.getErrorDialog(status, getActivity(), 10).show();
-        }
-        return false;
-
-    }
-
-    private void setUpMapIfNeeded() {
-        if (map == null) {
-            map = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-            if (map != null) {
-                // do things to the map
-                map.addMarker(new MarkerOptions().position(latlon).title("xxx").snippet("I am a looooooooooooooong Snippet"));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, 15));
-                map.getUiSettings().setZoomControlsEnabled(false);
-            }
-        }
     }
 }
