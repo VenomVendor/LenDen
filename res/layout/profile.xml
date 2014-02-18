@@ -10,18 +10,7 @@
 
     <!-- Here is any view that will represent your side menu. Don't forget to provide width! -->
 
-    <ListView
-        android:id="@+id/menu_drawer"
-        android:layout_width="@dimen/menu_width"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="#282828"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="20dp"
-        android:fadingEdge="none"
-        android:listSelector="@android:color/transparent"
-        android:paddingTop="20dp" />
+    <include layout="@layout/menu_list" />
 
     <!-- And here is your main layout -->
 
@@ -45,9 +34,9 @@
                 android:id="@+id/profile_dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
                 android:maxWidth="75dp"
                 android:scaleType="centerCrop"
-                android:adjustViewBounds="true"
                 android:src="@drawable/camera" />
 
             <TextView
@@ -178,10 +167,10 @@
         </LinearLayout>
 
         <ListView
-            android:layout_marginTop="5dp"
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
             android:background="@color/white"
             android:divider="#EEE"
             android:dividerHeight="2dp"

@@ -26,11 +26,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
 
 import vee.HexWhale.LenDen.aUI.SearchListAdapter;
 
 public class Search extends FragmentActivity {
-    static GoogleMap map = null;
+    GoogleMap map = null;
     double latitude = 12.971689;
     double longitude = 77.594504;
 
@@ -48,7 +49,9 @@ public class Search extends FragmentActivity {
         setUpMapIfNeeded(); // Required to check the availability of Maps
         mListView = (ListView) findViewById(R.id.search_list);
         SearchListAdapter adapter = new SearchListAdapter(this);
-        mListView.setAdapter(adapter);
+        SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+        mScaleInAnimationAdapter.setAbsListView(mListView);
+        mListView.setAdapter(mScaleInAnimationAdapter);
     }
 
     public void Finish(View v) {
@@ -114,7 +117,7 @@ public class Search extends FragmentActivity {
         /*
          * Add a Marker Adding marker at 12.971689,77.594504;
          */
-        map.getUiSettings().setZoomControlsEnabled(false);
+        // map.getUiSettings().setZoomControlsEnabled(false);
         map.addMarker(new MarkerOptions().position(latlon)
 
         /*

@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:focusable="false"
         android:maxWidth="@dimen/search_list_img_max"
         android:padding="2dp"
         android:src="@drawable/bp5_crop5" />
@@ -124,7 +125,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/sales_rnd_bg"
-                android:clickable="true"
                 android:ellipsize="marquee"
                 android:paddingBottom="5dp"
                 android:paddingLeft="7dp"

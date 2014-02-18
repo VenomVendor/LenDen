@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
+
 import vee.HexWhale.LenDen.aUI.FavoritesAdapter;
 import vee.HexWhale.LenDen.aUI.MenuBar;
 
@@ -36,7 +38,10 @@ public class Favorites extends MenuBar {
         setContentView(R.layout.favorites);
         mListView = (ListView) findViewById(android.R.id.list);
         FavoritesAdapter adapter = new FavoritesAdapter(this);
-        mListView.setAdapter(adapter);
+
+        SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+        mScaleInAnimationAdapter.setAbsListView(mListView);
+        mListView.setAdapter(mScaleInAnimationAdapter);
     }
 
     @SuppressLint("DefaultLocale")
@@ -62,6 +67,7 @@ public class Favorites extends MenuBar {
         return;
     }
 
+    @SuppressWarnings("unused")
     private void AnimNext() {
         overridePendingTransition(R.anim.enter, R.anim.exit);
         return;

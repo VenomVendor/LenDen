@@ -25,6 +25,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
+import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
+
 import vee.HexWhale.LenDen.Preview;
 import vee.HexWhale.LenDen.R;
 
@@ -56,7 +58,11 @@ public class HomeBackFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         HomeGridAdapter adapter = new HomeGridAdapter(sActivity);
-        mGridView.setAdapter(adapter);
+
+        SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+        mScaleInAnimationAdapter.setAbsListView(mGridView);
+        mGridView.setAdapter(mScaleInAnimationAdapter);
+
         mGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override

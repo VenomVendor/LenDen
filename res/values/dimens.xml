@@ -25,6 +25,7 @@
     <dimen name="search_list_title">16sp</dimen>
     <dimen name="search_list_type">14sp</dimen>
     <dimen name="search_list_extras">12sp</dimen>
+    <dimen name="login_txt">13sp</dimen>
     <dimen name="search_list_img_max">90dp</dimen>
 
 </resources>

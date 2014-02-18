@@ -20,15 +20,12 @@ import android.view.View;
 import android.widget.TextView;
 
 public class EditProfile extends FragmentActivity {
-
-    TextView mTitle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.edit_profile);
-        mTitle = (TextView) findViewById(R.id.menu_center);
+
+        final TextView mTitle = (TextView) findViewById(R.id.menu_center);
         mTitle.setText("EDIT PROFILE");
 
     }

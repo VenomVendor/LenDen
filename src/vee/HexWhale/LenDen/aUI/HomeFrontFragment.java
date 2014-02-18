@@ -34,6 +34,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
 
 import vee.HexWhale.LenDen.Preview;
 import vee.HexWhale.LenDen.R;
@@ -44,7 +45,7 @@ import vee.HexWhale.LenDen.R;
 public class HomeFrontFragment extends Fragment {
     Activity sActivity;
     GridView mGridView;
-    static GoogleMap map = null;
+    GoogleMap map = null;
     double latitude = 12.971689;
     double longitude = 77.594504;
 
@@ -92,7 +93,9 @@ public class HomeFrontFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         HomeGridAdapter adapter = new HomeGridAdapter(sActivity);
         latlon = new LatLng(latitude, longitude);
-        mGridView.setAdapter(adapter);
+        SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+        mScaleInAnimationAdapter.setAbsListView(mGridView);
+        mGridView.setAdapter(mScaleInAnimationAdapter);
         mGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -134,7 +137,7 @@ public class HomeFrontFragment extends Fragment {
                 // do things to the map
                 map.addMarker(new MarkerOptions().position(latlon).title("xxx").snippet("I am a looooooooooooooong Snippet"));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, 15));
-                map.getUiSettings().setZoomControlsEnabled(false);
+                // map.getUiSettings().setZoomControlsEnabled(false);
             }
         }
     }

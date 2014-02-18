@@ -15,11 +15,16 @@
 package vee.HexWhale.LenDen;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
 
 import vee.HexWhale.LenDen.aUI.MenuBar;
 import vee.HexWhale.LenDen.aUI.PreviewAdapter;
@@ -36,7 +41,28 @@ public class Preview extends MenuBar {
         setContentView(R.layout.preview);
         mListView = (ListView) findViewById(android.R.id.list);
         PreviewAdapter adapter = new PreviewAdapter(this);
-        mListView.setAdapter(adapter);
+
+        // SwingBottomInAnimationAdapter mScaleInAnimationAdapter = new
+        // SwingBottomInAnimationAdapter(adapter, 110, 400);
+        // ScaleInAnimationAdapter mScaleInAnimationAdapter = new
+        // ScaleInAnimationAdapter(adapter, 0.5f, 110, 400);
+
+        SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+        mScaleInAnimationAdapter.setAbsListView(mListView);
+        mListView.setAdapter(mScaleInAnimationAdapter);
+
+        mListView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent mIntent = new Intent(getApplicationContext(), Detailed.class);
+                startActivity(mIntent);
+                AnimNext();
+            }
+
+        });
+
     }
 
     @SuppressLint("DefaultLocale")

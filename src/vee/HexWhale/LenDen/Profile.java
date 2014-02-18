@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
+
 import vee.HexWhale.LenDen.aUI.MenuBar;
 import vee.HexWhale.LenDen.aUI.ProfileListAdapter;
 
@@ -36,7 +38,9 @@ public class Profile extends MenuBar {
         setContentView(R.layout.profile);
         mListView = (ListView) findViewById(android.R.id.list);
         ProfileListAdapter adapter = new ProfileListAdapter(this);
-        mListView.setAdapter(adapter);
+        SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+        mScaleInAnimationAdapter.setAbsListView(mListView);
+        mListView.setAdapter(mScaleInAnimationAdapter);
     }
 
     @SuppressLint("DefaultLocale")
@@ -68,6 +72,7 @@ public class Profile extends MenuBar {
 
     }
 
+    @SuppressWarnings("unused")
     private void AnimNext() {
         overridePendingTransition(R.anim.enter, R.anim.exit);
         return;

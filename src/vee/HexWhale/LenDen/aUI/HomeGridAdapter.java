@@ -86,7 +86,8 @@ public class HomeGridAdapter extends BaseAdapter {
 
         holder.imView.setImageResource(gridImages[position % gridImages.length]);
 
-        // imageLoader.displayImage("drawable://" + (gridImages[position % gridImages.length]),
+        // imageLoader.displayImage("drawable://" + (gridImages[position %
+        // gridImages.length]),
         // imView, options);
         holder.txtView.setText("text-" + (position + 1));
 

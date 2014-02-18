@@ -17,7 +17,7 @@
         android:src="@drawable/login_logo" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/signup_mrgs"
         android:layout_marginTop="@dimen/signup_mrg_top"
@@ -93,12 +93,12 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:onClick="Signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignRight="@+id/login_lyt_uname"
             android:layout_centerVertical="true"
+            android:onClick="Signin"
             android:paddingBottom="@dimen/signup_et_mrg_tp"
             android:src="@drawable/login_edittext_ok" />
     </RelativeLayout>
@@ -110,6 +110,7 @@
         android:layout_marginRight="@dimen/signup_mrgs"
         android:layout_marginTop="@dimen/signup_mrg_top"
         android:orientation="horizontal"
+        android:paddingRight="30dp"
         android:weightSum="7" >
 
         <TextView
@@ -117,11 +118,11 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="3"
-            android:gravity="center"
-           android:clickable="true"
-            android:padding="10dp"
+            android:clickable="true"
+            android:gravity="center|left"
             android:text="@string/forgot_password"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/login_txt" />
 
         <ImageView
             android:layout_width="0dp"
@@ -132,15 +133,15 @@
             android:src="@drawable/login_edittext_divider" />
 
         <TextView
-            android:clickable="true"
             android:id="@+id/login_new_user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center"
-            android:padding="10dp"
+            android:clickable="true"
+            android:gravity="center|right"
             android:text="@string/new_user"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/login_txt" />
     </LinearLayout>
 
 </LinearLayout>
