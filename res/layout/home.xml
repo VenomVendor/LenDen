@@ -2,11 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/slideHolder"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true" >
 
     <!-- Here is any view that will represent your side menu. Don't forget to provide width! -->
 
-   <include layout="@layout/menu_list" />
+    <include layout="@layout/menu_list" />
 
     <!-- And here is your main layout -->
 

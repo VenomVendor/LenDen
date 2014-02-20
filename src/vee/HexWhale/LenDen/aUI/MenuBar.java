@@ -33,7 +33,7 @@ import vee.HexWhale.LenDen.R;
 
 public class MenuBar extends FragmentActivity {
 
-    RelativeLayout mRelLayTop;
+    public RelativeLayout mRelLayTop;
     ImageView mImgRight;
     protected ImageView mImgLeft;
     protected TextView mTextCenter;

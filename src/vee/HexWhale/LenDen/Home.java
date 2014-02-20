@@ -36,10 +36,13 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
      */
     private boolean mShowingBack = false;
 
+    View mView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        mView = findViewById(R.id.menuinc);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, new HomeFrontFragment()).commit();
@@ -86,5 +89,13 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
     public void onBackStackChanged() {
         mShowingBack = (getSupportFragmentManager().getBackStackEntryCount() > 0);
         supportInvalidateOptionsMenu();
+    }
+
+    public void HideTop() {
+       mView.setVisibility(View.GONE);
+    }
+
+    public void ShowTop() {
+       mView.setVisibility(View.VISIBLE);
     }
 }

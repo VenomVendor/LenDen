@@ -25,17 +25,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 
+import vee.HexWhale.LenDen.Home;
 import vee.HexWhale.LenDen.Preview;
 import vee.HexWhale.LenDen.R;
 
@@ -48,7 +54,8 @@ public class HomeFrontFragment extends Fragment {
     GoogleMap map = null;
     double latitude = 12.971689;
     double longitude = 77.594504;
-
+    TextView mTextView;
+    FrameLayout mapFrame;
     LatLng latlon = null;
     public static boolean googlePlayOn = false;
 
@@ -83,7 +90,7 @@ public class HomeFrontFragment extends Fragment {
             Log.wtf("S*****", e.getMessage());
         }
         mGridView = (GridView) view.findViewById(R.id.home_grid);
-
+        mTextView = (TextView) view.findViewById(R.id.home_dummy_text);
         return view;
 
     }
@@ -92,6 +99,7 @@ public class HomeFrontFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         HomeGridAdapter adapter = new HomeGridAdapter(sActivity);
+        mapFrame = (FrameLayout) sActivity.findViewById(R.id.mapFrame);
         latlon = new LatLng(latitude, longitude);
         SwingBottomInAnimationAdapter mScaleInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter, 110, 400);
         mScaleInAnimationAdapter.setAbsListView(mGridView);
@@ -138,6 +146,28 @@ public class HomeFrontFragment extends Fragment {
                 map.addMarker(new MarkerOptions().position(latlon).title("xxx").snippet("I am a looooooooooooooong Snippet"));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, 15));
                 // map.getUiSettings().setZoomControlsEnabled(false);
+
+                map.setOnMapClickListener(new OnMapClickListener() {
+
+                    @Override
+                    public void onMapClick(LatLng touchedLatLon) {
+
+                        System.out.println("LatLon : " + touchedLatLon);
+
+                        if (mTextView.getVisibility() == View.VISIBLE) {
+                            mTextView.setVisibility(View.GONE);
+                            LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0, 5f);
+                            mapFrame.setLayoutParams(mParams);
+                            ((Home) sActivity).HideTop();
+                        } else {
+                            mTextView.setVisibility(View.VISIBLE);
+                            LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0, 2f);
+                            mapFrame.setLayoutParams(mParams);
+                            ((Home) sActivity).ShowTop();
+                        }
+
+                    }
+                });
             }
         }
     }

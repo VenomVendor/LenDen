@@ -17,12 +17,17 @@ package vee.HexWhale.LenDen;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -40,6 +45,11 @@ public class Search extends FragmentActivity {
 
     ListView mListView;
 
+    View mView;
+    ImageView mImageView;
+    LinearLayout search;
+    FrameLayout mapFrame;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -48,6 +58,11 @@ public class Search extends FragmentActivity {
         latlon = new LatLng(latitude, longitude);
         setUpMapIfNeeded(); // Required to check the availability of Maps
         mListView = (ListView) findViewById(R.id.search_list);
+        mView = findViewById(R.id.dummy_id);
+        mImageView = (ImageView) findViewById(R.id.search_id);
+        search = (LinearLayout) findViewById(R.id.search_ll);
+        mapFrame = (FrameLayout) findViewById(R.id.mapFrame);
+
         SearchListAdapter adapter = new SearchListAdapter(this);
         SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
         mScaleInAnimationAdapter.setAbsListView(mListView);
@@ -141,6 +156,28 @@ public class Search extends FragmentActivity {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, zoom)); // toPosition,
         // ZoomLevel
 
+        map.setOnMapClickListener(new OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng touchedLatLon) {
+
+                System.out.println("LatLon : " + touchedLatLon);
+
+                if (mView.getVisibility() == View.VISIBLE) {
+                    mView.setVisibility(View.GONE);
+                    mImageView.setVisibility(View.GONE);
+                    search.setVisibility(View.GONE);
+                    LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0, 5f);
+                    mapFrame.setLayoutParams(mParams);
+                } else {
+                    mView.setVisibility(View.VISIBLE);
+                    mImageView.setVisibility(View.VISIBLE);
+                    search.setVisibility(View.VISIBLE);
+                    LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0, 2f);
+                    mapFrame.setLayoutParams(mParams);
+                }
+            }
+        });
     }
 
     @Override
@@ -148,4 +185,11 @@ public class Search extends FragmentActivity {
         super.onSaveInstanceState(outState);
     }
 
+    public void HideTop() {
+        mView.setVisibility(View.GONE);
+    }
+
+    public void ShowTop() {
+        mView.setVisibility(View.VISIBLE);
+    }
 }
