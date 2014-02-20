@@ -35,7 +35,7 @@
         android:baselineAligned="false"
         android:orientation="horizontal"
         android:padding="5dp"
-        android:weightSum="2" >
+        android:weightSum="3" >
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -94,6 +94,37 @@
                 android:layout_centerHorizontal="true"
                 android:singleLine="true"
                 android:text="exchanges"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/search_txt" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1px"
+            android:layout_weight="1"
+            android:background="@drawable/search_sales_both_bg"
+            android:padding="2dp" >
+
+            <TextView
+                android:id="@+id/search_exch_both"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:text="2"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/search_txt_big" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/search_exch_both"
+                android:layout_centerHorizontal="true"
+                android:singleLine="true"
+                android:text="both"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/search_txt" />

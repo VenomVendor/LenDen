@@ -53,19 +53,16 @@ public class HomeGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-
-        return (gridImages.length * 2);
+        return (gridImages.length * 15);
     }
 
     @Override
     public Object getItem(int position) {
-
         return position;
     }
 
     @Override
     public long getItemId(int position) {
-
         return position;
     }
 

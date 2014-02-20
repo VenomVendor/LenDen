@@ -81,6 +81,7 @@ public class MenuBar extends FragmentActivity {
         return;
     }
 
+    @SuppressWarnings("unused")
     private void AnimNext() {
         overridePendingTransition(R.anim.enter, R.anim.exit);
         return;

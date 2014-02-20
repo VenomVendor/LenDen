@@ -36,7 +36,7 @@ public class SearchListAdapter extends BaseAdapter {
     @Override
     public int getCount() {
 
-        return 10;
+        return 100;
     }
 
     @Override
@@ -73,17 +73,24 @@ public class SearchListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if (position % 2 == 1) {
+        if (position % 3 == 0) {
             holder.sTitle.setText("Am Loooooooooooooooooooooooooooooooooong title");
             holder.sBtn.setText("SALE");
             holder.sBtn.setBackgroundResource(R.drawable.sales_rnd_bg);
-            holder.sPrice.setText("$45");
+            holder.sPrice.setText("$" + (position + 14));
             holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.menu_bg));
-        } else {
+        } else if (position % 3 == 1) {
             holder.sTitle.setText("Am small title");
             holder.sBtn.setText("EXCHANGE");
             holder.sBtn.setBackgroundResource(R.drawable.exch_rnd_bg);
+            holder.sPrice.setText("$" + (position + 14));
             holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.orange));
+        } else {
+            holder.sTitle.setText("Am extra title");
+            holder.sBtn.setText("BOTH");
+            holder.sBtn.setBackgroundResource(R.drawable.both_rnd_bg);
+            holder.sPrice.setText("$" + (position + 14));
+            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.saani));
         }
 
         holder.sTitle.setSelected(true);

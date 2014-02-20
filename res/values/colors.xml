@@ -7,7 +7,7 @@
     <color name="blue_normal">#33B5E5</color>
     <color name="blue_pressed">#00bbff</color>
     <color name="brown">#57464E</color>
-    <color name="green_normal">#99cc00</color>
+    <color name="green_normal">#99CC00</color>
     <color name="green_pressed">#BBFF00</color>
     <color name="orange">#F09000</color>
     <color name="red_normal">#FF4444</color>
@@ -16,6 +16,7 @@
     <color name="list_txt">#A0A0A0</color>
     <color name="menu_bg">#1DA988</color>
     <color name="remove">#9A9A9A</color>
+    <color name="saani">#9C9A01</color>
     <!-- Colors A-Z -->
 
 </resources>

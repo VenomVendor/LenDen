@@ -2,10 +2,10 @@
     android:shape="rectangle" >
 
     <corners
-        android:bottomLeftRadius="0dp"
-        android:bottomRightRadius="@dimen/search_corner_radius"
-        android:topLeftRadius="0dp"
-        android:topRightRadius="@dimen/search_corner_radius" />
+        android:bottomLeftRadius="@dimen/zero"
+        android:bottomRightRadius="@dimen/zero"
+        android:topLeftRadius="@dimen/zero"
+        android:topRightRadius="@dimen/zero" />
 
     <solid android:color="@color/orange" />
 

@@ -34,7 +34,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
+import com.haarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 
 import vee.HexWhale.LenDen.Preview;
 import vee.HexWhale.LenDen.R;
@@ -93,7 +93,7 @@ public class HomeFrontFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         HomeGridAdapter adapter = new HomeGridAdapter(sActivity);
         latlon = new LatLng(latitude, longitude);
-        SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+        SwingBottomInAnimationAdapter mScaleInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter, 110, 400);
         mScaleInAnimationAdapter.setAbsListView(mGridView);
         mGridView.setAdapter(mScaleInAnimationAdapter);
         mGridView.setOnItemClickListener(new OnItemClickListener() {
