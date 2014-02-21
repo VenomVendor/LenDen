@@ -1,7 +1,7 @@
 /**
  * ***Copyright(c) : 2014-Present, VenomVendor.***
  * Author : VenomVendor
- * Dated : 17 Feb, 2014 3:29:01 AM
+ * Dated : 21 Feb, 2014 4:41:51 PM
  * Project : LenDen-Android
  * Client : LenDen
  * Contact : info@VenomVendor.com
@@ -17,28 +17,27 @@ package vee.HexWhale.LenDen;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ListView;
 
-import java.util.Locale;
+public class MessagesFull extends FragmentActivity {
 
-public class EditProfile extends FragmentActivity {
+    ListView mListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_profile);
 
-        ((TextView) findViewById(R.id.menu_center)).setText(("edit profile").toUpperCase(Locale.UK));
+        setContentView(R.layout.messages_full);
+        mListView = (ListView) findViewById(android.R.id.list);
+
+        MessagesFullAdapter adapter = new MessagesFullAdapter(this);
+        mListView.setAdapter(adapter);
 
     }
 
     public void Finish(View v) {
         finish();
         AnimPrev();
-    }
-
-    public void Submit(View v) {
-        finish();
-        AnimNext();
     }
 
     @Override
@@ -49,11 +48,6 @@ public class EditProfile extends FragmentActivity {
 
     private void AnimPrev() {
         overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
-        return;
-    }
-
-    private void AnimNext() {
-        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 

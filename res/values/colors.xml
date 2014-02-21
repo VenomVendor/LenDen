@@ -17,6 +17,7 @@
     <color name="menu_bg">#1DA988</color>
     <color name="remove">#9A9A9A</color>
     <color name="saani">#9C9A01</color>
+    <color name="msg_msg">#6B6B6B</color>
     <!-- Colors A-Z -->
 
 </resources>

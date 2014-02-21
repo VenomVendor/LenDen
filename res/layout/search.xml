@@ -9,7 +9,9 @@
     android:weightSum="5"
     tools:ignore="HardcodedText,ContentDescription,MissingPrefix" >
 
-    <include android:id="@+id/dummy_id" layout="@layout/search_bar" />
+    <include
+        android:id="@+id/dummy_id"
+        layout="@layout/bar_top_nav" />
 
     <ImageView
         android:id="@+id/search_id"
@@ -21,7 +23,7 @@
         android:paddingTop="5dp"
         android:src="@drawable/s_search" />
 
-        <FrameLayout
+    <FrameLayout
         android:id="@+id/mapFrame"
         android:layout_width="match_parent"
         android:layout_height="0dp"

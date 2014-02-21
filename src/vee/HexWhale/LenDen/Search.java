@@ -18,10 +18,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -34,6 +34,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
 
 import vee.HexWhale.LenDen.aUI.SearchListAdapter;
+
+import java.util.Locale;
 
 public class Search extends FragmentActivity {
     GoogleMap map = null;
@@ -55,6 +57,10 @@ public class Search extends FragmentActivity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
+
+        ((TextView) findViewById(R.id.menu_center)).setText(("search").toUpperCase(Locale.UK));
+        ((ImageView) findViewById(R.id.menu_right)).setImageResource(R.drawable.filter);
+
         latlon = new LatLng(latitude, longitude);
         setUpMapIfNeeded(); // Required to check the availability of Maps
         mListView = (ListView) findViewById(R.id.search_list);
@@ -74,7 +80,7 @@ public class Search extends FragmentActivity {
         AnimPrev();
     }
 
-    public void Filter(View v) {
+    public void Submit(View v) {
         finish();
         AnimNext();
     }
@@ -167,13 +173,13 @@ public class Search extends FragmentActivity {
                     mView.setVisibility(View.GONE);
                     mImageView.setVisibility(View.GONE);
                     search.setVisibility(View.GONE);
-                    LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0, 5f);
+                    LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 5f);
                     mapFrame.setLayoutParams(mParams);
                 } else {
                     mView.setVisibility(View.VISIBLE);
                     mImageView.setVisibility(View.VISIBLE);
                     search.setVisibility(View.VISIBLE);
-                    LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0, 2f);
+                    LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 2f);
                     mapFrame.setLayoutParams(mParams);
                 }
             }

@@ -21,12 +21,14 @@
     <dimen name="add_item_tiny_menu">11sp</dimen>
     <dimen name="search_corner_radius">10dp</dimen>
     <dimen name="search_corner_radius_small">3dp</dimen>
+    <dimen name="msgs_corner_radius">10dp</dimen>
     <dimen name="search_list_price">23sp</dimen>
     <dimen name="search_list_title">16sp</dimen>
     <dimen name="search_list_type">14sp</dimen>
     <dimen name="search_list_extras">12sp</dimen>
     <dimen name="login_txt">13sp</dimen>
+    <dimen name="msg_time">9sp</dimen>
     <dimen name="search_list_img_max">90dp</dimen>
     <dimen name="zero">0dp</dimen>
-
+<dimen name="msg_title">16sp</dimen>
 </resources>

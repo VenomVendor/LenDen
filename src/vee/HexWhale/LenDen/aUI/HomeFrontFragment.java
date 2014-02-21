@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -156,12 +155,12 @@ public class HomeFrontFragment extends Fragment {
 
                         if (mTextView.getVisibility() == View.VISIBLE) {
                             mTextView.setVisibility(View.GONE);
-                            LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0, 5f);
+                            LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 5f);
                             mapFrame.setLayoutParams(mParams);
                             ((Home) sActivity).HideTop();
                         } else {
                             mTextView.setVisibility(View.VISIBLE);
-                            LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0, 2f);
+                            LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 2f);
                             mapFrame.setLayoutParams(mParams);
                             ((Home) sActivity).ShowTop();
                         }

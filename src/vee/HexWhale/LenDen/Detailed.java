@@ -39,8 +39,6 @@ import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
 import java.util.Locale;
 
 public class Detailed extends FragmentActivity implements WebViewSizeChanged {
-    TextView mTitle;
-    ImageView mRight;
     NoScrollWebView mWebView;
     ViewPager mPager;
 
@@ -51,10 +49,9 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detailed);
 
-        mTitle = (TextView) findViewById(R.id.menu_center);
-        mTitle.setText(("sony ps4").toUpperCase(Locale.UK));
-        mRight = (ImageView) findViewById(R.id.menu_right);
-        mRight.setImageResource(R.drawable.detailed_up);
+        ((TextView) findViewById(R.id.menu_center)).setText(("sony ps4").toUpperCase(Locale.UK));
+        ((ImageView) findViewById(R.id.menu_right)).setImageResource(R.drawable.detailed_up);
+
         mWebView = (NoScrollWebView) findViewById(R.id.webiew);
         mPager = (ViewPager) findViewById(R.id.pager);
 

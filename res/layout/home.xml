@@ -19,7 +19,7 @@
 
         <include
             android:id="@+id/menuinc"
-            layout="@layout/menu_bar" />
+            layout="@layout/bar_menu" />
 
         <FrameLayout
             android:id="@+id/container"

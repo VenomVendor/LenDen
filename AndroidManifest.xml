@@ -73,7 +73,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name="vee.HexWhale.LenDen.Home" />
         <activity android:name="vee.HexWhale.LenDen.Preview" />
-       <activity android:name="vee.HexWhale.LenDen.EditProfile" />
+        <activity android:name="vee.HexWhale.LenDen.EditProfile" />
         <activity android:name="vee.HexWhale.LenDen.Notifications" />
         <activity android:name="vee.HexWhale.LenDen.Detailed" />
 
@@ -82,6 +82,7 @@
         <activity android:name="vee.HexWhale.LenDen.Search" />
         <activity android:name="vee.HexWhale.LenDen.Favorites" />
         <activity android:name="vee.HexWhale.LenDen.Messages" />
+        <activity android:name="vee.HexWhale.LenDen.MessagesFull" />
         <activity android:name="vee.HexWhale.LenDen.Profile" />
         <activity android:name="vee.HexWhale.LenDen.Settings" />
         <activity android:name="vee.HexWhale.LenDen.Logout" />

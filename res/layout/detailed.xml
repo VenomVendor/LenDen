@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:ignore="HardcodedText,ContentDescription" >
 
-    <include layout="@layout/add_items_bar" />
+    <include layout="@layout/bar_top_nav" />
 
     <RelativeLayout
         android:layout_width="fill_parent"

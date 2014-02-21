@@ -92,10 +92,10 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
     }
 
     public void HideTop() {
-       mView.setVisibility(View.GONE);
+        mView.setVisibility(View.GONE);
     }
 
     public void ShowTop() {
-       mView.setVisibility(View.VISIBLE);
+        mView.setVisibility(View.VISIBLE);
     }
 }

@@ -6,7 +6,7 @@
     android:baselineAligned="false"
     android:orientation="vertical" >
 
-    <include layout="@layout/add_items_bar" />
+    <include layout="@layout/bar_top_nav" />
 
     <LinearLayout
         android:layout_width="match_parent"
