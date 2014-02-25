@@ -8,10 +8,10 @@
     <dimen name="signup_et_mrg_tp">4dp</dimen>
     <dimen name="signup_mrgs">20dp</dimen>
     <dimen name="login_right_mrgs">30dp</dimen>
-    <dimen name="signup_mrg_top">20dp</dimen>
-    <dimen name="signup_dp_mrg_tp">10dp</dimen>
+    <dimen name="signup_mrg_top">30dp</dimen>
+    <dimen name="signup_dp_mrg_tp">20dp</dimen>
     <dimen name="signup_et_mrg_lt_rt">10dp</dimen>
-    <dimen name="signup_et_min_ht">48dp</dimen>
+    <dimen name="signup_et_min_ht">30dp</dimen>
     <dimen name="login_txt_gap">15dp</dimen>
     <dimen name="menu_txt">23sp</dimen>
     <dimen name="search_txt">14sp</dimen>
@@ -26,7 +26,7 @@
     <dimen name="search_list_title">16sp</dimen>
     <dimen name="search_list_type">14sp</dimen>
     <dimen name="search_list_extras">12sp</dimen>
-    <dimen name="login_txt">13sp</dimen>
+    <dimen name="login_txt">10sp</dimen>
     <dimen name="msg_time">9sp</dimen>
     <dimen name="search_list_img_max">90dp</dimen>
     <dimen name="zero">0dp</dimen>

@@ -10,7 +10,7 @@
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="forgot_password">Forgot your Password?</string>
-    <string name="new_user">New user Sign Up?</string>
+    <string name="new_user">New User Sign Up?</string>
     <string name="map_key">AIzaSyCa7IDId79mX5wO_FYy2rT80CR4kCUxFmQ</string>
 
 </resources>
