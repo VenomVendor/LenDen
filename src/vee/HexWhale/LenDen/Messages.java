@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import vee.HexWhale.LenDen.aUI.MessagesAdapter;
+import vee.HexWhale.LenDen.aUI.Adapters.MessagesAdapter;
 
 import java.util.Locale;
 

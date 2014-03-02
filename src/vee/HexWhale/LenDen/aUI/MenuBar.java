@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.agimind.widget.SlideHolder;
 
 import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.aUI.Adapters.MenuDrawerAdapter;
 
 public class MenuBar extends FragmentActivity {
 

@@ -26,7 +26,7 @@ import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 
-import vee.HexWhale.LenDen.aUI.WalkThroughPager;
+import vee.HexWhale.LenDen.aUI.Pagers.WalkThroughPager;
 import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
 import vee.HexWhale.LenDen.viewpagerindicator.PageIndicator;
 

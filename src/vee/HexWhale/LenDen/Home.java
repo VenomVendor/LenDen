@@ -20,9 +20,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import vee.HexWhale.LenDen.aUI.HomeBackFragment;
-import vee.HexWhale.LenDen.aUI.HomeFrontFragment;
 import vee.HexWhale.LenDen.aUI.MenuBar;
+import vee.HexWhale.LenDen.aUI.Fragments.HomeBackFragment;
+import vee.HexWhale.LenDen.aUI.Fragments.HomeFrontFragment;
 
 public class Home extends MenuBar implements FragmentManager.OnBackStackChangedListener {
     /**

@@ -33,7 +33,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
 
-import vee.HexWhale.LenDen.aUI.SearchListAdapter;
+import vee.HexWhale.LenDen.aUI.Adapters.SearchListAdapter;
 
 import java.util.Locale;
 

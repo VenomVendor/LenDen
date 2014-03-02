@@ -1,7 +1,7 @@
 /**
  * ***Copyright(c) : 2014-Present, VenomVendor.***
  * Author : VenomVendor
- * Dated : 17 Feb, 2014 3:28:58 AM
+ * Dated : 17 Feb, 2014 3:29:01 AM
  * Project : LenDen-Android
  * Client : LenDen
  * Contact : info@VenomVendor.com
@@ -12,7 +12,7 @@
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
-package vee.HexWhale.LenDen.aUI;
+package vee.HexWhale.LenDen.aUI.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,18 +25,18 @@ import android.widget.TextView;
 
 import vee.HexWhale.LenDen.R;
 
-public class ProfileListAdapter extends BaseAdapter {
+public class SearchListAdapter extends BaseAdapter {
 
     Activity sActivity;
 
-    public ProfileListAdapter(Activity activity) {
+    public SearchListAdapter(Activity activity) {
         this.sActivity = activity;
     }
 
     @Override
     public int getCount() {
 
-        return 10;
+        return 100;
     }
 
     @Override
@@ -73,17 +73,24 @@ public class ProfileListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if (position % 2 == 1) {
+        if (position % 3 == 0) {
             holder.sTitle.setText("Am Loooooooooooooooooooooooooooooooooong title");
             holder.sBtn.setText("SALE");
-            holder.sBtn.setBackgroundResource(R.drawable.exch_rnd_bg);
-            holder.sPrice.setText("$45");
-            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.orange));
-        } else {
+            holder.sBtn.setBackgroundResource(R.drawable.sales_rnd_bg);
+            holder.sPrice.setText("$" + (position + 14));
+            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.menu_bg));
+        } else if (position % 3 == 1) {
             holder.sTitle.setText("Am small title");
             holder.sBtn.setText("EXCHANGE");
-            holder.sBtn.setBackgroundResource(R.drawable.sales_rnd_bg);
-            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.menu_bg));
+            holder.sBtn.setBackgroundResource(R.drawable.exch_rnd_bg);
+            holder.sPrice.setText("$" + (position + 14));
+            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.orange));
+        } else {
+            holder.sTitle.setText("Am extra title");
+            holder.sBtn.setText("BOTH");
+            holder.sBtn.setBackgroundResource(R.drawable.both_rnd_bg);
+            holder.sPrice.setText("$" + (position + 14));
+            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.saani));
         }
 
         holder.sTitle.setSelected(true);

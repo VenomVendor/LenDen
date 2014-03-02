@@ -23,8 +23,8 @@ import android.widget.TextView;
 
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
 
-import vee.HexWhale.LenDen.aUI.FavoritesAdapter;
 import vee.HexWhale.LenDen.aUI.MenuBar;
+import vee.HexWhale.LenDen.aUI.Adapters.FavoritesAdapter;
 
 import java.util.Locale;
 

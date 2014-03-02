@@ -31,9 +31,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vee.HexWhale.LenDen.aUI.DetailedPager;
 import vee.HexWhale.LenDen.aUI.NoScrollWebView;
 import vee.HexWhale.LenDen.aUI.NoScrollWebView.WebViewSizeChanged;
+import vee.HexWhale.LenDen.aUI.Pagers.DetailedPager;
 import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
 
 import java.util.Locale;

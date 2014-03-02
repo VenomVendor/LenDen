@@ -12,7 +12,7 @@
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
-package vee.HexWhale.LenDen.aUI;
+package vee.HexWhale.LenDen.aUI.Fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -43,6 +43,7 @@ import com.haarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnim
 import vee.HexWhale.LenDen.Home;
 import vee.HexWhale.LenDen.Preview;
 import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.aUI.Adapters.HomeGridAdapter;
 
 /**
  * A fragment representing the back of the card.

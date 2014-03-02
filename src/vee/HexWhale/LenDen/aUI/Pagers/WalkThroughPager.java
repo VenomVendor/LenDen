@@ -12,7 +12,7 @@
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
-package vee.HexWhale.LenDen.aUI;
+package vee.HexWhale.LenDen.aUI.Pagers;
 
 import android.app.Activity;
 import android.content.Context;

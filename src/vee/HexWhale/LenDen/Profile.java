@@ -24,7 +24,7 @@ import android.widget.TextView;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
 
 import vee.HexWhale.LenDen.aUI.MenuBar;
-import vee.HexWhale.LenDen.aUI.ProfileListAdapter;
+import vee.HexWhale.LenDen.aUI.Adapters.ProfileListAdapter;
 
 import java.util.Locale;
 

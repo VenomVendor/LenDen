@@ -12,7 +12,7 @@
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
-package vee.HexWhale.LenDen.aUI;
+package vee.HexWhale.LenDen.aUI.Adapters;
 
 import static vee.HexWhale.LenDen.Utils.Constants.gridImages;
 
