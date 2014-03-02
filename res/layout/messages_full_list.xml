@@ -3,24 +3,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E1E1E1"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:ignore="ContentDescription,HardcodedText" >
+
+    <RelativeLayout
+        android:id="@+id/msg_me_lyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/me_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/me_dp"
+            android:background="@drawable/chat_bubble_green"
+            android:padding="15dp"
+            android:text="ok"
+            android:textColor="@color/white"
+            android:textSize="@dimen/search_list_type" />
+
+        <vee.HexWhale.LenDen.aUI.SquareImageView
+            android:id="@+id/me_dp"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/me_msg"
+            android:layout_alignRight="@+id/me_name"
+            android:adjustViewBounds="true"
+            android:maxHeight="60dp"
+            android:src="@drawable/camera" />
+
+        <TextView
+            android:id="@+id/me_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/me_msg"
+            android:text="VenomVendor"
+            android:textColor="@color/msg_msg" />
+
+        <TextView
+            android:id="@+id/me_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/me_name"
+            android:layout_centerHorizontal="true"
+            android:text="TextView" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/msg_rec_lyt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FAFAFA"
+        android:layout_marginTop="1dp"
         android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/rec_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/rec_dp"
+            android:background="@drawable/chat_bubble_grey"
+            android:padding="16dp"
+            android:text="Lorem ipsum dolorin ultrices. \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper purus et vehicula ornare.\nMorbi vestibulum quis orci in ultrices. "
+            android:textColor="@color/black"
+            android:textSize="@dimen/search_list_type" />
 
         <vee.HexWhale.LenDen.aUI.SquareImageView
             android:id="@+id/rec_dp"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/rec_msg"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="10dp"
             android:adjustViewBounds="true"
             android:maxHeight="60dp"
             android:src="@drawable/camera" />
@@ -29,100 +89,18 @@
             android:id="@+id/rec_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/rec_dp"
-            android:layout_toRightOf="@+id/rec_dp"
-            android:singleLine="true"
-            android:text="VenomVendor"
-            android:textSize="@dimen/search_list_title" />
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/rec_msg"
+            android:text="Dennis Ritchie"
+            android:textColor="@color/msg_msg" />
 
         <TextView
             android:id="@+id/rec_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rec_name"
-            android:layout_marginTop="4dp"
-            android:layout_toRightOf="@+id/rec_dp"
-            android:singleLine="true"
-            android:text="TextView"
-            android:textColor="@color/list_txt"
-            android:textSize="@dimen/search_list_extras" />
-
-        <TextView
-            android:id="@+id/rec_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/rec_name"
-            android:gravity="right"
-            android:singleLine="true"
-            android:text="Intel x86 chip"
-            android:textColor="@color/menu_bg"
-            android:textSize="@dimen/search_list_title" />
-
-        <TextView
-            android:id="@+id/rec_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rec_timestamp"
-            android:layout_marginTop="4dp"
-            android:layout_toRightOf="@+id/rec_dp"
-            android:gravity="left"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper purus et vehicula ornare.\nMorbi vestibulum quis orci in ultrices. "
-            android:textColor="@color/msg_msg"
-            android:textSize="@dimen/search_list_type" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_marginTop="1dp"
-        android:id="@+id/msg_me_lyt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#EDFFFA"
-        android:padding="10dp" >
-
-        <ImageView
-            android:id="@+id/me_dp"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/camera" />
-
-        <TextView
-            android:id="@+id/me_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/me_dp"
-            android:layout_toLeftOf="@+id/me_dp"
-            android:singleLine="true"
-            android:text="Me"
-            android:textSize="@dimen/search_list_title" />
-
-        <TextView
-            android:id="@+id/me_timestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/me_name"
-            android:layout_marginTop="4dp"
-            android:layout_toLeftOf="@+id/me_dp"
-            android:singleLine="true"
-            android:text="TextView"
-            android:textColor="@color/list_txt"
-            android:textSize="@dimen/search_list_extras" />
-
-        <TextView
-            android:id="@+id/me_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/me_timestamp"
-            android:layout_below="@+id/me_timestamp"
-            android:gravity="left"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper purus et vehicula ornare.\nMorbi vestibulum quis orci in ultrices. "
-            android:textColor="@color/msg_msg"
-            android:textSize="@dimen/search_list_type" />
+            android:layout_centerHorizontal="true"
+            android:text="TextView" />
     </RelativeLayout>
 
 </LinearLayout>
