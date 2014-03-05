@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical"
-    tools:context=".SignUp"
+    tools:context="vee.HexWhale.LenDen.Login"
     tools:ignore="ContentDescription" >
 
     <ImageView
@@ -42,7 +42,7 @@
                 android:src="@drawable/name" />
 
             <EditText
-                android:id="@+id/signup_name"
+                android:id="@+id/login_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -76,7 +76,7 @@
                 android:src="@drawable/signup_password" />
 
             <EditText
-                android:id="@+id/signup_uname"
+                android:id="@+id/login_psw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
