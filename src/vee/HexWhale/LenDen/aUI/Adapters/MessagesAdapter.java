@@ -14,7 +14,6 @@
 
 package vee.HexWhale.LenDen.aUI.Adapters;
 
-import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -23,6 +22,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import vee.HexWhale.LenDen.R;
 
 public class MessagesAdapter extends BaseAdapter {
 
@@ -53,7 +54,7 @@ public class MessagesAdapter extends BaseAdapter {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            LayoutInflater mInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater mInflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.messages_list, null);
             convertView.setTag(holder);
         } else {

@@ -14,9 +14,6 @@
 
 package vee.HexWhale.LenDen.aUI.Adapters;
 
-import static vee.HexWhale.LenDen.Utils.Constants.menuImages;
-import static vee.HexWhale.LenDen.Utils.Constants.menuText;
-import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -24,6 +21,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Utils.Constants;
 
 public class MenuDrawerAdapter extends BaseAdapter {
 
@@ -36,7 +36,7 @@ public class MenuDrawerAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return menuImages.length;
+        return Constants.menuImages.length;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class MenuDrawerAdapter extends BaseAdapter {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            LayoutInflater mInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater mInflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.menu_drawer_list, null);
             holder.mTView = (TextView) convertView.findViewById(R.id.menu_drawer_list_txt);
             convertView.setTag(holder);
@@ -66,8 +66,8 @@ public class MenuDrawerAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.mTView.setText(menuText[position]);
-        holder.mTView.setCompoundDrawablesWithIntrinsicBounds(0, menuImages[position], 0, 0);
+        holder.mTView.setText(Constants.menuText[position]);
+        holder.mTView.setCompoundDrawablesWithIntrinsicBounds(0, Constants.menuImages[position], 0, 0);
 
         return convertView;
     }

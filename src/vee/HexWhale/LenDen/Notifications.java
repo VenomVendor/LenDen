@@ -31,46 +31,46 @@ public class Notifications extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.notifications);
-        mTitle = (TextView) findViewById(R.id.menu_center);
-        mTitle.setText("SETTINGS");
+        this.setContentView(R.layout.notifications);
+        this.mTitle = (TextView) this.findViewById(R.id.menu_center);
+        this.mTitle.setText("SETTINGS");
         // mOk = (ImageView) findViewById(R.id.menu_right);
         // mOk.setBackgroundResource(0);
         // mOk.setImageResource(0);
     }
 
     public void Finish(View v) {
-        finish();
-        AnimPrev();
+        this.finish();
+        this.AnimPrev();
     }
 
     public void Submit(View v) {
-        finish();
-        AnimNext();
+        this.finish();
+        this.AnimNext();
     }
 
     @Override
     public void onBackPressed() {
         this.finish();
-        AnimPrev();
+        this.AnimPrev();
     }
 
     private void AnimPrev() {
-        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        this.overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
     public void Noti(View view) {
 
-        if (toggleImage((ImageView) view)) {
-            ToastL("Enable Notification");
+        if (this.toggleImage((ImageView) view)) {
+            this.ToastL("Enable Notification");
         } else {
-            ToastL("Disable Notification");
+            this.ToastL("Disable Notification");
         }
     }
 
@@ -87,7 +87,7 @@ public class Notifications extends FragmentActivity {
     }
 
     private void ToastL(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -14,11 +14,6 @@
 
 package vee.HexWhale.LenDen.aUI.Adapters;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -28,6 +23,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import vee.HexWhale.LenDen.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MessagesFullAdapter extends BaseAdapter {
 
@@ -59,7 +60,7 @@ public class MessagesFullAdapter extends BaseAdapter {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            LayoutInflater mInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater mInflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.messages_full_list, null);
 
             holder.mRecDP = (ImageView) convertView.findViewById(R.id.rec_dp);
@@ -84,17 +85,17 @@ public class MessagesFullAdapter extends BaseAdapter {
 
         if (position % 2 == 0) {
             holder.mMeMsg
-                    .setText("C was created by Dennis Ritchie. Brian Kernighan wrote the first C tutorial. The authors came together to write the book in conjunction with the language");
+            .setText("C was created by Dennis Ritchie. Brian Kernighan wrote the first C tutorial. The authors came together to write the book in conjunction with the language");
             holder.mRecMsg.setText("Ok, Can I learn it from you?");
         } else {
             holder.mRecMsg
-                    .setText("Dennis RitchieHe created the C programming language and, with long-time colleague Ken ... His father was Alistair E. Ritchie, a longtime Bell Labs scientist");
+            .setText("Dennis RitchieHe created the C programming language and, with long-time colleague Ken ... His father was Alistair E. Ritchie, a longtime Bell Labs scientist");
             holder.mMeMsg.setText("C is one of the most widely used programming languages of all time");
 
         }
 
-        holder.mMeTime.setText(getCustomTime());
-        holder.mRecTime.setText(getCustomTime());
+        holder.mMeTime.setText(this.getCustomTime());
+        holder.mRecTime.setText(this.getCustomTime());
 
         // if (position % 5 == 0) {
         // holder.mRecLyt.setVisibility(View.GONE);
@@ -109,11 +110,11 @@ public class MessagesFullAdapter extends BaseAdapter {
 
     public String getCustomTime() {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yy hh:mm:ss a", Locale.UK);
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yy hh:mm:ss a", Locale.UK);
 
-        Date resultdate = new Date(System.currentTimeMillis());
+        final Date resultdate = new Date(System.currentTimeMillis());
 
-        String date = dateFormat.format(resultdate);
+        final String date = dateFormat.format(resultdate);
 
         return date;
 

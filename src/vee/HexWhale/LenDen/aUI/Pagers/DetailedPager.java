@@ -14,7 +14,6 @@
 
 package vee.HexWhale.LenDen.aUI.Pagers;
 
-import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -23,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import vee.HexWhale.LenDen.R;
 
 public class DetailedPager extends PagerAdapter {
 
@@ -39,7 +40,7 @@ public class DetailedPager extends PagerAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return tempImages.length;
+        return this.tempImages.length;
     }
 
     @Override
@@ -50,13 +51,13 @@ public class DetailedPager extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        final LayoutInflater inflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         final View sView = inflater.inflate(R.layout.detailed_pager, null);
 
         final ImageView sImg = (ImageView) sView.findViewById(R.id.detailed_pager_img);
 
-        sImg.setImageResource(tempImages[position]);
+        sImg.setImageResource(this.tempImages[position]);
 
         ((ViewPager) container).addView(sView, 0);
 

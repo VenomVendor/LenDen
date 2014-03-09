@@ -30,53 +30,53 @@ public class Settings extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.settings);
-        mTitle = (TextView) findViewById(R.id.menu_center);
-        mTitle.setText("SETTINGS");
-        mOk = (ImageView) findViewById(R.id.menu_right);
-        mOk.setVisibility(View.INVISIBLE);
+        this.setContentView(R.layout.settings);
+        this.mTitle = (TextView) this.findViewById(R.id.menu_center);
+        this.mTitle.setText("SETTINGS");
+        this.mOk = (ImageView) this.findViewById(R.id.menu_right);
+        this.mOk.setVisibility(View.INVISIBLE);
 
     }
 
     public void Finish(View v) {
-        finish();
-        AnimPrev();
+        this.finish();
+        this.AnimPrev();
     }
 
     public void Submit(View v) {
-        finish();
-        AnimNext();
+        this.finish();
+        this.AnimNext();
     }
 
     @Override
     public void onBackPressed() {
         this.finish();
-        AnimPrev();
+        this.AnimPrev();
     }
 
     private void AnimPrev() {
-        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        this.overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
     public void EditProfile(View v) {
-        startActivity(new Intent(getApplicationContext(), EditProfile.class));
-        AnimNext();
+        this.startActivity(new Intent(this.getApplicationContext(), EditProfile.class));
+        this.AnimNext();
     }
 
     public void Profile(View v) {
-        startActivity(new Intent(getApplicationContext(), Profile.class));
-        AnimNext();
+        this.startActivity(new Intent(this.getApplicationContext(), Profile.class));
+        this.AnimNext();
     }
 
     public void Notifications(View v) {
-        startActivity(new Intent(getApplicationContext(), Notifications.class));
-        AnimNext();
+        this.startActivity(new Intent(this.getApplicationContext(), Notifications.class));
+        this.AnimNext();
     }
 
 }

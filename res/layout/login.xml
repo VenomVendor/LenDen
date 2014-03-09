@@ -51,7 +51,8 @@
                 android:layout_toRightOf="@+id/iv_n"
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
-                android:hint="@string/username"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
                 android:minHeight="@dimen/signup_et_min_ht"
                 android:paddingRight="50dp"
                 android:singleLine="true" />

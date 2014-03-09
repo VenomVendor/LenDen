@@ -14,11 +14,6 @@
 
 package vee.HexWhale.LenDen.aUI.Adapters;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -28,6 +23,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import vee.HexWhale.LenDen.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MessagesFullAdapterOld extends BaseAdapter {
 
@@ -59,7 +60,7 @@ public class MessagesFullAdapterOld extends BaseAdapter {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            LayoutInflater mInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater mInflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.messages_full_list, null);
 
             holder.mRecTime = (TextView) convertView.findViewById(R.id.rec_timestamp);
@@ -73,8 +74,8 @@ public class MessagesFullAdapterOld extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.mRecTime.setText(getCustomTime());
-        holder.mMeTime.setText(getCustomTime());
+        holder.mRecTime.setText(this.getCustomTime());
+        holder.mMeTime.setText(this.getCustomTime());
 
         // if (position % 5 == 0) {
         // holder.mRecLyt.setVisibility(View.GONE);
@@ -89,11 +90,11 @@ public class MessagesFullAdapterOld extends BaseAdapter {
 
     public String getCustomTime() {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yy hh:mm:ss a", Locale.UK);
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yy hh:mm:ss a", Locale.UK);
 
-        Date resultdate = new Date(System.currentTimeMillis());
+        final Date resultdate = new Date(System.currentTimeMillis());
 
-        String date = dateFormat.format(resultdate);
+        final String date = dateFormat.format(resultdate);
 
         return date;
 

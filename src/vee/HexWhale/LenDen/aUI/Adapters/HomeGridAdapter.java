@@ -7,18 +7,14 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
 package vee.HexWhale.LenDen.aUI.Adapters;
 
-import static vee.HexWhale.LenDen.Utils.Constants.gridImages;
-
-import java.io.File;
-
-import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -39,20 +35,41 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
+import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Parsers.Categories.Response;
+import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
+import vee.HexWhale.LenDen.Utils.Constants.API.URL;
+import vee.HexWhale.LenDen.bg.Threads.GetData;
+
+import java.io.File;
+import java.util.List;
+
 public class HomeGridAdapter extends BaseAdapter {
     Activity sActivity;
     DisplayImageOptions options;
     File cacheDir = new File(Environment.getExternalStorageDirectory(), "data/.vee.HexWhale.LenDen/.imgCache");
     ImageLoader imageLoader;
+    List<Response> response;
 
     public HomeGridAdapter(Activity activity) {
         this.sActivity = activity;
-        initilizeImageCache();
+        this.initilizeImageCache();
+    }
+
+    public HomeGridAdapter(Activity activity, List<Response> response) {
+        this.sActivity = activity;
+        this.response = response;
+        this.initilizeImageCache();
     }
 
     @Override
     public int getCount() {
-        return (gridImages.length * 15);
+        if (response != null)
+        {
+            return response.size();
+        }
+        return 0;
+
     }
 
     @Override
@@ -70,43 +87,46 @@ public class HomeGridAdapter extends BaseAdapter {
         // View sView = convertView;
         ViewHolder holder;
         if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater layoutInflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.home_grid, null);
             holder = new ViewHolder();
             holder.imView = (ImageView) convertView.findViewById(R.id.home_frnt_grid_img);
             holder.txtView = (TextView) convertView.findViewById(R.id.home_frnt_grid_txt);
             convertView.setTag(holder);
-        } else {
+        }
+        else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.imView.setImageResource(gridImages[position % gridImages.length]);
+        // holder.imView.setImageResource(Constants.gridImages[position %
+        // Constants.gridImages.length]);
 
-        // imageLoader.displayImage("drawable://" + (gridImages[position %
-        // gridImages.length]),
-        // imView, options);
-        holder.txtView.setText("text-" + (position + 1));
+        final String r = GetData.getUrl(URL.CATEGORIES + response.get(position).getCategory_id() + IMAGEURL.PICTURE);
+
+        imageLoader.displayImage(r, holder.imView, options);
+        holder.txtView.setText(response.get(position).getCategory_name());
 
         return convertView;
     }
 
     private void initilizeImageCache() {
-        options = new DisplayImageOptions.Builder().showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
+        this.options = new DisplayImageOptions.Builder().showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
                 .resetViewBeforeLoading(true).cacheInMemory(true).cacheOnDisc(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .bitmapConfig(Bitmap.Config.RGB_565).displayer(new RoundedBitmapDisplayer(10)).displayer(new FadeInBitmapDisplayer(0)).build();
 
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(sActivity.getApplicationContext()).defaultDisplayImageOptions(options)
+        final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.sActivity.getApplicationContext())
+                .defaultDisplayImageOptions(this.options)
                 .threadPriority(Thread.NORM_PRIORITY).threadPoolSize(3).denyCacheImageMultipleSizesInMemory()
-                .discCache(new UnlimitedDiscCache(cacheDir))
+                .discCache(new UnlimitedDiscCache(this.cacheDir))
                 // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.FIFO).writeDebugLogs() // TODO
-                                                                                 // Remove
-                                                                                 // for
-                                                                                 // release
-                                                                                 // app
+                // Remove
+                // for
+                // release
+                // app
                 .build();
         ImageLoader.getInstance().init(config); // Do it on Application start
-        imageLoader = ImageLoader.getInstance();
+        this.imageLoader = ImageLoader.getInstance();
     }
 
     private static class ViewHolder {

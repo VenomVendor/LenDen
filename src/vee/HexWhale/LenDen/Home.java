@@ -14,15 +14,10 @@
 
 package vee.HexWhale.LenDen;
 
-import java.util.List;
-
-import vee.HexWhale.LenDen.aUI.MenuBar;
-import vee.HexWhale.LenDen.aUI.Fragments.HomeBackFragment;
-import vee.HexWhale.LenDen.aUI.Fragments.HomeFrontFragment;
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,11 +25,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import vee.HexWhale.LenDen.aUI.MenuBar;
+import vee.HexWhale.LenDen.aUI.Fragments.HomeBackFragment;
+import vee.HexWhale.LenDen.aUI.Fragments.HomeFrontFragment;
+
+import java.util.List;
+
 public class Home extends MenuBar implements FragmentManager.OnBackStackChangedListener {
     /**
      * A handler object, used for deferring UI operations.
      */
-    private Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler();
 
     /**
      * Whether or not we're showing the back of the card (otherwise showing the
@@ -47,31 +48,31 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
-        mView = findViewById(R.id.menuinc);
+        this.setContentView(R.layout.home);
+        this.mView = this.findViewById(R.id.menuinc);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, new HomeFrontFragment()).commit();
+            this.getSupportFragmentManager().beginTransaction().add(R.id.container, new HomeFrontFragment()).commit();
         } else {
-            mShowingBack = (getSupportFragmentManager().getBackStackEntryCount() > 0);
+            this.mShowingBack = (this.getSupportFragmentManager().getBackStackEntryCount() > 0);
         }
 
-        getSupportFragmentManager().addOnBackStackChangedListener(this);
+        this.getSupportFragmentManager().addOnBackStackChangedListener(this);
     }
 
     public void FlipView(View v) {
-        flipCard();
+        this.flipCard();
 
     }
 
     private void flipCard() {
-        if (mShowingBack) {
-            getSupportFragmentManager().popBackStack();
+        if (this.mShowingBack) {
+            this.getSupportFragmentManager().popBackStack();
             return;
         }
-        mShowingBack = true;
+        this.mShowingBack = true;
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        final FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         ft.replace(R.id.container, new HomeBackFragment());
         ft.addToBackStack(null);
@@ -83,45 +84,45 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
         // R.animator.fragment_slide_right_enter,
         // R.animator.fragment_slide_right_exit);
 
-        mHandler.post(new Runnable() {
+        this.mHandler.post(new Runnable() {
             @Override
             public void run() {
-                supportInvalidateOptionsMenu();
+                Home.this.supportInvalidateOptionsMenu();
             }
         });
     }
 
     @Override
     public void onBackStackChanged() {
-        mShowingBack = (getSupportFragmentManager().getBackStackEntryCount() > 0);
-        supportInvalidateOptionsMenu();
+        this.mShowingBack = (this.getSupportFragmentManager().getBackStackEntryCount() > 0);
+        this.supportInvalidateOptionsMenu();
     }
 
     public void HideTop() {
-        mView.setVisibility(View.GONE);
+        this.mView.setVisibility(View.GONE);
     }
 
     public void ShowTop() {
-        mView.setVisibility(View.VISIBLE);
+        this.mView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onBackPressed() {
-        ActivityManager am = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
-        List<RunningTaskInfo> tasks = am.getRunningTasks(3); // 3 because we have to give it
-                                                             // something. This is an arbitrary
-                                                             // number
-        int activityCount = tasks.get(0).numActivities;
+        final ActivityManager am = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
+        final List<RunningTaskInfo> tasks = am.getRunningTasks(3); // 3 because we have to give it
+        // something. This is an arbitrary
+        // number
+        final int activityCount = tasks.get(0).numActivities;
         System.out.println("activityCount " + activityCount);
 
         if (activityCount < 2) {
 
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(Home.this);
+            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(Home.this);
             alertDialog.setMessage("Would you like to?");
             alertDialog.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    finish();
+                    Home.this.finish();
                 }
             });
             alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {

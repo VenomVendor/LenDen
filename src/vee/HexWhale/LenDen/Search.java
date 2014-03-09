@@ -14,9 +14,6 @@
 
 package vee.HexWhale.LenDen;
 
-import java.util.Locale;
-
-import vee.HexWhale.LenDen.aUI.Adapters.SearchListAdapter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -35,6 +32,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
+
+import vee.HexWhale.LenDen.aUI.Adapters.SearchListAdapter;
+
+import java.util.Locale;
 
 public class Search extends FragmentActivity {
     GoogleMap map = null;
@@ -55,59 +56,59 @@ public class Search extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search);
+        this.setContentView(R.layout.search);
 
-        ((TextView) findViewById(R.id.menu_center)).setText(("search").toUpperCase(Locale.UK));
-        ((ImageView) findViewById(R.id.menu_right)).setImageResource(R.drawable.filter);
+        ((TextView) this.findViewById(R.id.menu_center)).setText(("search").toUpperCase(Locale.UK));
+        ((ImageView) this.findViewById(R.id.menu_right)).setImageResource(R.drawable.filter);
 
-        latlon = new LatLng(latitude, longitude);
-        setUpMapIfNeeded(); // Required to check the availability of Maps
-        mListView = (ListView) findViewById(R.id.search_list);
-        mView = findViewById(R.id.dummy_id);
-        mImageView = (ImageView) findViewById(R.id.search_id);
-        search = (LinearLayout) findViewById(R.id.search_ll);
-        mapFrame = (FrameLayout) findViewById(R.id.mapFrame);
+        this.latlon = new LatLng(this.latitude, this.longitude);
+        this.setUpMapIfNeeded(); // Required to check the availability of Maps
+        this.mListView = (ListView) this.findViewById(R.id.search_list);
+        this.mView = this.findViewById(R.id.dummy_id);
+        this.mImageView = (ImageView) this.findViewById(R.id.search_id);
+        this.search = (LinearLayout) this.findViewById(R.id.search_ll);
+        this.mapFrame = (FrameLayout) this.findViewById(R.id.mapFrame);
 
-        SearchListAdapter adapter = new SearchListAdapter(this);
-        SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
-        mScaleInAnimationAdapter.setAbsListView(mListView);
-        mListView.setAdapter(mScaleInAnimationAdapter);
+        final SearchListAdapter adapter = new SearchListAdapter(this);
+        final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+        mScaleInAnimationAdapter.setAbsListView(this.mListView);
+        this.mListView.setAdapter(mScaleInAnimationAdapter);
     }
 
     public void Finish(View v) {
-        finish();
-        AnimPrev();
+        this.finish();
+        this.AnimPrev();
     }
 
     public void Submit(View v) {
-        finish();
-        AnimNext();
+        this.finish();
+        this.AnimNext();
     }
 
     @Override
     public void onBackPressed() {
         this.finish();
-        AnimPrev();
+        this.AnimPrev();
     }
 
     private void AnimPrev() {
-        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        this.overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
+        this.setUpMapIfNeeded();
     }
 
     private boolean isGooglePlayServicesAvail() {
-        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        final int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (status == ConnectionResult.SUCCESS) {
             return true;
         } else {
@@ -118,17 +119,17 @@ public class Search extends FragmentActivity {
     }
 
     private void setUpMapIfNeeded() {
-        if (map == null && isGooglePlayServicesAvail()) {
+        if (this.map == null && this.isGooglePlayServicesAvail()) {
             /*
              * I avoid Crashing, if Google_Play_Services is not Updated or
              * Unavailable
              */
-            map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+            this.map = ((SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
             /*
              * To make sure map is loaded
              */
-            if (map != null) {
-                setUpMap();
+            if (this.map != null) {
+                this.setUpMap();
             }
         }
     }
@@ -138,48 +139,48 @@ public class Search extends FragmentActivity {
          * Add a Marker Adding marker at 12.971689,77.594504;
          */
         // map.getUiSettings().setZoomControlsEnabled(false);
-        map.addMarker(new MarkerOptions().position(latlon)
+        this.map.addMarker(new MarkerOptions().position(this.latlon)
 
-        /*
-         * Add Title when clicked on marker
-         */
-        .title("Title")
-        /*
-         * Add Snippet when clicked on marker
-         */
-        .snippet("I am a looooooooooooooong Snippet"));
+                /*
+                 * Add Title when clicked on marker
+                 */
+                .title("Title")
+                /*
+                 * Add Snippet when clicked on marker
+                 */
+                .snippet("I am a looooooooooooooong Snippet"));
 
         /*
          * NormalMapView
          */
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL); // Normal MapView
+        this.map.setMapType(GoogleMap.MAP_TYPE_NORMAL); // Normal MapView
 
         /*
          * Move Camera to Snippet Location
          */
-        float zoom = 11;
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, zoom)); // toPosition,
+        final float zoom = 11;
+        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(this.latlon, zoom)); // toPosition,
         // ZoomLevel
 
-        map.setOnMapClickListener(new OnMapClickListener() {
+        this.map.setOnMapClickListener(new OnMapClickListener() {
 
             @Override
             public void onMapClick(LatLng touchedLatLon) {
 
                 System.out.println("LatLon : " + touchedLatLon);
 
-                if (mView.getVisibility() == View.VISIBLE) {
-                    mView.setVisibility(View.GONE);
-                    mImageView.setVisibility(View.GONE);
-                    search.setVisibility(View.GONE);
-                    LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 5f);
-                    mapFrame.setLayoutParams(mParams);
+                if (Search.this.mView.getVisibility() == View.VISIBLE) {
+                    Search.this.mView.setVisibility(View.GONE);
+                    Search.this.mImageView.setVisibility(View.GONE);
+                    Search.this.search.setVisibility(View.GONE);
+                    final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 5f);
+                    Search.this.mapFrame.setLayoutParams(mParams);
                 } else {
-                    mView.setVisibility(View.VISIBLE);
-                    mImageView.setVisibility(View.VISIBLE);
-                    search.setVisibility(View.VISIBLE);
-                    LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 2f);
-                    mapFrame.setLayoutParams(mParams);
+                    Search.this.mView.setVisibility(View.VISIBLE);
+                    Search.this.mImageView.setVisibility(View.VISIBLE);
+                    Search.this.search.setVisibility(View.VISIBLE);
+                    final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 2f);
+                    Search.this.mapFrame.setLayoutParams(mParams);
                 }
             }
         });
@@ -191,10 +192,10 @@ public class Search extends FragmentActivity {
     }
 
     public void HideTop() {
-        mView.setVisibility(View.GONE);
+        this.mView.setVisibility(View.GONE);
     }
 
     public void ShowTop() {
-        mView.setVisibility(View.VISIBLE);
+        this.mView.setVisibility(View.VISIBLE);
     }
 }

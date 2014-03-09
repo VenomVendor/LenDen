@@ -14,7 +14,16 @@
 
 package vee.HexWhale.LenDen;
 
-import static vee.HexWhale.LenDen.Utils.Constants.API.BASE_URL;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,19 +36,10 @@ import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
 import vee.HexWhale.LenDen.Utils.Constants.API.URL;
 import vee.HexWhale.LenDen.Utils.Constants.KEY;
 import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
+import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
 import vee.HexWhale.LenDen.bg.Threads.Validator;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.android.volley.VolleyError;
 
 public class SignUp extends FragmentActivity {
     private String tag = "UNKNOWN";
@@ -54,28 +54,28 @@ public class SignUp extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        tag = TagGen.getTag(this.getClass());
+        this.tag = TagGen.getTag(this.getClass());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup);
-        mName = (EditText) findViewById(R.id.signup_name);
-        mLName = (EditText) findViewById(R.id.signup_uname);
-        mMail = (EditText) findViewById(R.id.signup_email);
-        mPsw = (EditText) findViewById(R.id.signup_psw);
-        mRePsw = (EditText) findViewById(R.id.signup_repsw);
-        mBar = (ProgressBar) findViewById(R.id.signup_progressbar);
+        this.setContentView(R.layout.signup);
+        this.mName = (EditText) this.findViewById(R.id.signup_name);
+        this.mLName = (EditText) this.findViewById(R.id.signup_uname);
+        this.mMail = (EditText) this.findViewById(R.id.signup_email);
+        this.mPsw = (EditText) this.findViewById(R.id.signup_psw);
+        this.mRePsw = (EditText) this.findViewById(R.id.signup_repsw);
+        this.mBar = (ProgressBar) this.findViewById(R.id.signup_progressbar);
 
-        mName.setText("Android");
-        mLName.setText("Test");
-        mMail.setText("naa@naa.com");
-        mPsw.setText("qwerty");
-        mRePsw.setText("qwerty");
+        this.mName.setText("Android");
+        this.mLName.setText("Test");
+        this.mMail.setText("naa@naa.com");
+        this.mPsw.setText("qwerty");
+        this.mRePsw.setText("qwerty");
 
-        mPrefs = new GlobalSharedPrefs(this);
-        mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
-        if (mPrefs.getStringInPref(KEY.ACCESS_TOKEN) == null) {
+        this.mPrefs = new GlobalSharedPrefs(this);
+        this.mDataFromUrl = new GetDataFromUrl(this, this.mFetcherListener);
+        if (this.mPrefs.getStringInPref(KEY.ACCESS_TOKEN) == null) {
 
             System.out.println("FetchToken");
-            mDataFromUrl.GetString(TYPE.ACCESSTOKEN, getBody(TYPE.ACCESSTOKEN), getUrl(URL.ACCESSTOKEN));
+            this.mDataFromUrl.GetString(TYPE.ACCESSTOKEN, this.getBody(TYPE.ACCESSTOKEN), GetData.getUrl(URL.ACCESSTOKEN));
 
         }
 
@@ -89,31 +89,31 @@ public class SignUp extends FragmentActivity {
 
                 case TYPE.ACCESSTOKEN:
                     System.out.println("ISSUE " + TYPE.ACCESSTOKEN);
-                    mJsonObject.put(STRING.AUTH, mPrefs.getStringInPref(KEY.AUTH_CODE));
+                    mJsonObject.put(STRING.AUTH, this.mPrefs.getStringInPref(KEY.AUTH_CODE));
                     break;
 
                 case TYPE.REGISTER_EMAIL:
                     System.out.println("REGISTER_EMAIL " + TYPE.REGISTER_EMAIL);
-                    mDataFromUrl.setAccessToken();
-                    mJsonObject.put(STRING.FIRSTNAME, mName.getText().toString());
-                    mJsonObject.put(STRING.LASTNAME, mLName.getText().toString());
-                    mJsonObject.put(STRING.EMAIL, mMail.getText().toString());
-                    mJsonObject.put(STRING.PASSWORD, mRePsw.getText().toString());
+                    this.mDataFromUrl.setAccessToken();
+                    mJsonObject.put(STRING.FIRSTNAME, this.mName.getText().toString());
+                    mJsonObject.put(STRING.LASTNAME, this.mLName.getText().toString());
+                    mJsonObject.put(STRING.EMAIL, this.mMail.getText().toString());
+                    mJsonObject.put(STRING.PASSWORD, this.mRePsw.getText().toString());
                     break;
 
             }
             return mJsonObject.toString();
         }
-        catch (JSONException e) {
+        catch (final JSONException e) {
             e.printStackTrace();
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private FetcherListener mFetcherListener = new FetcherListener() {
+    private final FetcherListener mFetcherListener = new FetcherListener() {
 
         @Override
         public void startedParsing(int type) {
@@ -125,39 +125,39 @@ public class SignUp extends FragmentActivity {
 
             switch (typ) {
                 case TYPE.ACCESSTOKEN:
-                    mAccessToken = SettersNGetters.getAccessToken();
+                    SignUp.this.mAccessToken = SettersNGetters.getAccessToken();
 
-                    if (mAccessToken != null) {
-                        if (mAccessToken.getStatus().equalsIgnoreCase("success")) {
+                    if (SignUp.this.mAccessToken != null) {
+                        if (SignUp.this.mAccessToken.getStatus().equalsIgnoreCase("success")) {
 
-                            mPrefs.setStringInPref(KEY.ACCESS_TOKEN, mAccessToken.getResponse().getAccess_token());
-                            mPrefs.setStringInPref(KEY.REFRESH_TOKEN, mAccessToken.getResponse().getRefresh_token());
-                            LogBlk("AccessToken " + mAccessToken.getResponse().getAccess_token());
-                            LogBlk("AccessToken's RefreshToken  " + mAccessToken.getResponse().getRefresh_token());
+                            SignUp.this.mPrefs.setStringInPref(KEY.ACCESS_TOKEN, SignUp.this.mAccessToken.getResponse().getAccess_token());
+                            SignUp.this.mPrefs.setStringInPref(KEY.REFRESH_TOKEN, SignUp.this.mAccessToken.getResponse().getRefresh_token());
+                            SignUp.this.LogBlk("AccessToken " + SignUp.this.mAccessToken.getResponse().getAccess_token());
+                            SignUp.this.LogBlk("AccessToken's RefreshToken  " + SignUp.this.mAccessToken.getResponse().getRefresh_token());
 
                         } else {
-                            ToastL("Error : " + mAccessToken.getError_message());
+                            SignUp.this.ToastL("Error : " + SignUp.this.mAccessToken.getError_message());
                         }
                     } else {
-                        ToastL("{ ERROR }");
+                        SignUp.this.ToastL("{ ERROR }");
                     }
                     break;
 
                 case TYPE.REGISTER_EMAIL:
-                    isRegistered = SettersNGetters.isRegistered();
+                    SignUp.this.isRegistered = SettersNGetters.isRegistered();
 
-                    if (isRegistered != null) {
-                        if (isRegistered.getStatus().equalsIgnoreCase("success")) {
+                    if (SignUp.this.isRegistered != null) {
+                        if (SignUp.this.isRegistered.getStatus().equalsIgnoreCase("success")) {
 
-                            ToastL("Registered Successfully");
-                            finish();
-                            AnimNext();
+                            SignUp.this.ToastL("Registered Successfully");
+                            SignUp.this.finish();
+                            SignUp.this.AnimNext();
 
                         } else {
-                            ToastL("Error : " + isRegistered.getError_message());
+                            SignUp.this.ToastL("Error : " + SignUp.this.isRegistered.getError_message());
                         }
                     } else {
-                        ToastL("{ SERVER ERROR }");
+                        SignUp.this.ToastL("{ SERVER ERROR }");
                     }
                     break;
 
@@ -169,25 +169,25 @@ public class SignUp extends FragmentActivity {
 
         @Override
         public void finishedFetching(int type, String response) {
-            buttonSignup.setEnabled(true);
-            buttonSignup.setImageResource(R.drawable.signup_proceed);
-            mBar.setVisibility(View.GONE);
-            LogR("+++" + response.toString());
+            SignUp.this.buttonSignup.setEnabled(true);
+            SignUp.this.buttonSignup.setImageResource(R.drawable.signup_proceed);
+            SignUp.this.mBar.setVisibility(View.GONE);
+            SignUp.this.LogR("+++" + response.toString());
         }
 
         @Override
         public void errorFetching(int type, VolleyError error) {
-            buttonSignup.setEnabled(true);
-            buttonSignup.setImageResource(R.drawable.signup_proceed);
-            mBar.setVisibility(View.GONE);
+            SignUp.this.buttonSignup.setEnabled(true);
+            SignUp.this.buttonSignup.setImageResource(R.drawable.signup_proceed);
+            SignUp.this.mBar.setVisibility(View.GONE);
             SignUp.this.type = type;
             try {
                 error.printStackTrace();
-                LogR("---" + "Error");
+                SignUp.this.LogR("---" + "Error");
             }
             finally {
-                ToastL("{ UNKNOWN ERROR }");
-                ToastL("Check yout internet connectivity.");
+                SignUp.this.ToastL("{ UNKNOWN ERROR }");
+                SignUp.this.ToastL("Check yout internet connectivity.");
             }
         }
 
@@ -203,104 +203,100 @@ public class SignUp extends FragmentActivity {
 
         @Override
         public void tokenError(String tokenError) {
-            // TODO Auto-generated method stub
 
+            ToastL(tokenError);
         }
     };
 
     public void Finish(View v) {
-        finish();
-        AnimPrev();
+        this.finish();
+        this.AnimPrev();
     }
 
     public void Validate(View v) {
 
-        if (!Validator.hasMinChars(mName, 4).equals("k")) {
-            mName.setError(Validator.hasMinChars(mName, 4));
+        if (!Validator.hasMinChars(this.mName, 4).equals("k")) {
+            this.mName.setError(Validator.hasMinChars(this.mName, 4));
             return;
         }
-        if (!Validator.hasMinChars(mLName, 1).equals("k")) {
-            mLName.setError(Validator.hasMinChars(mLName, 1));
+        if (!Validator.hasMinChars(this.mLName, 1).equals("k")) {
+            this.mLName.setError(Validator.hasMinChars(this.mLName, 1));
             return;
         }
-        if (!Validator.isvalidEmail(mMail).equals("k")) {
-            mMail.setError(Validator.isvalidEmail(mMail));
+        if (!Validator.isvalidEmail(this.mMail).equals("k")) {
+            this.mMail.setError(Validator.isvalidEmail(this.mMail));
             return;
         }
-        if (!Validator.hasMinChars(mPsw, 6).equals("k")) {
-            mPsw.setError(Validator.hasMinChars(mPsw, 6));
-            return;
-        }
-
-        if (!Validator.hasMinChars(mRePsw, 1).equals("k")) {
-            mRePsw.setError("Password doesn't match");
+        if (!Validator.hasMinChars(this.mPsw, 6).equals("k")) {
+            this.mPsw.setError(Validator.hasMinChars(this.mPsw, 6));
             return;
         }
 
-        if (!Validator.doesPasswordMatch(mPsw, mRePsw)) {
-            mRePsw.setError("Password doesn't match");
+        if (!Validator.hasMinChars(this.mRePsw, 1).equals("k")) {
+            this.mRePsw.setError("Password doesn't match");
+            return;
+        }
+
+        if (!Validator.doesPasswordMatch(this.mPsw, this.mRePsw)) {
+            this.mRePsw.setError("Password doesn't match");
             return;
         }
 
         this.buttonSignup = (ImageView) v;
 
-        buttonSignup.setImageResource(0);
+        this.buttonSignup.setImageResource(0);
 
-        buttonSignup.setEnabled(false);
+        this.buttonSignup.setEnabled(false);
 
-        mBar.setVisibility(View.VISIBLE);
+        this.mBar.setVisibility(View.VISIBLE);
 
-        mDataFromUrl.GetString(TYPE.REGISTER_EMAIL, getBody(TYPE.REGISTER_EMAIL), getUrl(URL.REGISTER_EMAIL));
+        this.mDataFromUrl.GetString(TYPE.REGISTER_EMAIL, this.getBody(TYPE.REGISTER_EMAIL), GetData.getUrl(URL.REGISTER_EMAIL));
     }
 
     @Override
     public void onBackPressed() {
         this.finish();
-        AnimPrev();
+        this.AnimPrev();
     }
 
     private void AnimPrev() {
-        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        this.overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
     /*******************************************************************/
 
-    private String getUrl(String tokenType) {
-        return (BASE_URL + tokenType);
-    }
-
     /**
      * @param RED
      */
     public void LogR(String msg) {
-        Log.wtf(tag, msg);
+        Log.wtf(this.tag, msg);
     }
 
     /**
      * @param Black
      */
     public void LogBlk(String msg) {
-        Log.v(tag, msg);
+        Log.v(this.tag, msg);
     }
 
     /**
      * @param text
      */
     private void ToastL(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
     /**
      * @param text
      */
     private void ToastS(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     /*******************************************************************/

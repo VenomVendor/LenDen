@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -16,6 +17,7 @@ package vee.HexWhale.LenDen.Storage;
 
 import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
+import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
 
 public class SettersNGetters {
 
@@ -23,6 +25,7 @@ public class SettersNGetters {
     private static GetAccessToken accessToken;
     private static GetAccessToken isLoggedInEmail;
     private static GetAccessToken isRegistered;
+    private static GetCategory category;
 
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
@@ -41,7 +44,7 @@ public class SettersNGetters {
     }
 
     public static GetAccessToken isLoggedInViaEmail() {
-        return isLoggedInEmail;
+        return SettersNGetters.isLoggedInEmail;
     }
 
     public static void setLoggedInViaEmail(GetAccessToken email) {
@@ -49,11 +52,19 @@ public class SettersNGetters {
     }
 
     public static GetAccessToken isRegistered() {
-        return isRegistered;
+        return SettersNGetters.isRegistered;
     }
 
     public static void setRegistered(GetAccessToken isRegistered) {
         SettersNGetters.isRegistered = isRegistered;
+    }
+
+    public static GetCategory getCategory() {
+        return category;
+    }
+
+    public static void setCategory(GetCategory category) {
+        SettersNGetters.category = category;
     }
 
 }

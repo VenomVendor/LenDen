@@ -7,14 +7,14 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
 package vee.HexWhale.LenDen.aUI.Pagers;
 
-import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -24,9 +24,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import vee.HexWhale.LenDen.R;
+
 public class WalkThroughPager extends PagerAdapter {
 
     Activity sActivity;
+    String[] mStrings = {
+            "Your neighborhood is the best place to look for something you need.",
+            "A revolutionary marketplace app to bring in a change in the way you exchange items",
+            "Exchange : Map it Chat it and Exchange it",
+            "Garage sale has been never so easy"
+    };
 
     public WalkThroughPager(Activity act) {
         this.sActivity = act;
@@ -35,7 +43,7 @@ public class WalkThroughPager extends PagerAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return 5;
+        return mStrings.length;
     }
 
     @Override
@@ -46,15 +54,15 @@ public class WalkThroughPager extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        final LayoutInflater inflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         final View v = inflater.inflate(R.layout.walkthrough_pager, null);
 
         final TextView sTitle = (TextView) v.findViewById(R.id.wt_pager_title);
         final TextView sText = (TextView) v.findViewById(R.id.wt_pager_text);
 
-        sTitle.setText("" + (position + 1));
-        sText.setText("" + (position + 1));
+        sTitle.setText("Welcome to LenDen, Your mobile market place");
+        sText.setText(mStrings[position]);
 
         ((ViewPager) container).addView(v, 0);
 

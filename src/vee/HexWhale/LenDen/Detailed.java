@@ -14,12 +14,6 @@
 
 package vee.HexWhale.LenDen;
 
-import java.util.Locale;
-
-import vee.HexWhale.LenDen.aUI.NoScrollWebView;
-import vee.HexWhale.LenDen.aUI.NoScrollWebView.WebViewSizeChanged;
-import vee.HexWhale.LenDen.aUI.Pagers.DetailedPager;
-import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -37,6 +31,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import vee.HexWhale.LenDen.aUI.NoScrollWebView;
+import vee.HexWhale.LenDen.aUI.NoScrollWebView.WebViewSizeChanged;
+import vee.HexWhale.LenDen.aUI.Pagers.DetailedPager;
+import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
+
+import java.util.Locale;
+
 public class Detailed extends FragmentActivity implements WebViewSizeChanged {
     NoScrollWebView mWebView;
     ViewPager mPager;
@@ -46,36 +47,36 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detailed);
+        this.setContentView(R.layout.detailed);
 
-        ((TextView) findViewById(R.id.menu_center)).setText(("sony ps4").toUpperCase(Locale.UK));
-        ((ImageView) findViewById(R.id.menu_right)).setImageResource(R.drawable.detailed_up);
+        ((TextView) this.findViewById(R.id.menu_center)).setText(("sony ps4").toUpperCase(Locale.UK));
+        ((ImageView) this.findViewById(R.id.menu_right)).setImageResource(R.drawable.detailed_up);
 
-        mWebView = (NoScrollWebView) findViewById(R.id.webiew);
-        mPager = (ViewPager) findViewById(R.id.pager);
+        this.mWebView = (NoScrollWebView) this.findViewById(R.id.webiew);
+        this.mPager = (ViewPager) this.findViewById(R.id.pager);
 
-        final CirclePageIndicator mCirclePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+        final CirclePageIndicator mCirclePageIndicator = (CirclePageIndicator) this.findViewById(R.id.indicator);
 
-        mPager.setAdapter(new DetailedPager(this));
+        this.mPager.setAdapter(new DetailedPager(this));
 
-        mCirclePageIndicator.setViewPager(mPager);
+        mCirclePageIndicator.setViewPager(this.mPager);
 
-        mWebView.setWebChromeClient(new WebChromeClient());
-        mWebView.setWebViewClient(webViewClient);
-        mWebView.setVerticalScrollBarEnabled(true);
-        mWebView.setHorizontalScrollBarEnabled(false);
-        mWebView.scrollTo(0, 0);
-        mWebView.setFocusable(true);
-        final WebSettings settings = mWebView.getSettings();
+        this.mWebView.setWebChromeClient(new WebChromeClient());
+        this.mWebView.setWebViewClient(this.webViewClient);
+        this.mWebView.setVerticalScrollBarEnabled(true);
+        this.mWebView.setHorizontalScrollBarEnabled(false);
+        this.mWebView.scrollTo(0, 0);
+        this.mWebView.setFocusable(true);
+        final WebSettings settings = this.mWebView.getSettings();
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setNeedInitialFocus(true);
         settings.setJavaScriptEnabled(true);
         settings.setUserAgentString("Android");
         settings.setDomStorageEnabled(true);
-        settings.setAppCachePath(getApplicationContext().getFilesDir().getPath() + "/" + getPackageName() + "/cache");
+        settings.setAppCachePath(this.getApplicationContext().getFilesDir().getPath() + "/" + this.getPackageName() + "/cache");
 
         System.out.println("++++++++++++++++++++++++++++++++");
-        System.out.println(getApplicationContext().getFilesDir().getPath() + "/" + getPackageName() + "/cache");
+        System.out.println(this.getApplicationContext().getFilesDir().getPath() + "/" + this.getPackageName() + "/cache");
         System.out.println("++++++++++++++++++++++++++++++++");
 
         settings.setAllowFileAccess(true);
@@ -88,7 +89,7 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
 
         final String Starting = "<!DOCTYPE html><html><head><style type=\"text/css\">div#veecontent {text-align:justify;padding:1px 10px 20px;}</style></head><body><div id=\"veecontent\">";
 
-        String contentToLoad = ""
+        final String contentToLoad = ""
                 + "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas non sapien erat. Duis nisi nisi, liquam velit ligula, condimentum et lorem quis, pharetra laoreet diam.</p>\r\n"
                 + "<img src=\"https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/851568_501183173335094_1782670102_n.png\"/>"
                 + "<p>Nulla rhoncus lobortis pulvina. Vestibulum felis diam, volutpat non congue at, tincidunt quis libero. Nam elit enim, lacinia et arcu in, laoreet facilisis elit. Curabitur aliquam justo vitae ante fringilla, vitae fermentum turpis sagittis. In ut ullamcorper nibh. Integer faucibus ante sed nisl malesuada molestie. Nunc placerat condimentum lacus. Phasellus viverra tristique eros id rutrum. Sed rhoncus augue ullamcorper, adipiscing dolor at, commodo orci. Duis erat nisi, ultrices nec sodales volutpat, pretium vel quam. Ut a eros mollis, condimentum est et, iaculis sapien. Morbi porta, diam ac viverra venenatis, odio ligula consectetur nunc, quis congue tellus nulla eu lectus. Ut eu blandit tortor. Aliquam sapien erat, egestas vel dolor eget, tincidunt lacinia ligula. Maecenas a odio ullamcorper, placerat libero at, viverra dolor. Proin hendrerit, odio non mollis feugiat, neque tortor elementum eros, ut ullamcorper ante lacus nec metus.</p>\r\n"
@@ -98,8 +99,8 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
 
         final String Ending = "</div></body></html>";
 
-        mWebView.loadDataWithBaseURL("file:///android_asset/", Starting + contentToLoad + Ending, "text/html", "UTF-8", null);
-        mWebView.setWebViewSizeChanged(this);
+        this.mWebView.loadDataWithBaseURL("file:///android_asset/", Starting + contentToLoad + Ending, "text/html", "UTF-8", null);
+        this.mWebView.setWebViewSizeChanged(this);
     }
 
     private final WebViewClient webViewClient = new WebViewClient() {
@@ -122,35 +123,35 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
             System.out.println("description " + description);
             System.out.println("failingUrl " + failingUrl);
 
-            Toast.makeText(getApplicationContext(), description, Toast.LENGTH_SHORT).show();
+            Toast.makeText(Detailed.this.getApplicationContext(), description, Toast.LENGTH_SHORT).show();
             // webView.loadUrl(url);
         }
 
     };
 
     public void Finish(View v) {
-        finish();
-        AnimPrev();
+        this.finish();
+        this.AnimPrev();
     }
 
     public void Submit(View v) {
-        finish();
-        AnimNext();
+        this.finish();
+        this.AnimNext();
     }
 
     @Override
     public void onBackPressed() {
         this.finish();
-        AnimPrev();
+        this.AnimPrev();
     }
 
     private void AnimPrev() {
-        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        this.overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 

@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -30,6 +31,14 @@ public final class Constants {
         public final static String KEY = "592a34a4abadaa52b3c0abb055b689";
         public final static String SECRET = "266aec96e90af9450eb4ad450309b3";
 
+        public final static class HEADERS {
+            public final static String CONTENT_TYPE = "Content-Type";
+            public final static String JSON = "application/json";
+            public final static String ACCESS_TOKEN = "access_token";
+            public final static String MULTIPART = "multipart/form-data parameters";
+            public final static String PICTURE = "picture";
+        }
+
         public final static class STRING {
             public final static String KEY = "client_key";
             public final static String SECRET = "client_secret";
@@ -39,15 +48,10 @@ public final class Constants {
             public final static String PASSWORD = "password";
             public final static String FIRSTNAME = "first_name";
             public final static String LASTNAME = "last_name";
+            public final static String SUCCESS = "success";
+            public final static String FAILED = "failed";
 
-        }
 
-        public final static class HEADERS {
-            public final static String CONTENT_TYPE = "Content-Type";
-            public final static String JSON = "application/json";
-            public final static String ACCESS_TOKEN = "access_token";
-            public final static String MULTIPART = "multipart/form-data parameters";
-            public final static String PICTURE = "picture";
         }
 
         public final static class URL {
@@ -59,14 +63,24 @@ public final class Constants {
             public final static String LOGIN_EMAIL = "users/login/email/";
             public final static String LOGIN_FB = "users/login/facebook/";
             public final static String LOGOUT = "users/logout/";
+            public final static String CATEGORIES = "categories/";
+        }
+
+        public final static class IMAGEURL {
+            public final static String ICON = "/icon/";
+            public final static String PICTURE = "/picture/";
         }
 
         public final static class TYPE {
             public final static int AUTHORIZE = 1;
             public final static int ACCESSTOKEN = 2;
             public final static int REFRESH = 3;
-            public final static int LOGIN_EMAIL = 4;
-            public final static int REGISTER_EMAIL = 5;
+            public final static int REGISTER_EMAIL = 4;
+            public final static int REGISTER_FB = 5;
+            public final static int LOGIN_EMAIL = 6;
+            public final static int LOGIN_FB = 7;
+            public final static int LOGOUT = 8;
+            public final static int CATEGORIES = 9;
         }
 
     }
@@ -82,18 +96,18 @@ public final class Constants {
     }
 
     public final static int[] gridImages = {
-            R.drawable.bp5_crop1, R.drawable.bp5_crop2, R.drawable.bp5_crop3, R.drawable.bp5_crop4, R.drawable.bp5_crop5, R.drawable.bp5_crop6
+        R.drawable.bp5_crop1, R.drawable.bp5_crop2, R.drawable.bp5_crop3, R.drawable.bp5_crop4, R.drawable.bp5_crop5, R.drawable.bp5_crop6
     };
 
     public final static int[] menuImages = {
-            R.drawable.add_items, R.drawable.search, R.drawable.favorites, R.drawable.messages, R.drawable.profile, R.drawable.settings
+        R.drawable.add_items, R.drawable.search, R.drawable.favorites, R.drawable.messages, R.drawable.profile, R.drawable.settings
     };
     public final static String[] menuText = {
-            "Add items", "Search", "Favorites", "Messages", "Profile", "Settings"
+        "Add items", "Search", "Favorites", "Messages", "Profile", "Settings"
     };
 
     public final static Class<?>[] menuclass = {
-            AddItems.class, Search.class, Favorites.class, Messages.class, Profile.class, Settings.class
+        AddItems.class, Search.class, Favorites.class, Messages.class, Profile.class, Settings.class
     };
 
 }

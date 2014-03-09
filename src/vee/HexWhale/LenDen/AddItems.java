@@ -14,6 +14,7 @@
 
 package vee.HexWhale.LenDen;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
@@ -34,31 +35,31 @@ public class AddItems extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_items);
+        this.setContentView(R.layout.add_items);
     }
 
     public void OpenImage(View view) {
         this.tempView = view;
-        Intent mIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(mIntent, tempID);
+        final Intent mIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        this.startActivityForResult(mIntent, AddItems.tempID);
     }
 
     public void Sales(View v) {
-        setEnabled(1);
+        this.setEnabled(1);
     }
 
     public void Exchage(View v) {
-        setEnabled(2);
+        this.setEnabled(2);
     }
 
     public void Both(View v) {
-        setEnabled(3);
+        this.setEnabled(3);
     }
 
     private void setEnabled(int i) {
-        final ImageView im1 = (ImageView) findViewById(R.id.add_items_arrow_s);
-        final ImageView im2 = (ImageView) findViewById(R.id.add_items_arrow_e);
-        final ImageView im3 = (ImageView) findViewById(R.id.add_items_arrow_b);
+        final ImageView im1 = (ImageView) this.findViewById(R.id.add_items_arrow_s);
+        final ImageView im2 = (ImageView) this.findViewById(R.id.add_items_arrow_e);
+        final ImageView im3 = (ImageView) this.findViewById(R.id.add_items_arrow_b);
 
         im1.setVisibility(View.INVISIBLE);
         im2.setVisibility(View.INVISIBLE);
@@ -85,50 +86,50 @@ public class AddItems extends FragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == tempID && resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {
-                MediaColumns.DATA
+        if (requestCode == AddItems.tempID && resultCode == Activity.RESULT_OK && data != null) {
+            final Uri selectedImage = data.getData();
+            final String[] filePathColumn = {
+                    MediaColumns.DATA
             };
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            final Cursor cursor = this.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
             cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
+            final int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            final String picturePath = cursor.getString(columnIndex);
             cursor.close();
-            ((ImageView) tempView).setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            ((ImageView) this.tempView).setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
         } else {
-            ToastL("Unable to select image...");
+            this.ToastL("Unable to select image...");
         }
     }
 
     private void ToastL(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     public void Finish(View v) {
-        finish();
-        AnimPrev();
+        this.finish();
+        this.AnimPrev();
     }
 
     public void Submit(View v) {
-        finish();
-        AnimNext();
+        this.finish();
+        this.AnimNext();
     }
 
     @Override
     public void onBackPressed() {
         this.finish();
-        AnimPrev();
+        this.AnimPrev();
     }
 
     private void AnimPrev() {
-        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        this.overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 

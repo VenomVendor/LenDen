@@ -14,13 +14,6 @@
 
 package vee.HexWhale.LenDen.bg.Threads;
 
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
-
-import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
-import vee.HexWhale.LenDen.Utils.Constants.API.HEADERS;
-import vee.HexWhale.LenDen.Utils.Constants.KEY;
 import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
@@ -38,6 +31,14 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
+import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
+import vee.HexWhale.LenDen.Utils.Constants.API.HEADERS;
+import vee.HexWhale.LenDen.Utils.Constants.KEY;
+
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+
 public class GetDataFromUrl {
     static RequestQueue mQueue;
     private String tag = "UNKNOWN";
@@ -54,9 +55,9 @@ public class GetDataFromUrl {
      */
     public GetDataFromUrl(Activity activity, FetcherListener mFetcherListener) {
         this.activity = activity;
-        tag = TagGen.getTag(this.getClass());
-        mQueue = Volley.newRequestQueue(activity);
-        mPrefs = new GlobalSharedPrefs(activity);
+        this.tag = TagGen.getTag(this.getClass());
+        GetDataFromUrl.mQueue = Volley.newRequestQueue(activity);
+        this.mPrefs = new GlobalSharedPrefs(activity);
         this.mFetcherListener = mFetcherListener;
     }
 
@@ -67,7 +68,7 @@ public class GetDataFromUrl {
      */
     public void GetString(int type, String body, String url) {
         this.type = type;
-        mQueue.add(getJSONRequest(url, body));
+        GetDataFromUrl.mQueue.add(this.getJSONRequest(url, body));
     }
 
     /**
@@ -80,7 +81,7 @@ public class GetDataFromUrl {
     public void GetString(int type, String body, String url, boolean cancelOldRequests) {
         this.type = type;
         this.cancelOldRequests = cancelOldRequests;
-        mQueue.add(getJSONRequest(url, body));
+        GetDataFromUrl.mQueue.add(this.getJSONRequest(url, body));
     }
 
     /**
@@ -90,15 +91,15 @@ public class GetDataFromUrl {
      */
     private Request<?> getJSONRequest(String mURL, String body) {
 
-        LogO("``" + mURL + "``");
-        LogB("`*`" + body + "`*`");
+        this.LogO("``" + mURL + "``");
+        this.LogB("`*`" + body + "`*`");
 
         if (this.cancelOldRequests) {
-            mQueue.cancelAll(this.activity);
-            mQueue.cancelAll(new RequestQueue.RequestFilter() {
+            GetDataFromUrl.mQueue.cancelAll(this.activity);
+            GetDataFromUrl.mQueue.cancelAll(new RequestQueue.RequestFilter() {
                 @Override
                 public boolean apply(Request<?> request) {
-                    LogB("Cancelled all");
+                    GetDataFromUrl.this.LogB("Cancelled all");
                     return true;
                 }
             });
@@ -107,7 +108,7 @@ public class GetDataFromUrl {
         /**
          * JsonRequest
          */
-        JsonRequest<String> mJsonRequest = new JsonRequest<String>(Method.POST, mURL, body, successListener, errorListener) {
+        final JsonRequest<String> mJsonRequest = new JsonRequest<String>(Method.POST, mURL, body, this.successListener, this.errorListener) {
 
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
@@ -115,7 +116,7 @@ public class GetDataFromUrl {
                 try {
                     parsed = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
                 }
-                catch (UnsupportedEncodingException e) {
+                catch (final UnsupportedEncodingException e) {
                     parsed = new String(response.data);
                 }
                 return Response.success(parsed, HttpHeaderParser.parseCacheHeaders(response));
@@ -123,15 +124,15 @@ public class GetDataFromUrl {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<String, String>();
+                final HashMap<String, String> params = new HashMap<String, String>();
 
-                if (accessToken) {
+                if (GetDataFromUrl.this.accessToken) {
                     GetDataFromUrl.this.accessToken = false;
-                    params.put(HEADERS.ACCESS_TOKEN, mPrefs.getStringInPref(KEY.ACCESS_TOKEN));
+                    params.put(HEADERS.ACCESS_TOKEN, GetDataFromUrl.this.mPrefs.getStringInPref(KEY.ACCESS_TOKEN));
                 }
                 params.put(HEADERS.CONTENT_TYPE, HEADERS.JSON);
 
-                LogO(params.toString());
+                GetDataFromUrl.this.LogO(params.toString());
                 return params;
             }
 
@@ -139,20 +140,20 @@ public class GetDataFromUrl {
         return mJsonRequest;
     }
 
-    private ErrorListener errorListener = new ErrorListener() {
+    private final ErrorListener errorListener = new ErrorListener() {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            mFetcherListener.errorFetching(type, error);
+            GetDataFromUrl.this.mFetcherListener.errorFetching(GetDataFromUrl.this.type, error);
         }
     };
 
-    private Listener<String> successListener = new Listener<String>() {
+    private final Listener<String> successListener = new Listener<String>() {
 
         @Override
         public void onResponse(String response) {
-            mFetcherListener.finishedFetching(type, response);
-            new StartBackgroundParsing(activity, GetDataFromUrl.this.type, mFetcherListener).execute(response);
+            GetDataFromUrl.this.mFetcherListener.finishedFetching(GetDataFromUrl.this.type, response);
+            new StartBackgroundParsing(GetDataFromUrl.this.activity, GetDataFromUrl.this.type, GetDataFromUrl.this.mFetcherListener).execute(response);
         }
     };
 
@@ -160,14 +161,14 @@ public class GetDataFromUrl {
      * @param Blue
      */
     private void LogB(String msg) {
-        Log.d(tag, msg);
+        Log.d(this.tag, msg);
     }
 
     /**
      * @param Orange
      */
     public void LogO(String msg) {
-        Log.v(tag, msg);
+        Log.v(this.tag, msg);
     }
 
     public void setAccessToken() {
@@ -178,7 +179,7 @@ public class GetDataFromUrl {
      * @param text
      */
     private void ToastL(String text) {
-        Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
     /*******************************************************************/

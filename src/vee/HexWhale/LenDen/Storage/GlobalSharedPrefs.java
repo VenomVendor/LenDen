@@ -14,12 +14,13 @@
 
 package vee.HexWhale.LenDen.Storage;
 
-import vee.HexWhale.LenDen.Utils.Constants.KEY;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+
+import vee.HexWhale.LenDen.Utils.Constants.KEY;
 
 public class GlobalSharedPrefs {
 
@@ -35,19 +36,19 @@ public class GlobalSharedPrefs {
 
     public boolean setAppOpenedTimes() {
 
-        System.out.println("INITIAL TIMES COUNT " + getAppOpenedTimes()); // DO
-                                                                          // NOT
-                                                                          // REMOVE
-                                                                          // ME
-        edit();
-        mEditor.putInt(KEY.OPENED_TIMES_COUNT, (mLocalRefOpened + 1));
-        return commit();
+        System.out.println("INITIAL TIMES COUNT " + this.getAppOpenedTimes()); // DO
+        // NOT
+        // REMOVE
+        // ME
+        this.edit();
+        this.mEditor.putInt(KEY.OPENED_TIMES_COUNT, (this.mLocalRefOpened + 1));
+        return this.commit();
     }
 
     public int getAppOpenedTimes() {
-        initiateSharedPrefrences();
-        mLocalRefOpened = mSharedPreferences.getInt(KEY.OPENED_TIMES_COUNT, 0);
-        return mLocalRefOpened;
+        this.initiateSharedPrefrences();
+        this.mLocalRefOpened = this.mSharedPreferences.getInt(KEY.OPENED_TIMES_COUNT, 0);
+        return this.mLocalRefOpened;
     }
 
     /**
@@ -55,7 +56,7 @@ public class GlobalSharedPrefs {
      */
 
     private void initiateSharedPrefrences() {
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        this.mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.mContext);
     }
 
     /**
@@ -64,7 +65,7 @@ public class GlobalSharedPrefs {
      */
     @SuppressLint("CommitPrefEdits")
     private void edit() {
-        mEditor = mSharedPreferences.edit();
+        this.mEditor = this.mSharedPreferences.edit();
     }
 
     /**
@@ -72,7 +73,7 @@ public class GlobalSharedPrefs {
      * Make sure {@link #edit()} is called <b>BEFORE</b> this.
      */
     private boolean commit() {
-        return mEditor.commit();
+        return this.mEditor.commit();
     }
 
     /**
@@ -82,11 +83,11 @@ public class GlobalSharedPrefs {
      *            String
      */
     public boolean setStringInPref(String xKey, String value) {
-        initiateSharedPrefrences();
-        edit();
-        mEditor.putString(xKey, null);
-        mEditor.putString(xKey, value);
-        return commit();
+        this.initiateSharedPrefrences();
+        this.edit();
+        this.mEditor.putString(xKey, null);
+        this.mEditor.putString(xKey, value);
+        return this.commit();
     }
 
     /**
@@ -97,11 +98,11 @@ public class GlobalSharedPrefs {
      */
 
     public boolean setIntInPref(String xKey, int value) {
-        initiateSharedPrefrences();
-        edit();
-        mEditor.putInt(xKey, -1);
-        mEditor.putInt(xKey, value);
-        return commit();
+        this.initiateSharedPrefrences();
+        this.edit();
+        this.mEditor.putInt(xKey, -1);
+        this.mEditor.putInt(xKey, value);
+        return this.commit();
     }
 
     /**
@@ -110,8 +111,8 @@ public class GlobalSharedPrefs {
      * @return <b>VALUE</b> String
      */
     public String getStringInPref(String xKey) {
-        initiateSharedPrefrences();
-        return mSharedPreferences.getString(xKey, null);
+        this.initiateSharedPrefrences();
+        return this.mSharedPreferences.getString(xKey, null);
     }
 
     /**
@@ -120,8 +121,8 @@ public class GlobalSharedPrefs {
      * @return <b>VALUE</b> int
      */
     public int getIntInPref(String xKey) {
-        initiateSharedPrefrences();
-        return mSharedPreferences.getInt(xKey, -1);
+        this.initiateSharedPrefrences();
+        return this.mSharedPreferences.getInt(xKey, -1);
     }
 
 }

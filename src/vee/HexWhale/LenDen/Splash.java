@@ -14,15 +14,6 @@
 
 package vee.HexWhale.LenDen;
 
-import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
-import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
-import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
-import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
-import vee.HexWhale.LenDen.Utils.Constants.KEY;
-import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
-import vee.HexWhale.LenDen.bg.Threads.GetTokens;
-import vee.HexWhale.LenDen.bg.Threads.NetworkConnection;
-import vee.HexWhale.LenDen.bg.Threads.TagGen;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -35,6 +26,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+
+import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
+import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
+import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
+import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
+import vee.HexWhale.LenDen.Utils.Constants.KEY;
+import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
+import vee.HexWhale.LenDen.bg.Threads.GetTokens;
+import vee.HexWhale.LenDen.bg.Threads.NetworkConnection;
+import vee.HexWhale.LenDen.bg.Threads.TagGen;
 
 public class Splash extends Activity {
 
@@ -49,52 +50,52 @@ public class Splash extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        tag = TagGen.getTag(this.getClass());
+        this.tag = TagGen.getTag(this.getClass());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
-        mBar = (ProgressBar) findViewById(R.id.splash_progress);
-        mTextView = (TextView) findViewById(R.id.splash_text);
-        checkInternet();
+        this.setContentView(R.layout.splash);
+        this.mBar = (ProgressBar) this.findViewById(R.id.splash_progress);
+        this.mTextView = (TextView) this.findViewById(R.id.splash_text);
+        this.checkInternet();
     }
 
     private void checkInternet() {
-        if (!NetworkConnection.isAvail(getApplicationContext())) {
-            ToastL("No internet Connection");
-            mBar.setVisibility(View.GONE);
-            setAlert("No internet connection");
+        if (!NetworkConnection.isAvail(this.getApplicationContext())) {
+            this.ToastL("No internet Connection");
+            this.mBar.setVisibility(View.GONE);
+            this.setAlert("No internet connection");
             return;
         }
-        mPrefs = new GlobalSharedPrefs(this);
+        this.mPrefs = new GlobalSharedPrefs(this);
 
-        mGetTokens = new GetTokens(this, mFetcherListener);
+        this.mGetTokens = new GetTokens(this, this.mFetcherListener);
 
-        if (mPrefs.getStringInPref(KEY.REFRESH_TOKEN) == null) {
-            mTextView.setText("Authorizing...");
-            LogBlk("Authorizing");
-            mGetTokens.getAuthToken();
+        if (this.mPrefs.getStringInPref(KEY.REFRESH_TOKEN) == null) {
+            this.mTextView.setText("Authorizing...");
+            this.LogBlk("Authorizing");
+            this.mGetTokens.getAuthToken();
         } else {
-            mTextView.setText("Refreshing...");
-            LogBlk("Refreshing");
-            mGetTokens.refreshToken();
+            this.mTextView.setText("Refreshing...");
+            this.LogBlk("Refreshing");
+            this.mGetTokens.refreshToken();
         }
 
     }
 
     private void setAlert(String title) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(Splash.this);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(Splash.this);
         alertDialog.setTitle(title);
         alertDialog.setMessage("Retry?");
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                checkInternet();
+                Splash.this.checkInternet();
             }
         });
         alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+                Splash.this.finish();
             }
         });
 
@@ -102,7 +103,7 @@ public class Splash extends Activity {
 
     }
 
-    private FetcherListener mFetcherListener = new FetcherListener() {
+    private final FetcherListener mFetcherListener = new FetcherListener() {
 
         @Override
         public void errorFetching(int type, VolleyError error) {
@@ -119,8 +120,8 @@ public class Splash extends Activity {
         @Override
         public void beforeParsing(int type) { // used as alternative
 
-            mTextView.setText("Validating/Accessing...");
-            LogBlk("Validating/Accessing");
+            Splash.this.mTextView.setText("Validating/Accessing...");
+            Splash.this.LogBlk("Validating/Accessing");
 
         }
 
@@ -141,11 +142,11 @@ public class Splash extends Activity {
 
             switch (typ) {
                 case TYPE.REFRESH:
-                    startNextActivity();
+                    Splash.this.startNextActivity();
                     break;
                 case TYPE.ACCESSTOKEN:
-                    LogBlk("Accessing");
-                    startNextActivity();
+                    Splash.this.LogBlk("Accessing");
+                    Splash.this.startNextActivity();
                     break;
 
                 default:
@@ -157,7 +158,7 @@ public class Splash extends Activity {
         @Override
         public void tokenError(String tokenError) {
 
-            setAlert(tokenError);
+            ToastL(tokenError);
         }
 
     };
@@ -165,13 +166,13 @@ public class Splash extends Activity {
     /*******************************************************************/
 
     protected void startNextActivity() {
-        startActivity(new Intent(getApplicationContext(), WalkThrough.class));
-        finish();
-        AnimNext();
+        this.startActivity(new Intent(this.getApplicationContext(), WalkThrough.class));
+        this.finish();
+        this.AnimNext();
     }
 
     private void AnimNext() {
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        this.overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
@@ -179,21 +180,21 @@ public class Splash extends Activity {
      * @param RED
      */
     public void LogR(String msg) {
-        Log.wtf(tag, msg);
+        Log.wtf(this.tag, msg);
     }
 
     /**
      * @param Black
      */
     public void LogBlk(String msg) {
-        Log.v(tag, msg);
+        Log.v(this.tag, msg);
     }
 
     /**
      * @param text
      */
     private void ToastL(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
     /*******************************************************************/

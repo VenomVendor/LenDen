@@ -14,25 +14,6 @@
 
 package vee.HexWhale.LenDen.bg.Threads;
 
-import static vee.HexWhale.LenDen.Utils.Constants.API.BASE_URL;
-
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
-import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
-import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
-import vee.HexWhale.LenDen.Storage.SettersNGetters;
-import vee.HexWhale.LenDen.Utils.Constants.API;
-import vee.HexWhale.LenDen.Utils.Constants.API.HEADERS;
-import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
-import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
-import vee.HexWhale.LenDen.Utils.Constants.API.URL;
-import vee.HexWhale.LenDen.Utils.Constants.KEY;
 import android.app.Activity;
 import android.util.Log;
 
@@ -52,6 +33,24 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
+import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
+import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
+import vee.HexWhale.LenDen.Storage.SettersNGetters;
+import vee.HexWhale.LenDen.Utils.Constants.API;
+import vee.HexWhale.LenDen.Utils.Constants.API.HEADERS;
+import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
+import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
+import vee.HexWhale.LenDen.Utils.Constants.API.URL;
+import vee.HexWhale.LenDen.Utils.Constants.KEY;
+
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+
 public class GetTokens {
     Activity activity;
     GetAuthCode mAuthCode;
@@ -66,41 +65,41 @@ public class GetTokens {
 
     public GetTokens(Activity activity, FetcherListener mFetcherListener) {
         this.activity = activity;
-        tag = TagGen.getTag(this.getClass());
-        mQueue = Volley.newRequestQueue(activity);
-        mPrefs = new GlobalSharedPrefs(activity);
+        this.tag = TagGen.getTag(this.getClass());
+        GetTokens.mQueue = Volley.newRequestQueue(activity);
+        this.mPrefs = new GlobalSharedPrefs(activity);
         this.mFetcherListener = mFetcherListener;
-        initObjectMappers();
+        this.initObjectMappers();
     }
 
     public void getAuthToken() {
 
         this.type = TYPE.AUTHORIZE;
-        mQueue.add(getJSONRequest(getUrl(URL.AUTHORIZE), getBody(TYPE.AUTHORIZE)));
-        LogW("" + type);
+        GetTokens.mQueue.add(this.getJSONRequest(this.getBody(TYPE.AUTHORIZE),GetData.getUrl(URL.AUTHORIZE)));
+        this.LogW("" + this.type);
     }
 
     private void LogW(String msg) {
-        Log.wtf(tag, msg);
+        Log.wtf(this.tag, msg);
     }
 
     public void getAccessToken() {
         this.type = TYPE.ACCESSTOKEN;
-        mQueue.add(getJSONRequest(getUrl(URL.ACCESSTOKEN), getBody(TYPE.ACCESSTOKEN)));
-        LogW("" + type);
+        GetTokens.mQueue.add(this.getJSONRequest(this.getBody(TYPE.ACCESSTOKEN),GetData.getUrl(URL.ACCESSTOKEN)));
+        this.LogW("" + this.type);
     }
 
     public void refreshToken() {
         this.type = TYPE.REFRESH;
-        mQueue.add(getJSONRequest(getUrl(URL.REFRESH), getBody(TYPE.REFRESH)));
-        LogW("" + type);
+        GetTokens.mQueue.add(this.getJSONRequest(this.getBody(TYPE.REFRESH),GetData.getUrl(URL.REFRESH)));
+        this.LogW("" + this.type);
     }
 
     private void initObjectMappers() {
-        objectMapper.setSerializationInclusion(Include.NON_NULL);
-        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-        objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // TODO
+        GetTokens.objectMapper.setSerializationInclusion(Include.NON_NULL);
+        GetTokens.objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+        GetTokens.objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+        GetTokens.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // TODO
         // False
         return;
     }
@@ -109,69 +108,68 @@ public class GetTokens {
         @Override
         public void onResponse(String response) {
 
-            LogW("+++" + response);
+            GetTokens.this.LogW("+++" + response);
             try {
-                switch (type) {
+                switch (GetTokens.this.type) {
                     case TYPE.AUTHORIZE:
-                        SettersNGetters.setAuthCode(objectMapper.readValue(response, GetAuthCode.class));
-                        mAuthCode = SettersNGetters.getAuthCode();
-                        if (mAuthCode != null) {
-                            if (mAuthCode.getStatus().equalsIgnoreCase("success")) {
-                                mPrefs.setStringInPref(KEY.AUTH_CODE, mAuthCode.getResponse().getAuth_code());
-                                mFetcherListener.finishedParsing(type);
-                                getAccessToken();
-
+                        SettersNGetters.setAuthCode(GetTokens.objectMapper.readValue(response, GetAuthCode.class));
+                        GetTokens.this.mAuthCode = SettersNGetters.getAuthCode();
+                        if (GetTokens.this.mAuthCode != null) {
+                            if (GetTokens.this.mAuthCode.getStatus().equalsIgnoreCase(STRING.SUCCESS)) {
+                                GetTokens.this.mPrefs.setStringInPref(KEY.AUTH_CODE, GetTokens.this.mAuthCode.getResponse().getAuth_code());
+                                GetTokens.this.mFetcherListener.finishedParsing(GetTokens.this.type);
+                                GetTokens.this.getAccessToken(); //XXX
                             } else {
-                                mFetcherListener.tokenError(mAuthCode.getError_message());
+                                GetTokens.this.mFetcherListener.tokenError(GetTokens.this.mAuthCode.getError_message());
                             }
                         } else {
-                            mFetcherListener.tokenError("Error in Server");
+                            GetTokens.this.mFetcherListener.tokenError("Error in Server");
                         }
                         return;
                     case TYPE.ACCESSTOKEN:
 
-                        mFetcherListener.beforeParsing(0); // USED AS ALTERNATIVE
+                        GetTokens.this.mFetcherListener.beforeParsing(0); // USED AS ALTERNATIVE
 
-                        SettersNGetters.setAccessToken(objectMapper.readValue(response, GetAccessToken.class));
-                        mAccessToken = SettersNGetters.getAccessToken();
-                        if (mAccessToken != null) {
-                            if (mAccessToken.getStatus().equalsIgnoreCase("success")) {
-                                mPrefs.setStringInPref(KEY.ACCESS_TOKEN, mAccessToken.getResponse().getAccess_token());
-                                mPrefs.setStringInPref(KEY.REFRESH_TOKEN, mAccessToken.getResponse().getRefresh_token());
-                                mFetcherListener.finishedParsing(type);
+                        SettersNGetters.setAccessToken(GetTokens.objectMapper.readValue(response, GetAccessToken.class));
+                        GetTokens.this.mAccessToken = SettersNGetters.getAccessToken();
+                        if (GetTokens.this.mAccessToken != null) {
+                            if (GetTokens.this.mAccessToken.getStatus().equalsIgnoreCase("success")) {
+                                GetTokens.this.mPrefs.setStringInPref(KEY.ACCESS_TOKEN, GetTokens.this.mAccessToken.getResponse().getAccess_token());
+                                GetTokens.this.mPrefs.setStringInPref(KEY.REFRESH_TOKEN, GetTokens.this.mAccessToken.getResponse().getRefresh_token());
+                                GetTokens.this.mFetcherListener.finishedParsing(GetTokens.this.type);
                             } else {
-                                mFetcherListener.tokenError(mAuthCode.getError_message());
+                                GetTokens.this.mFetcherListener.tokenError(GetTokens.this.mAuthCode.getError_message());
                             }
                         } else {
-                            mFetcherListener.tokenError("Error in Server");
+                            GetTokens.this.mFetcherListener.tokenError("Error in Server");
                         }
 
                         return;
                     case TYPE.REFRESH:
                         // SAME AS GETACCESSTOKEN < GET REFRESH TOKEN FROM AccessToken
-                        SettersNGetters.setAccessToken(objectMapper.readValue(response, GetAccessToken.class));
-                        mAccessToken = SettersNGetters.getAccessToken();
+                        SettersNGetters.setAccessToken(GetTokens.objectMapper.readValue(response, GetAccessToken.class));
+                        GetTokens.this.mAccessToken = SettersNGetters.getAccessToken();
 
-                        if (mAccessToken != null) {
-                            if (mAccessToken.getStatus().equalsIgnoreCase("success")) {
-                                mPrefs.setStringInPref(KEY.ACCESS_TOKEN, mAccessToken.getResponse().getAccess_token());
-                                mFetcherListener.finishedParsing(type);
+                        if (GetTokens.this.mAccessToken != null) {
+                            if (GetTokens.this.mAccessToken.getStatus().equalsIgnoreCase("success")) {
+                                GetTokens.this.mPrefs.setStringInPref(KEY.ACCESS_TOKEN, GetTokens.this.mAccessToken.getResponse().getAccess_token());
+                                GetTokens.this.mFetcherListener.finishedParsing(GetTokens.this.type);
                             } else {
-                                getAuthToken();
-                                LogW(mAuthCode.getError_message());
+                                GetTokens.this.getAuthToken(); //XXX
+                                GetTokens.this.LogW(GetTokens.this.mAuthCode.getError_message());
                             }
                         } else {
-                            mFetcherListener.tokenError("Error in Server");
+                            GetTokens.this.mFetcherListener.tokenError("Error in Server");
                         }
                         return;
 
                     default:
-                        mFetcherListener.tokenError("Invalid Request");
+                        GetTokens.this.mFetcherListener.tokenError("Invalid Request");
                         return;
                 }
             }
-            catch (Exception e) {
-                mFetcherListener.ParsingException(e);
+            catch (final Exception e) {
+                GetTokens.this.mFetcherListener.ParsingException(e);
             }
         }
 
@@ -181,7 +179,7 @@ public class GetTokens {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            mFetcherListener.errorFetching(type, error);
+            GetTokens.this.mFetcherListener.errorFetching(GetTokens.this.type, error);
         }
 
     };
@@ -192,11 +190,11 @@ public class GetTokens {
      * @return JsonRequest
      */
 
-    private Request<?> getJSONRequest(String mURL, String body) {
+    private Request<?> getJSONRequest(String body, String mURL) {
         /**
          * JsonRequest
          */
-        JsonRequest<String> mJsonRequest = new JsonRequest<String>(Method.POST, mURL, body, response, errorListener) {
+        final JsonRequest<String> mJsonRequest = new JsonRequest<String>(Method.POST, mURL, body, this.response, this.errorListener) {
 
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
@@ -204,7 +202,7 @@ public class GetTokens {
                 try {
                     parsed = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
                 }
-                catch (UnsupportedEncodingException e) {
+                catch (final UnsupportedEncodingException e) {
                     parsed = new String(response.data);
                 }
                 return Response.success(parsed, HttpHeaderParser.parseCacheHeaders(response));
@@ -212,7 +210,7 @@ public class GetTokens {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<String, String>();
+                final HashMap<String, String> params = new HashMap<String, String>();
                 params.put(HEADERS.CONTENT_TYPE, HEADERS.JSON);
                 return params;
             }
@@ -220,10 +218,6 @@ public class GetTokens {
         };
 
         return mJsonRequest;
-    }
-
-    private String getUrl(String tokenType) {
-        return (BASE_URL + tokenType);
     }
 
     private String getBody(int mType) {
@@ -238,20 +232,20 @@ public class GetTokens {
                     break;
                 case TYPE.ACCESSTOKEN:
                     System.out.println("ACCESSTOKEN " + TYPE.ACCESSTOKEN);
-                    mJsonObject.put(STRING.AUTH, mPrefs.getStringInPref(KEY.AUTH_CODE));
+                    mJsonObject.put(STRING.AUTH, this.mPrefs.getStringInPref(KEY.AUTH_CODE));
                     break;
                 case TYPE.REFRESH:
                     System.out.println("REFRESH " + TYPE.REFRESH);
-                    mJsonObject.put(STRING.AUTH, mPrefs.getStringInPref(KEY.AUTH_CODE));
-                    mJsonObject.put(STRING.REFRESH, mPrefs.getStringInPref(KEY.REFRESH_TOKEN));
+                    mJsonObject.put(STRING.AUTH, this.mPrefs.getStringInPref(KEY.AUTH_CODE));
+                    mJsonObject.put(STRING.REFRESH, this.mPrefs.getStringInPref(KEY.REFRESH_TOKEN));
                     break;
             }
             return mJsonObject.toString();
         }
-        catch (JSONException e) {
+        catch (final JSONException e) {
             e.printStackTrace();
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             e.printStackTrace();
         }
         return null;

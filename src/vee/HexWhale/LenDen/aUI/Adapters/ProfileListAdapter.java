@@ -14,7 +14,6 @@
 
 package vee.HexWhale.LenDen.aUI.Adapters;
 
-import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -23,6 +22,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import vee.HexWhale.LenDen.R;
 
 public class ProfileListAdapter extends BaseAdapter {
 
@@ -56,7 +57,7 @@ public class ProfileListAdapter extends BaseAdapter {
         ViewHolder holder;
 
         if (convertView == null) {
-            LayoutInflater mInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater mInflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.search_list, null);
             holder = new ViewHolder();
             holder.sImg = (ImageView) convertView.findViewById(R.id.search_list_img);

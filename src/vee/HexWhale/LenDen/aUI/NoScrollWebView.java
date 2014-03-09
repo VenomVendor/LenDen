@@ -43,7 +43,7 @@ public class NoScrollWebView extends WebView {
     @Override
     protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
         super.onSizeChanged(width, height, oldWidth, oldHeight);
-        mViewSizeChanged.onSizeChanged(width, height, oldWidth, oldHeight);
+        this.mViewSizeChanged.onSizeChanged(width, height, oldWidth, oldHeight);
     }
 
     public interface WebViewSizeChanged {

@@ -14,10 +14,6 @@
 
 package vee.HexWhale.LenDen;
 
-import java.util.Locale;
-
-import vee.HexWhale.LenDen.aUI.MenuBar;
-import vee.HexWhale.LenDen.aUI.Adapters.PreviewAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +26,11 @@ import android.widget.TextView;
 
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
 
+import vee.HexWhale.LenDen.aUI.MenuBar;
+import vee.HexWhale.LenDen.aUI.Adapters.PreviewAdapter;
+
+import java.util.Locale;
+
 public class Preview extends MenuBar {
 
     ListView mListView;
@@ -37,27 +38,27 @@ public class Preview extends MenuBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.preview);
-        mListView = (ListView) findViewById(android.R.id.list);
-        PreviewAdapter adapter = new PreviewAdapter(this);
+        this.setContentView(R.layout.preview);
+        this.mListView = (ListView) this.findViewById(android.R.id.list);
+        final PreviewAdapter adapter = new PreviewAdapter(this);
 
         // SwingBottomInAnimationAdapter mScaleInAnimationAdapter = new
         // SwingBottomInAnimationAdapter(adapter, 110, 400);
         // ScaleInAnimationAdapter mScaleInAnimationAdapter = new
         // ScaleInAnimationAdapter(adapter, 0.5f, 110, 400);
 
-        SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
-        mScaleInAnimationAdapter.setAbsListView(mListView);
-        mListView.setAdapter(mScaleInAnimationAdapter);
+        final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+        mScaleInAnimationAdapter.setAbsListView(this.mListView);
+        this.mListView.setAdapter(mScaleInAnimationAdapter);
 
-        mListView.setOnItemClickListener(new OnItemClickListener() {
+        this.mListView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent mIntent = new Intent(getApplicationContext(), Detailed.class);
-                startActivity(mIntent);
-                AnimNext();
+                final Intent mIntent = new Intent(Preview.this.getApplicationContext(), Detailed.class);
+                Preview.this.startActivity(mIntent);
+                Preview.this.AnimNext();
             }
 
         });
@@ -68,27 +69,27 @@ public class Preview extends MenuBar {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mImgLeft = (ImageView) findViewById(R.id.menu_left);
-        mTextCenter = (TextView) findViewById(R.id.menu_center);
+        this.mImgLeft = (ImageView) this.findViewById(R.id.menu_left);
+        this.mTextCenter = (TextView) this.findViewById(R.id.menu_center);
 
-        mImgLeft.setVisibility(View.INVISIBLE);
-        mTextCenter.setText(("Home").toUpperCase(Locale.UK));
+        this.mImgLeft.setVisibility(View.INVISIBLE);
+        this.mTextCenter.setText(("Home").toUpperCase(Locale.UK));
 
     }
 
     @Override
     public void onBackPressed() {
         this.finish();
-        AnimPrev();
+        this.AnimPrev();
     }
 
     private void AnimPrev() {
-        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        this.overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 

@@ -14,9 +14,6 @@
 
 package vee.HexWhale.LenDen.aUI;
 
-import static vee.HexWhale.LenDen.Utils.Constants.menuclass;
-import vee.HexWhale.LenDen.R;
-import vee.HexWhale.LenDen.aUI.Adapters.MenuDrawerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -30,6 +27,10 @@ import android.widget.TextView;
 
 import com.agimind.widget.SlideHolder;
 
+import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Utils.Constants;
+import vee.HexWhale.LenDen.aUI.Adapters.MenuDrawerAdapter;
+
 public class MenuBar extends FragmentActivity {
 
     public RelativeLayout mRelLayTop;
@@ -42,29 +43,29 @@ public class MenuBar extends FragmentActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        initiateMenu();
+        this.initiateMenu();
     }
 
     private void initiateMenu() {
-        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
-        mRelLayTop = (RelativeLayout) findViewById(R.id.menu_lyt);
-        mImgRight = (ImageView) findViewById(R.id.menu_right);
-        mImgLeft = (ImageView) findViewById(R.id.menu_left);
-        mTextCenter = (TextView) findViewById(R.id.menu_center);
-        mDrawerList = (ListView) findViewById(R.id.menu_drawer);
-        mSlideHolder.setDirection(SlideHolder.DIRECTION_RIGHT);
-        mSlideHolder.setAllowInterceptTouch(false);
+        this.mSlideHolder = (SlideHolder) this.findViewById(R.id.slideHolder);
+        this.mRelLayTop = (RelativeLayout) this.findViewById(R.id.menu_lyt);
+        this.mImgRight = (ImageView) this.findViewById(R.id.menu_right);
+        this.mImgLeft = (ImageView) this.findViewById(R.id.menu_left);
+        this.mTextCenter = (TextView) this.findViewById(R.id.menu_center);
+        this.mDrawerList = (ListView) this.findViewById(R.id.menu_drawer);
+        this.mSlideHolder.setDirection(SlideHolder.DIRECTION_RIGHT);
+        this.mSlideHolder.setAllowInterceptTouch(false);
 
-        mDrawerList.setAdapter(new MenuDrawerAdapter(this));
+        this.mDrawerList.setAdapter(new MenuDrawerAdapter(this));
 
-        mDrawerList.setOnItemClickListener(new OnItemClickListener() {
+        this.mDrawerList.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                mSlideHolder.toggle();
-                startActivity(new Intent(getApplicationContext(), menuclass[position]));
-                AnimPrev();
+                MenuBar.this.mSlideHolder.toggle();
+                MenuBar.this.startActivity(new Intent(MenuBar.this.getApplicationContext(), Constants.menuclass[position]));
+                MenuBar.this.AnimPrev();
             }
         });
     }
@@ -72,22 +73,22 @@ public class MenuBar extends FragmentActivity {
     @Override
     public void onBackPressed() {
         this.finish();
-        AnimPrev();
+        this.AnimPrev();
     }
 
     private void AnimPrev() {
-        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     @SuppressWarnings("unused")
     private void AnimNext() {
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        this.overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
     public void ToggleMenu(View v) {
-        mSlideHolder.toggle();
+        this.mSlideHolder.toggle();
     }
 
 }

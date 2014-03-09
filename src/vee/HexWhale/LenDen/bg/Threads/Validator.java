@@ -14,10 +14,10 @@
 
 package vee.HexWhale.LenDen.bg.Threads;
 
+import android.widget.EditText;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import android.widget.EditText;
 
 /**
  * The Class Validator.
@@ -37,7 +37,7 @@ public class Validator {
         }
 
         final String emailAddress = editText.getText().toString();
-        final Pattern regexPattern = Pattern.compile(EmailPattern);
+        final Pattern regexPattern = Pattern.compile(Validator.EmailPattern);
         final Matcher regMatcher = regexPattern.matcher(emailAddress);
         if (regMatcher.matches()) {
             return "k";

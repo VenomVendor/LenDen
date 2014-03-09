@@ -14,11 +14,12 @@
 
 package vee.HexWhale.LenDen;
 
-import vee.HexWhale.LenDen.aUI.Adapters.MessagesFullAdapter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ListView;
+
+import vee.HexWhale.LenDen.aUI.Adapters.MessagesFullAdapter;
 
 public class MessagesFull extends FragmentActivity {
 
@@ -28,27 +29,27 @@ public class MessagesFull extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.messages_full);
-        mListView = (ListView) findViewById(android.R.id.list);
+        this.setContentView(R.layout.messages_full);
+        this.mListView = (ListView) this.findViewById(android.R.id.list);
 
-        MessagesFullAdapter adapter = new MessagesFullAdapter(this);
-        mListView.setAdapter(adapter);
+        final MessagesFullAdapter adapter = new MessagesFullAdapter(this);
+        this.mListView.setAdapter(adapter);
 
     }
 
     public void Finish(View v) {
-        finish();
-        AnimPrev();
+        this.finish();
+        this.AnimPrev();
     }
 
     @Override
     public void onBackPressed() {
         this.finish();
-        AnimPrev();
+        this.AnimPrev();
     }
 
     private void AnimPrev() {
-        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 

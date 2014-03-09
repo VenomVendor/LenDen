@@ -24,8 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="add items"
-        android:textAllCaps="true"
+        android:text="List an Item"
         android:textColor="@android:color/white"
         android:textSize="@dimen/menu_txt" />
 
