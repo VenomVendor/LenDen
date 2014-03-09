@@ -147,9 +147,9 @@ public class WalkThrough extends Activity {
                     }
                 });
             }
-        }, 3000, 3000, TimeUnit.MILLISECONDS);
+        }, 1000, 3000, TimeUnit.MILLISECONDS);
 
-        mRL.setOnTouchListener(new OnTouchListener() {
+        pager.setOnTouchListener(new OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -185,7 +185,14 @@ public class WalkThrough extends Activity {
     }
 
     private void shutDown() {
+
+        if (scheduleTaskExecutor.isShutdown())
+        {
+            return;
+        }
+
         this.scheduleTaskExecutor.shutdown();
+
     }
 
     private void AnimNext() {

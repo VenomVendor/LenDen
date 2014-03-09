@@ -3,8 +3,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="big_title">32sp</dimen>
-    <dimen name="big_text">23sp</dimen>
+    <dimen name="wt_big_title">20sp</dimen>
+    <dimen name="wt_big_text">16sp</dimen>
     <dimen name="signup_et_mrg_tp">4dp</dimen>
     <dimen name="signup_mrgs">20dp</dimen>
     <dimen name="login_right_mrgs">30dp</dimen>

@@ -10,10 +10,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/wt_pager_text"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="@dimen/big_title" />
+        android:textSize="@dimen/wt_big_title" />
 
     <TextView
         android:id="@+id/wt_pager_text"
@@ -21,9 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="@dimen/big_text" />
+        android:textSize="@dimen/wt_big_text" />
 
 </RelativeLayout>

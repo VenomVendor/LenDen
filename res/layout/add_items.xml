@@ -96,9 +96,18 @@
                 android:orientation="vertical"
                 android:padding="10dp" >
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="I am Interested in"
+                    android:textColor="@color/black"
+                    android:textSize="23sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:weightSum="3" >
 
                     <TextView
@@ -111,8 +120,7 @@
                         android:onClick="Sales"
                         android:padding="5dp"
                         android:singleLine="true"
-                        android:text="Sales"
-                        android:textAllCaps="true"
+                        android:text="SALES"
                         android:textColor="@color/white"
                         android:textSize="@dimen/add_item_tiny_menu" />
 
@@ -127,8 +135,7 @@
                         android:onClick="Exchage"
                         android:padding="5dp"
                         android:singleLine="true"
-                        android:text="Exchange"
-                        android:textAllCaps="true"
+                        android:text="EXCHANGE"
                         android:textColor="@color/white"
                         android:textSize="@dimen/add_item_tiny_menu" />
 
@@ -142,8 +149,7 @@
                         android:onClick="Both"
                         android:padding="5dp"
                         android:singleLine="true"
-                        android:text="Both"
-                        android:textAllCaps="true"
+                        android:text="BOTH"
                         android:textColor="@color/white"
                         android:textSize="@dimen/add_item_tiny_menu" />
                 </LinearLayout>
