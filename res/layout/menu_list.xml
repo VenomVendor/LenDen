@@ -11,4 +11,6 @@
     android:fadingEdge="none"
     android:listSelector="@android:color/transparent"
     android:paddingBottom="20dp"
-    android:paddingTop="20dp" />
+    android:paddingTop="20dp" 
+	android:clipToPadding="false"
+    android:scrollbarStyle="outsideOverlay"/>

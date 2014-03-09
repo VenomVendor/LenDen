@@ -14,8 +14,16 @@
 
 package vee.HexWhale.LenDen.bg.Threads;
 
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+
+import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
+import vee.HexWhale.LenDen.Utils.Constants.API.HEADERS;
+import vee.HexWhale.LenDen.Utils.Constants.KEY;
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -29,14 +37,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
-
-import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
-import vee.HexWhale.LenDen.Utils.Constants.API.HEADERS;
-import vee.HexWhale.LenDen.Utils.Constants.KEY;
-
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class GetDataFromUrl {
     static RequestQueue mQueue;
@@ -90,6 +90,9 @@ public class GetDataFromUrl {
      */
     private Request<?> getJSONRequest(String mURL, String body) {
 
+        LogO("``" + mURL + "``");
+        LogB("`*`" + body + "`*`");
+
         if (this.cancelOldRequests) {
             mQueue.cancelAll(this.activity);
             mQueue.cancelAll(new RequestQueue.RequestFilter() {
@@ -128,6 +131,7 @@ public class GetDataFromUrl {
                 }
                 params.put(HEADERS.CONTENT_TYPE, HEADERS.JSON);
 
+                LogO(params.toString());
                 return params;
             }
 
@@ -148,6 +152,7 @@ public class GetDataFromUrl {
         @Override
         public void onResponse(String response) {
             mFetcherListener.finishedFetching(type, response);
+            new StartBackgroundParsing(activity, GetDataFromUrl.this.type, mFetcherListener).execute(response);
         }
     };
 
@@ -158,8 +163,22 @@ public class GetDataFromUrl {
         Log.d(tag, msg);
     }
 
+    /**
+     * @param Orange
+     */
+    public void LogO(String msg) {
+        Log.v(tag, msg);
+    }
+
     public void setAccessToken() {
         this.accessToken = true;
+    }
+
+    /**
+     * @param text
+     */
+    private void ToastL(String text) {
+        Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
     /*******************************************************************/

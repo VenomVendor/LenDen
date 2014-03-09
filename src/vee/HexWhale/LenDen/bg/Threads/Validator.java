@@ -14,10 +14,10 @@
 
 package vee.HexWhale.LenDen.bg.Threads;
 
-import android.widget.EditText;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import android.widget.EditText;
 
 /**
  * The Class Validator.
@@ -27,23 +27,27 @@ public class Validator {
     /** The Email pattern. */
     private final static String EmailPattern = "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])$";
 
-    public static Boolean validateEmailAddress(String emailAddress) {
+    public static String isvalidEmail(final EditText editText) {
+        if (editText.length() < 1) {
+            return "Please provide an input";
+        }
 
-        /** The regex pattern. */
+        if (editText.getText().toString().contains(" ")) {
+            return "Input has space";
+        }
+
+        final String emailAddress = editText.getText().toString();
         final Pattern regexPattern = Pattern.compile(EmailPattern);
-
-        /** The reg matcher. */
         final Matcher regMatcher = regexPattern.matcher(emailAddress);
         if (regMatcher.matches()) {
-            return true;
+            return "k";
         }
-        return false;
+        return "Invalid Email";
     }
 
     public static final String hasMinChars(final EditText editText, final int minChars) {
-
         if (editText.length() < 1) {
-            return "Please Provide an Input";
+            return "Please provide an input";
         }
 
         if (editText.getText().toString().contains(" ")) {
@@ -53,8 +57,13 @@ public class Validator {
         if (editText.getText().toString().trim().length() >= minChars) {
             return "k";
         }
-
         return "Minimum " + minChars + " chars";
+    }
+
+    public static final boolean doesPasswordMatch(final EditText psw1, final EditText psw2) {
+
+        return psw1.getText().toString().equals(psw2.getText().toString());
+
     }
 
 }

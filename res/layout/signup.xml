@@ -53,7 +53,7 @@
                     android:layout_toRightOf="@+id/iv_n"
                     android:background="@android:color/transparent"
                     android:gravity="center_vertical"
-                    android:hint="@string/name"
+                    android:hint="@string/f_name"
                     android:minHeight="@dimen/signup_et_min_ht"
                     android:singleLine="true" />
             </RelativeLayout>
@@ -82,7 +82,7 @@
                     android:layout_toRightOf="@+id/iv_un"
                     android:background="@android:color/transparent"
                     android:gravity="center_vertical"
-                    android:hint="@string/username"
+                    android:hint="@string/l_name"
                     android:minHeight="@dimen/signup_et_min_ht"
                     android:singleLine="true" />
             </RelativeLayout>
@@ -188,9 +188,7 @@
                     android:id="@+id/iv_back"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
                     android:background="@drawable/signup_btn_bg"
-                    android:maxHeight="56dp"
                     android:onClick="Finish"
                     android:scaleType="fitXY"
                     android:src="@drawable/signup_back" />
@@ -201,11 +199,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/iv_back"
-                    android:adjustViewBounds="true"
                     android:background="@drawable/signup_btn_bg"
-                    android:maxHeight="56dp"
                     android:onClick="Validate"
                     android:src="@drawable/signup_proceed" />
+
+                <ProgressBar
+                    android:id="@+id/signup_progressbar"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/iv_proceed"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

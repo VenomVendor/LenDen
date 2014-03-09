@@ -24,6 +24,7 @@
     <!-- Location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -70,7 +71,10 @@
         <activity
             android:name="vee.HexWhale.LenDen.Login"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="vee.HexWhale.LenDen.Home" />
+        <activity
+            android:name="vee.HexWhale.LenDen.Home"
+            android:clearTaskOnLaunch="true"
+            android:launchMode="singleTask" />
         <activity android:name="vee.HexWhale.LenDen.Preview" />
         <activity android:name="vee.HexWhale.LenDen.EditProfile" />
         <activity android:name="vee.HexWhale.LenDen.Notifications" />

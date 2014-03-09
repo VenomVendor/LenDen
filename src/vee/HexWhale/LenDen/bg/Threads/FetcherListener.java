@@ -17,7 +17,37 @@ package vee.HexWhale.LenDen.bg.Threads;
 import com.android.volley.VolleyError;
 
 public interface FetcherListener {
+
+    /**
+     * Error Fetching
+     */
+    void errorFetching(int type, VolleyError error);
+
+    /**
+     * Finished Fetching
+     */
     void finishedFetching(int type, String response);
 
-    void errorFetching(int type, VolleyError error);
+    /**
+     * Before Parsing, Safe to Update UI
+     */
+    void beforeParsing(int type);
+
+    /**
+     * Started Parsing
+     * DO NOT UPDATE UI HERE
+     */
+    void startedParsing(int type);
+
+    /**
+     * Error Parsing
+     */
+    void ParsingException(Exception e);
+
+    /**
+     * Finished Parsing
+     */
+    void finishedParsing(int typ);
+
+    void tokenError(String tokenError);
 }

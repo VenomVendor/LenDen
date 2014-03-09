@@ -14,6 +14,9 @@
 
 package vee.HexWhale.LenDen;
 
+import java.util.Locale;
+
+import vee.HexWhale.LenDen.aUI.Adapters.MessagesAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -23,10 +26,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import vee.HexWhale.LenDen.aUI.Adapters.MessagesAdapter;
-
-import java.util.Locale;
 
 public class Messages extends FragmentActivity {
 

@@ -4,4 +4,6 @@
     android:layout_width="match_parent"
     android:dividerHeight="3dp"
     android:divider="#E1E1E1"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+	android:clipToPadding="false"
+    android:scrollbarStyle="outsideOverlay"	/>

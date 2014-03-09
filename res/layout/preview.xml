@@ -7,29 +7,29 @@
 
     <!-- Here is any view that will represent your side menu. Don't forget to provide width! -->
 
-   <include layout="@layout/menu_list" />
+    <include layout="@layout/menu_list" />
 
     <!-- And here is your main layout -->
 
     <LinearLayout
-        android:descendantFocusability="blocksDescendants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
         android:orientation="vertical" >
 
         <include layout="@layout/bar_menu" />
 
         <ListView
             android:id="@android:id/list"
-            android:layout_marginTop="2dp"
-            android:padding="0dp"
-            android:scrollbarStyle="outsideOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
             android:background="#EEE"
+            android:clipToPadding="false"
             android:divider="@android:color/transparent"
-            android:dividerHeight="2dp" >
-        </ListView>
+            android:dividerHeight="2dp"
+            android:padding="0dp"
+            android:scrollbarStyle="outsideOverlay" />
     </LinearLayout>
 
 </com.agimind.widget.SlideHolder>

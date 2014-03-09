@@ -14,6 +14,13 @@
 
 package vee.HexWhale.LenDen;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import vee.HexWhale.LenDen.aUI.Pagers.WalkThroughPager;
+import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
+import vee.HexWhale.LenDen.viewpagerindicator.PageIndicator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,14 +32,6 @@ import android.widget.RelativeLayout;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
-
-import vee.HexWhale.LenDen.aUI.Pagers.WalkThroughPager;
-import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
-import vee.HexWhale.LenDen.viewpagerindicator.PageIndicator;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class WalkThrough extends Activity {
 
@@ -159,6 +158,7 @@ public class WalkThrough extends Activity {
     public void Login(View v) {
         shutDown();
         startActivity(new Intent(getApplicationContext(), Login.class));
+        this.finish();
         AnimNext();
     }
 

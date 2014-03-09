@@ -14,15 +14,21 @@
 
 package vee.HexWhale.LenDen;
 
+import java.util.List;
+
+import vee.HexWhale.LenDen.aUI.MenuBar;
+import vee.HexWhale.LenDen.aUI.Fragments.HomeBackFragment;
+import vee.HexWhale.LenDen.aUI.Fragments.HomeFrontFragment;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-
-import vee.HexWhale.LenDen.aUI.MenuBar;
-import vee.HexWhale.LenDen.aUI.Fragments.HomeBackFragment;
-import vee.HexWhale.LenDen.aUI.Fragments.HomeFrontFragment;
 
 public class Home extends MenuBar implements FragmentManager.OnBackStackChangedListener {
     /**
@@ -98,4 +104,37 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
     public void ShowTop() {
         mView.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void onBackPressed() {
+        ActivityManager am = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
+        List<RunningTaskInfo> tasks = am.getRunningTasks(3); // 3 because we have to give it
+                                                             // something. This is an arbitrary
+                                                             // number
+        int activityCount = tasks.get(0).numActivities;
+        System.out.println("activityCount " + activityCount);
+
+        if (activityCount < 2) {
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(Home.this);
+            alertDialog.setMessage("Would you like to?");
+            alertDialog.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    return;
+                }
+            });
+
+            alertDialog.show();
+
+        }
+    }
+
 }

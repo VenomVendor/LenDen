@@ -14,6 +14,11 @@
 
 package vee.HexWhale.LenDen.aUI.Adapters;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -23,12 +28,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import vee.HexWhale.LenDen.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class MessagesFullAdapter extends BaseAdapter {
 

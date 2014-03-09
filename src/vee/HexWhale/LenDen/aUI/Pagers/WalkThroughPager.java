@@ -14,6 +14,7 @@
 
 package vee.HexWhale.LenDen.aUI.Pagers;
 
+import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -22,8 +23,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import vee.HexWhale.LenDen.R;
 
 public class WalkThroughPager extends PagerAdapter {
 

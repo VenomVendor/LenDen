@@ -14,12 +14,12 @@
 
 package vee.HexWhale.LenDen;
 
+import java.util.Locale;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
-
-import java.util.Locale;
 
 public class EditProfile extends FragmentActivity {
     @Override

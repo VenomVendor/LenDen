@@ -14,14 +14,13 @@
 
 package vee.HexWhale.LenDen.aUI.Adapters;
 
+import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
-import vee.HexWhale.LenDen.R;
 
 public class PreviewAdapter extends BaseAdapter {
 

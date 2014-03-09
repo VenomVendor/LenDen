@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
-import vee.HexWhale.LenDen.Parsers.Login.IsValidUserEmail;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
 
@@ -31,22 +30,25 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
     Activity activity;
     int type;
     private static ObjectMapper objectMapper = new ObjectMapper();
-    ParserListener mParserListener;
+    FetcherListener mFetcherListener;
+    GetTokens mTokens;
 
     /**
      * @param activity
      * @param type
      * @param mParserListener
      */
-    public StartBackgroundParsing(Activity activity, int type, ParserListener mParserListener) {
+    public StartBackgroundParsing(Activity activity, int type, FetcherListener mFetcherListener) {
         this.activity = activity;
         this.type = type;
-        this.mParserListener = mParserListener;
+        this.mFetcherListener = mFetcherListener;
+        mTokens = new GetTokens(activity, mFetcherListener);
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        mFetcherListener.beforeParsing(type);
         initObjectMappers();
     }
 
@@ -66,38 +68,50 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
     }
 
     private void parseString(String mParams) {
-
+        mFetcherListener.startedParsing(type);
         try {
             switch (type) {
                 case TYPE.AUTHORIZE:
                     SettersNGetters.setAuthCode(objectMapper.readValue(mParams, GetAuthCode.class));
+                    mTokens.getAccessToken();
+
                     break;
-                case TYPE.ISSUE:
+                case TYPE.ACCESSTOKEN:
                     SettersNGetters.setAccessToken(objectMapper.readValue(mParams, GetAccessToken.class));
                     break;
                 case TYPE.REFRESH:
-                    // SAME AS ABOVE RESULT< GET REFRESH TOKEN FROM AccessToken
+                    // SAME AS GETACCESSTOKEN < GET REFRESH TOKEN FROM AccessToken
                     SettersNGetters.setAccessToken(objectMapper.readValue(mParams, GetAccessToken.class));
                     break;
                 case TYPE.LOGIN_EMAIL:
-                    SettersNGetters.setValidUserEmail(objectMapper.readValue(mParams, IsValidUserEmail.class));
+                    // SAME AS GETACCESSTOKEN RESULT < GET LOGIN PARAMS FROM AccessToken
+                    SettersNGetters.setLoggedInViaEmail(objectMapper.readValue(mParams, GetAccessToken.class));
                     break;
-
+                case TYPE.REGISTER_EMAIL:
+                    // SAME AS GETACCESSTOKEN RESULT < GET REGISTER PARAMS FROM AccessToken
+                    SettersNGetters.setRegistered(objectMapper.readValue(mParams, GetAccessToken.class));
+                    break;
             }
         }
         catch (final Exception e) {
+            mFetcherListener.ParsingException(e);
             System.out.println("Exception");
             e.printStackTrace();
+
             SettersNGetters.setAuthCode(null);
             SettersNGetters.setAccessToken(null);
+            SettersNGetters.setLoggedInViaEmail(null);
+            SettersNGetters.setRegistered(null);
+
         }
 
+        return;
     }
 
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        mParserListener.finishedParsing(type);
+        mFetcherListener.finishedParsing(type);
     }
 
     @Override

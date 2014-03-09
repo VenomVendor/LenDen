@@ -14,37 +14,243 @@
 
 package vee.HexWhale.LenDen;
 
+import static vee.HexWhale.LenDen.Utils.Constants.API.BASE_URL;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
+import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
+import vee.HexWhale.LenDen.Storage.SettersNGetters;
+import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
+import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
+import vee.HexWhale.LenDen.Utils.Constants.API.URL;
+import vee.HexWhale.LenDen.Utils.Constants.KEY;
+import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
+import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
+import vee.HexWhale.LenDen.bg.Threads.TagGen;
+import vee.HexWhale.LenDen.bg.Threads.Validator;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
 
 public class SignUp extends FragmentActivity {
-
-    EditText mName, mUName, mMail, mPsw, mRePsw;
+    private String tag = "UNKNOWN";
+    int type = -1;
+    EditText mName, mLName, mMail, mPsw, mRePsw;
+    GlobalSharedPrefs mPrefs;
+    GetDataFromUrl mDataFromUrl;
+    GetAccessToken mAccessToken;
+    GetAccessToken isRegistered;
+    ProgressBar mBar;
+    ImageView buttonSignup;
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-
+    protected void onCreate(Bundle savedInstanceState) {
+        tag = TagGen.getTag(this.getClass());
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
-
         mName = (EditText) findViewById(R.id.signup_name);
-        mUName = (EditText) findViewById(R.id.signup_uname);
+        mLName = (EditText) findViewById(R.id.signup_uname);
         mMail = (EditText) findViewById(R.id.signup_email);
         mPsw = (EditText) findViewById(R.id.signup_psw);
         mRePsw = (EditText) findViewById(R.id.signup_repsw);
+        mBar = (ProgressBar) findViewById(R.id.signup_progressbar);
+
+        mName.setText("Android");
+        mLName.setText("Test");
+        mMail.setText("naa@naa.com");
+        mPsw.setText("qwerty");
+        mRePsw.setText("qwerty");
+
+        mPrefs = new GlobalSharedPrefs(this);
+        mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
+        if (mPrefs.getStringInPref(KEY.ACCESS_TOKEN) == null) {
+
+            System.out.println("FetchToken");
+            mDataFromUrl.GetString(TYPE.ACCESSTOKEN, getBody(TYPE.ACCESSTOKEN), getUrl(URL.ACCESSTOKEN));
+
+        }
 
     }
+
+    private String getBody(final int mType) {
+        JSONObject mJsonObject = null;
+        mJsonObject = new JSONObject();
+        try {
+            switch (mType) {
+
+                case TYPE.ACCESSTOKEN:
+                    System.out.println("ISSUE " + TYPE.ACCESSTOKEN);
+                    mJsonObject.put(STRING.AUTH, mPrefs.getStringInPref(KEY.AUTH_CODE));
+                    break;
+
+                case TYPE.REGISTER_EMAIL:
+                    System.out.println("REGISTER_EMAIL " + TYPE.REGISTER_EMAIL);
+                    mDataFromUrl.setAccessToken();
+                    mJsonObject.put(STRING.FIRSTNAME, mName.getText().toString());
+                    mJsonObject.put(STRING.LASTNAME, mLName.getText().toString());
+                    mJsonObject.put(STRING.EMAIL, mMail.getText().toString());
+                    mJsonObject.put(STRING.PASSWORD, mRePsw.getText().toString());
+                    break;
+
+            }
+            return mJsonObject.toString();
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private FetcherListener mFetcherListener = new FetcherListener() {
+
+        @Override
+        public void startedParsing(int type) {
+
+        }
+
+        @Override
+        public void finishedParsing(int typ) {
+
+            switch (typ) {
+                case TYPE.ACCESSTOKEN:
+                    mAccessToken = SettersNGetters.getAccessToken();
+
+                    if (mAccessToken != null) {
+                        if (mAccessToken.getStatus().equalsIgnoreCase("success")) {
+
+                            mPrefs.setStringInPref(KEY.ACCESS_TOKEN, mAccessToken.getResponse().getAccess_token());
+                            mPrefs.setStringInPref(KEY.REFRESH_TOKEN, mAccessToken.getResponse().getRefresh_token());
+                            LogBlk("AccessToken " + mAccessToken.getResponse().getAccess_token());
+                            LogBlk("AccessToken's RefreshToken  " + mAccessToken.getResponse().getRefresh_token());
+
+                        } else {
+                            ToastL("Error : " + mAccessToken.getError_message());
+                        }
+                    } else {
+                        ToastL("{ ERROR }");
+                    }
+                    break;
+
+                case TYPE.REGISTER_EMAIL:
+                    isRegistered = SettersNGetters.isRegistered();
+
+                    if (isRegistered != null) {
+                        if (isRegistered.getStatus().equalsIgnoreCase("success")) {
+
+                            ToastL("Registered Successfully");
+                            finish();
+                            AnimNext();
+
+                        } else {
+                            ToastL("Error : " + isRegistered.getError_message());
+                        }
+                    } else {
+                        ToastL("{ SERVER ERROR }");
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+        @Override
+        public void finishedFetching(int type, String response) {
+            buttonSignup.setEnabled(true);
+            buttonSignup.setImageResource(R.drawable.signup_proceed);
+            mBar.setVisibility(View.GONE);
+            LogR("+++" + response.toString());
+        }
+
+        @Override
+        public void errorFetching(int type, VolleyError error) {
+            buttonSignup.setEnabled(true);
+            buttonSignup.setImageResource(R.drawable.signup_proceed);
+            mBar.setVisibility(View.GONE);
+            SignUp.this.type = type;
+            try {
+                error.printStackTrace();
+                LogR("---" + "Error");
+            }
+            finally {
+                ToastL("{ UNKNOWN ERROR }");
+                ToastL("Check yout internet connectivity.");
+            }
+        }
+
+        @Override
+        public void beforeParsing(int type) {
+
+        }
+
+        @Override
+        public void ParsingException(Exception e) {
+
+        }
+
+        @Override
+        public void tokenError(String tokenError) {
+            // TODO Auto-generated method stub
+
+        }
+    };
 
     public void Finish(View v) {
         finish();
-        AnimNext();
+        AnimPrev();
     }
 
     public void Validate(View v) {
-        finish();
-        AnimNext();
+
+        if (!Validator.hasMinChars(mName, 4).equals("k")) {
+            mName.setError(Validator.hasMinChars(mName, 4));
+            return;
+        }
+        if (!Validator.hasMinChars(mLName, 1).equals("k")) {
+            mLName.setError(Validator.hasMinChars(mLName, 1));
+            return;
+        }
+        if (!Validator.isvalidEmail(mMail).equals("k")) {
+            mMail.setError(Validator.isvalidEmail(mMail));
+            return;
+        }
+        if (!Validator.hasMinChars(mPsw, 6).equals("k")) {
+            mPsw.setError(Validator.hasMinChars(mPsw, 6));
+            return;
+        }
+
+        if (!Validator.hasMinChars(mRePsw, 1).equals("k")) {
+            mRePsw.setError("Password doesn't match");
+            return;
+        }
+
+        if (!Validator.doesPasswordMatch(mPsw, mRePsw)) {
+            mRePsw.setError("Password doesn't match");
+            return;
+        }
+
+        this.buttonSignup = (ImageView) v;
+
+        buttonSignup.setImageResource(0);
+
+        buttonSignup.setEnabled(false);
+
+        mBar.setVisibility(View.VISIBLE);
+
+        mDataFromUrl.GetString(TYPE.REGISTER_EMAIL, getBody(TYPE.REGISTER_EMAIL), getUrl(URL.REGISTER_EMAIL));
     }
 
     @Override
@@ -63,4 +269,39 @@ public class SignUp extends FragmentActivity {
         return;
     }
 
+    /*******************************************************************/
+
+    private String getUrl(String tokenType) {
+        return (BASE_URL + tokenType);
+    }
+
+    /**
+     * @param RED
+     */
+    public void LogR(String msg) {
+        Log.wtf(tag, msg);
+    }
+
+    /**
+     * @param Black
+     */
+    public void LogBlk(String msg) {
+        Log.v(tag, msg);
+    }
+
+    /**
+     * @param text
+     */
+    private void ToastL(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * @param text
+     */
+    private void ToastS(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    /*******************************************************************/
 }

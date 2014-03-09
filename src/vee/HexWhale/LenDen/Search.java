@@ -14,6 +14,9 @@
 
 package vee.HexWhale.LenDen;
 
+import java.util.Locale;
+
+import vee.HexWhale.LenDen.aUI.Adapters.SearchListAdapter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -32,10 +35,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
-
-import vee.HexWhale.LenDen.aUI.Adapters.SearchListAdapter;
-
-import java.util.Locale;
 
 public class Search extends FragmentActivity {
     GoogleMap map = null;

@@ -14,6 +14,10 @@
 
 package vee.HexWhale.LenDen.aUI.Fragments;
 
+import vee.HexWhale.LenDen.Home;
+import vee.HexWhale.LenDen.Preview;
+import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.aUI.Adapters.HomeGridAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,11 +43,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
-
-import vee.HexWhale.LenDen.Home;
-import vee.HexWhale.LenDen.Preview;
-import vee.HexWhale.LenDen.R;
-import vee.HexWhale.LenDen.aUI.Adapters.HomeGridAdapter;
 
 /**
  * A fragment representing the back of the card.

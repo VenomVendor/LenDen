@@ -37,6 +37,8 @@ public final class Constants {
             public final static String REFRESH = "refresh_token";
             public final static String EMAIL = "email";
             public final static String PASSWORD = "password";
+            public final static String FIRSTNAME = "first_name";
+            public final static String LASTNAME = "last_name";
 
         }
 
@@ -50,7 +52,7 @@ public final class Constants {
 
         public final static class URL {
             public final static String AUTHORIZE = "tokens/authorize/";
-            public final static String ISSUE = "tokens/issue/";
+            public final static String ACCESSTOKEN = "tokens/issue/";
             public final static String REFRESH = "tokens/refresh/";
             public final static String REGISTER_EMAIL = "users/register/email/";
             public final static String REGISTER_FB = "users/register/facebook/";
@@ -61,9 +63,10 @@ public final class Constants {
 
         public final static class TYPE {
             public final static int AUTHORIZE = 1;
-            public final static int ISSUE = 2;
+            public final static int ACCESSTOKEN = 2;
             public final static int REFRESH = 3;
             public final static int LOGIN_EMAIL = 4;
+            public final static int REGISTER_EMAIL = 5;
         }
 
     }

@@ -14,6 +14,12 @@
 
 package vee.HexWhale.LenDen;
 
+import java.util.Locale;
+
+import vee.HexWhale.LenDen.aUI.NoScrollWebView;
+import vee.HexWhale.LenDen.aUI.NoScrollWebView.WebViewSizeChanged;
+import vee.HexWhale.LenDen.aUI.Pagers.DetailedPager;
+import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -30,13 +36,6 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import vee.HexWhale.LenDen.aUI.NoScrollWebView;
-import vee.HexWhale.LenDen.aUI.NoScrollWebView.WebViewSizeChanged;
-import vee.HexWhale.LenDen.aUI.Pagers.DetailedPager;
-import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
-
-import java.util.Locale;
 
 public class Detailed extends FragmentActivity implements WebViewSizeChanged {
     NoScrollWebView mWebView;

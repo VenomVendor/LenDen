@@ -14,13 +14,12 @@
 
 package vee.HexWhale.LenDen.Storage;
 
+import vee.HexWhale.LenDen.Utils.Constants.KEY;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-
-import vee.HexWhale.LenDen.Utils.Constants.KEY;
 
 public class GlobalSharedPrefs {
 

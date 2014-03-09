@@ -86,6 +86,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:hint="@string/password"
+                android:inputType="textPassword"
                 android:minHeight="@dimen/signup_et_min_ht"
                 android:paddingRight="50dp"
                 android:singleLine="true" />

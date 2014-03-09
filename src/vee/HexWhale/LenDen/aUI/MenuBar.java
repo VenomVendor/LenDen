@@ -15,7 +15,8 @@
 package vee.HexWhale.LenDen.aUI;
 
 import static vee.HexWhale.LenDen.Utils.Constants.menuclass;
-
+import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.aUI.Adapters.MenuDrawerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -28,9 +29,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.agimind.widget.SlideHolder;
-
-import vee.HexWhale.LenDen.R;
-import vee.HexWhale.LenDen.aUI.Adapters.MenuDrawerAdapter;
 
 public class MenuBar extends FragmentActivity {
 

@@ -14,6 +14,10 @@
 
 package vee.HexWhale.LenDen;
 
+import java.util.Locale;
+
+import vee.HexWhale.LenDen.aUI.MenuBar;
+import vee.HexWhale.LenDen.aUI.Adapters.PreviewAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,11 +29,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
-
-import vee.HexWhale.LenDen.aUI.MenuBar;
-import vee.HexWhale.LenDen.aUI.Adapters.PreviewAdapter;
-
-import java.util.Locale;
 
 public class Preview extends MenuBar {
 

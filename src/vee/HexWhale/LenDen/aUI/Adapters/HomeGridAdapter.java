@@ -16,6 +16,9 @@ package vee.HexWhale.LenDen.aUI.Adapters;
 
 import static vee.HexWhale.LenDen.Utils.Constants.gridImages;
 
+import java.io.File;
+
+import vee.HexWhale.LenDen.R;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -35,10 +38,6 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-
-import vee.HexWhale.LenDen.R;
-
-import java.io.File;
 
 public class HomeGridAdapter extends BaseAdapter {
     Activity sActivity;

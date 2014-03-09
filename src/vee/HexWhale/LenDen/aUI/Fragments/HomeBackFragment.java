@@ -14,6 +14,9 @@
 
 package vee.HexWhale.LenDen.aUI.Fragments;
 
+import vee.HexWhale.LenDen.Preview;
+import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.aUI.Adapters.HomeGridAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,10 +29,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
-
-import vee.HexWhale.LenDen.Preview;
-import vee.HexWhale.LenDen.R;
-import vee.HexWhale.LenDen.aUI.Adapters.HomeGridAdapter;
 
 /**
  * A fragment representing the front of the card.

@@ -14,12 +14,11 @@
 
 package vee.HexWhale.LenDen;
 
+import vee.HexWhale.LenDen.aUI.Adapters.MessagesFullAdapter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ListView;
-
-import vee.HexWhale.LenDen.aUI.Adapters.MessagesFullAdapter;
 
 public class MessagesFull extends FragmentActivity {
 

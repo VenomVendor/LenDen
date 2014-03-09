@@ -16,13 +16,13 @@ package vee.HexWhale.LenDen.Storage;
 
 import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
-import vee.HexWhale.LenDen.Parsers.Login.IsValidUserEmail;
 
 public class SettersNGetters {
 
     private static GetAuthCode authCode;
     private static GetAccessToken accessToken;
-    private static IsValidUserEmail email;
+    private static GetAccessToken isLoggedInEmail;
+    private static GetAccessToken isRegistered;
 
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
@@ -40,12 +40,20 @@ public class SettersNGetters {
         SettersNGetters.accessToken = accessToken;
     }
 
-    public static IsValidUserEmail getValidUserEmail() {
-        return email;
+    public static GetAccessToken isLoggedInViaEmail() {
+        return isLoggedInEmail;
     }
 
-    public static void setValidUserEmail(IsValidUserEmail email) {
-        SettersNGetters.email = email;
+    public static void setLoggedInViaEmail(GetAccessToken email) {
+        SettersNGetters.isLoggedInEmail = email;
+    }
+
+    public static GetAccessToken isRegistered() {
+        return isRegistered;
+    }
+
+    public static void setRegistered(GetAccessToken isRegistered) {
+        SettersNGetters.isRegistered = isRegistered;
     }
 
 }

@@ -175,8 +175,8 @@
             android:divider="#EEE"
             android:dividerHeight="2dp"
             android:padding="0dp"
-            android:scrollbarStyle="outsideOverlay" >
-        </ListView>
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"/>
     </LinearLayout>
 
 </com.agimind.widget.SlideHolder>
