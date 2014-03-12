@@ -50,8 +50,16 @@ public final class Constants {
             public final static String LASTNAME = "last_name";
             public final static String SUCCESS = "success";
             public final static String FAILED = "failed";
+            public final static String PAGE = "page";
+            public final static String OFFSET = "offset";
+            public final static String CATEGORY_ID = "category_id";
 
 
+        }
+
+        public final static class IMAGEURL {
+            public final static String ICON = "/icon/";
+            public final static String PICTURE = "/picture/";
         }
 
         public final static class URL {
@@ -64,11 +72,9 @@ public final class Constants {
             public final static String LOGIN_FB = "users/login/facebook/";
             public final static String LOGOUT = "users/logout/";
             public final static String CATEGORIES = "categories/";
-        }
+            public final static String ITEM_CATEGORIES = "items/category/";
+            public final static String ITEM_SUBCATEGORY = "items/subcategory/";
 
-        public final static class IMAGEURL {
-            public final static String ICON = "/icon/";
-            public final static String PICTURE = "/picture/";
         }
 
         public final static class TYPE {
@@ -81,6 +87,8 @@ public final class Constants {
             public final static int LOGIN_FB = 7;
             public final static int LOGOUT = 8;
             public final static int CATEGORIES = 9;
+            public final static int ITEM_CATEGORIES = 10;
+            public final static int ITEM_SUBCATEGORY = 11;
         }
 
     }

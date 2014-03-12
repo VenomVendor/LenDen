@@ -73,7 +73,6 @@ public class SignUp extends FragmentActivity {
         this.mPrefs = new GlobalSharedPrefs(this);
         this.mDataFromUrl = new GetDataFromUrl(this, this.mFetcherListener);
         if (this.mPrefs.getStringInPref(KEY.ACCESS_TOKEN) == null) {
-
             System.out.println("FetchToken");
             this.mDataFromUrl.GetString(TYPE.ACCESSTOKEN, this.getBody(TYPE.ACCESSTOKEN), GetData.getUrl(URL.ACCESSTOKEN));
 

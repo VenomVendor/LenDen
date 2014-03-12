@@ -18,6 +18,7 @@ package vee.HexWhale.LenDen.Storage;
 import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
 import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
+import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 
 public class SettersNGetters {
 
@@ -26,6 +27,7 @@ public class SettersNGetters {
     private static GetAccessToken isLoggedInEmail;
     private static GetAccessToken isRegistered;
     private static GetCategory category;
+    private static GetItemCategory itemCategory;
 
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
@@ -65,6 +67,14 @@ public class SettersNGetters {
 
     public static void setCategory(GetCategory category) {
         SettersNGetters.category = category;
+    }
+
+    public static GetItemCategory getItemCategory() {
+        return itemCategory;
+    }
+
+    public static void setItemCategory(GetItemCategory itemCategory) {
+        SettersNGetters.itemCategory = itemCategory;
     }
 
 }

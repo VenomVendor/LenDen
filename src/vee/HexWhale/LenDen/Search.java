@@ -59,7 +59,8 @@ public class Search extends FragmentActivity {
         this.setContentView(R.layout.search);
 
         ((TextView) this.findViewById(R.id.menu_center)).setText(("search").toUpperCase(Locale.UK));
-        ((ImageView) this.findViewById(R.id.menu_right)).setImageResource(R.drawable.filter);
+        //((ImageView) this.findViewById(R.id.menu_right)).setImageResource(R.drawable.filter);
+        ((ImageView) this.findViewById(R.id.menu_right)).setVisibility(View.INVISIBLE);
 
         this.latlon = new LatLng(this.latitude, this.longitude);
         this.setUpMapIfNeeded(); // Required to check the availability of Maps

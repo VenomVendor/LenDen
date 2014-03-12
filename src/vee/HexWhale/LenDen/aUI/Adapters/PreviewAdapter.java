@@ -22,19 +22,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 
 public class PreviewAdapter extends BaseAdapter {
 
     Activity sActivity;
+    GetItemCategory mItemCategory;
 
     public PreviewAdapter(Activity activity) {
         this.sActivity = activity;
     }
 
+    public PreviewAdapter(Activity activity, GetItemCategory mItemCategory) {
+        this.sActivity = activity;
+        this.mItemCategory = mItemCategory;
+    }
+
     @Override
     public int getCount() {
 
-        return 100;
+        return mItemCategory.getResponse().getItems().size();
     }
 
     @Override

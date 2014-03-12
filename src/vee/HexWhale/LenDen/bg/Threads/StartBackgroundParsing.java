@@ -28,6 +28,7 @@ import java.util.Locale;
 import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
 import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
+import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
@@ -112,25 +113,33 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
                     // SAME AS GETACCESSTOKEN RESULT < GET LOGIN PARAMS FROM
                     // AccessToken
                     SettersNGetters.setLoggedInViaEmail(StartBackgroundParsing.objectMapper.readValue(mParams, GetAccessToken.class));
+
+                    isValidToken(SettersNGetters.isLoggedInViaEmail().getError_code());
                     break;
                 case TYPE.REGISTER_EMAIL:
                     // SAME AS GETACCESSTOKEN RESULT < GET REGISTER PARAMS FROM
                     // AccessToken
                     SettersNGetters.setRegistered(StartBackgroundParsing.objectMapper.readValue(mParams, GetAccessToken.class));
+
+                    isValidToken(SettersNGetters.isRegistered().getError_code());
+
+
                     break;
 
                 case TYPE.CATEGORIES:
                     SettersNGetters.setCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetCategory.class));
 
-                    if (SettersNGetters.getCategory().getError_code() != null)
-                    {
-                        if (SettersNGetters.getCategory().getError_code().toLowerCase(Locale.ENGLISH).contains("token"))
-                        {
-                            mTokens.refreshToken();
-                        }
-                    }
+                    isValidToken(SettersNGetters.getCategory().getError_code());
+
 
                     break;
+
+                case TYPE.ITEM_CATEGORIES:
+                    SettersNGetters.setItemCategory(objectMapper.readValue(mParams, GetItemCategory.class));
+
+                    isValidToken(SettersNGetters.getItemCategory().getError_code());
+
+
             }
         }
         catch (final Exception e) {
@@ -143,9 +152,20 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
             SettersNGetters.setLoggedInViaEmail(null);
             SettersNGetters.setRegistered(null);
             SettersNGetters.setCategory(null);
+            SettersNGetters.setItemCategory(null);
         }
 
         return;
+    }
+
+    private void isValidToken(String error_code) {
+        if (error_code != null)
+        {
+            if (error_code.toLowerCase(Locale.ENGLISH).contains("token"))
+            {
+                mTokens.refreshToken();
+            }
+        }
     }
 
     @Override

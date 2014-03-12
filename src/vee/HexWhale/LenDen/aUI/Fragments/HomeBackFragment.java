@@ -31,8 +31,11 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 
+import java.util.List;
+
 import vee.HexWhale.LenDen.Preview;
 import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Parsers.Categories.Response;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
@@ -51,6 +54,8 @@ public class HomeBackFragment extends Fragment {
     GridView mGridView;
     GetDataFromUrl mDataFromUrl;
     private String tag = "UNKNOWN";
+
+    List<Response> resposne = SettersNGetters.getCategory().getResponse();
 
     public HomeBackFragment() {
         this.setRetainInstance(true);
@@ -123,7 +128,7 @@ public class HomeBackFragment extends Fragment {
 
             if (SettersNGetters.getCategory().getStatus().equalsIgnoreCase(STRING.SUCCESS))
             {
-                final HomeGridAdapter adapter = new HomeGridAdapter(sActivity, SettersNGetters.getCategory().getResponse());
+                final HomeGridAdapter adapter = new HomeGridAdapter(sActivity, resposne);
                 final SwingBottomInAnimationAdapter mScaleInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter, 110, 400);
                 mScaleInAnimationAdapter.setAbsListView(mGridView);
                 mGridView.setOnItemClickListener(new OnItemClickListener() {
@@ -132,6 +137,8 @@ public class HomeBackFragment extends Fragment {
                     public void onItemClick(AdapterView<?> adapter, View parent, int position, long id) {
 
                         final Intent i = new Intent(HomeBackFragment.this.getActivity(), Preview.class);
+
+                        i.putExtra("cate_id", resposne.get(position).getCategory_id());
                         HomeBackFragment.this.startActivity(i);
                         HomeBackFragment.this.AnimNext();
 
