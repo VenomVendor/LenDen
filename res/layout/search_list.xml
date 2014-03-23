@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minWidth="@dimen/search_list_img_min"
     android:orientation="horizontal"
     tools:ignore="ContentDescription,HardcodedText" >
 
@@ -13,8 +14,9 @@
         android:adjustViewBounds="true"
         android:focusable="false"
         android:maxWidth="@dimen/search_list_img_max"
+        android:minWidth="@dimen/search_list_img_min"
         android:padding="2dp"
-        android:src="@drawable/bp5_crop5" />
+        android:src="@drawable/noimage" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -89,30 +91,19 @@
                     android:id="@+id/search_list_fav"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="2dp"
+                    android:drawablePadding="1dp"
                     android:drawableStart="@drawable/small_fav"
                     android:text="05"
                     android:textColor="@color/list_txt"
                     android:textSize="@dimen/search_list_extras" />
 
                 <TextView
-                    android:id="@+id/search_list_cmt"
+                    android:id="@+id/search_list_lik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:drawablePadding="2dp"
-                    android:drawableStart="@drawable/small_cmt"
-                    android:text="10"
-                    android:textColor="@color/list_txt"
-                    android:textSize="@dimen/search_list_extras" />
-
-                <TextView
-                    android:id="@+id/search_list_str"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:drawablePadding="2dp"
-                    android:drawableStart="@drawable/small_str"
+                    android:drawablePadding="1dp"
+                    android:drawableStart="@drawable/small_like"
                     android:text="03"
                     android:textColor="@color/list_txt"
                     android:textSize="@dimen/search_list_extras" />

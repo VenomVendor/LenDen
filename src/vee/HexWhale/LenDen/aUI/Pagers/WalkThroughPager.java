@@ -37,7 +37,7 @@ public class WalkThroughPager extends PagerAdapter {
     };
 
     public WalkThroughPager(Activity act) {
-        this.sActivity = act;
+        sActivity = act;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class WalkThroughPager extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        final LayoutInflater inflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         final View v = inflater.inflate(R.layout.walkthrough_pager, null);
 

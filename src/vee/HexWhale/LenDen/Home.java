@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -49,30 +50,31 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.home);
-        this.mView = this.findViewById(R.id.menuinc);
+        mView = findViewById(R.id.menuinc);
 
         if (savedInstanceState == null) {
-            this.getSupportFragmentManager().beginTransaction().add(R.id.container, new HomeFrontFragment()).commit();
-        } else {
-            this.mShowingBack = (this.getSupportFragmentManager().getBackStackEntryCount() > 0);
+            getSupportFragmentManager().beginTransaction().add(R.id.container, new HomeFrontFragment()).commit();
+        }
+        else {
+            mShowingBack = (getSupportFragmentManager().getBackStackEntryCount() > 0);
         }
 
-        this.getSupportFragmentManager().addOnBackStackChangedListener(this);
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
     }
 
     public void FlipView(View v) {
-        this.flipCard();
+        flipCard();
 
     }
 
     private void flipCard() {
-        if (this.mShowingBack) {
-            this.getSupportFragmentManager().popBackStack();
+        if (mShowingBack) {
+            getSupportFragmentManager().popBackStack();
             return;
         }
-        this.mShowingBack = true;
+        mShowingBack = true;
 
-        final FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         ft.replace(R.id.container, new HomeBackFragment());
         ft.addToBackStack(null);
@@ -84,7 +86,7 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
         // R.animator.fragment_slide_right_enter,
         // R.animator.fragment_slide_right_exit);
 
-        this.mHandler.post(new Runnable() {
+        mHandler.post(new Runnable() {
             @Override
             public void run() {
                 Home.this.supportInvalidateOptionsMenu();
@@ -94,22 +96,24 @@ public class Home extends MenuBar implements FragmentManager.OnBackStackChangedL
 
     @Override
     public void onBackStackChanged() {
-        this.mShowingBack = (this.getSupportFragmentManager().getBackStackEntryCount() > 0);
-        this.supportInvalidateOptionsMenu();
+        mShowingBack = (getSupportFragmentManager().getBackStackEntryCount() > 0);
+        supportInvalidateOptionsMenu();
     }
 
     public void HideTop() {
-        this.mView.setVisibility(View.GONE);
+        mView.setVisibility(View.GONE);
     }
 
     public void ShowTop() {
-        this.mView.setVisibility(View.VISIBLE);
+        mView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onBackPressed() {
-        final ActivityManager am = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
-        final List<RunningTaskInfo> tasks = am.getRunningTasks(3); // 3 because we have to give it
+        final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        final List<RunningTaskInfo> tasks = am.getRunningTasks(3); // 3 because
+        // we have to
+        // give it
         // something. This is an arbitrary
         // number
         final int activityCount = tasks.get(0).numActivities;

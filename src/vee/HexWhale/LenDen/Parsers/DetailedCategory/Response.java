@@ -1,7 +1,7 @@
 /**
  * ***Copyright(c) : 2014-Present, VenomVendor.***
  * Author : VenomVendor
- * Dated : 12 Mar, 2014 11:54:57 PM
+ * Dated : 24 Mar, 2014 1:37:30 AM
  * Project : LenDen-Android
  * Client : LenDen
  * Contact : info@VenomVendor.com
@@ -13,7 +13,7 @@
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
-package vee.HexWhale.LenDen.Parsers.ItemCategory;
+package vee.HexWhale.LenDen.Parsers.DetailedCategory;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 /**
  * ***Copyright(c) : 2014-Present, VenomVendor.***
  * Author : VenomVendor
- * Dated : 6 Mar, 2014 1:10:22 AM
+ * Dated : 24 Mar, 2014 1:36:48 AM
  * Project : LenDen-Android
  * Client : LenDen
  * Contact : info@VenomVendor.com
@@ -13,9 +13,9 @@
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
-package vee.HexWhale.LenDen.Parsers.AuthCode;
+package vee.HexWhale.LenDen.Parsers.DetailedCategory;
 
-public class GetAuthCode {
+public class GetDetailedCategory {
     private String error_code;
     private String error_message;
     private Response response;

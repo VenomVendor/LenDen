@@ -52,14 +52,14 @@ public class HomeGridAdapter extends BaseAdapter {
     List<Response> response;
 
     public HomeGridAdapter(Activity activity) {
-        this.sActivity = activity;
-        this.initilizeImageCache();
+        sActivity = activity;
+        initilizeImageCache();
     }
 
     public HomeGridAdapter(Activity activity, List<Response> response) {
-        this.sActivity = activity;
+        sActivity = activity;
         this.response = response;
-        this.initilizeImageCache();
+        initilizeImageCache();
     }
 
     @Override
@@ -87,7 +87,7 @@ public class HomeGridAdapter extends BaseAdapter {
         // View sView = convertView;
         ViewHolder holder;
         if (convertView == null) {
-            final LayoutInflater layoutInflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater layoutInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.home_grid, null);
             holder = new ViewHolder();
             holder.imView = (ImageView) convertView.findViewById(R.id.home_frnt_grid_img);
@@ -110,23 +110,23 @@ public class HomeGridAdapter extends BaseAdapter {
     }
 
     private void initilizeImageCache() {
-        this.options = new DisplayImageOptions.Builder().showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
+        options = new DisplayImageOptions.Builder().showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)
                 .resetViewBeforeLoading(true).cacheInMemory(true).cacheOnDisc(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .bitmapConfig(Bitmap.Config.RGB_565).displayer(new RoundedBitmapDisplayer(10)).displayer(new FadeInBitmapDisplayer(0)).build();
 
-        final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.sActivity.getApplicationContext())
-                .defaultDisplayImageOptions(this.options)
-                .threadPriority(Thread.NORM_PRIORITY).threadPoolSize(3).denyCacheImageMultipleSizesInMemory()
-                .discCache(new UnlimitedDiscCache(this.cacheDir))
-                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.FIFO).writeDebugLogs() // TODO
-                // Remove
-                // for
-                // release
-                // app
-                .build();
+        final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(sActivity.getApplicationContext())
+        .defaultDisplayImageOptions(options)
+        .threadPriority(Thread.NORM_PRIORITY).threadPoolSize(3).denyCacheImageMultipleSizesInMemory()
+        .discCache(new UnlimitedDiscCache(cacheDir))
+        // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+        .tasksProcessingOrder(QueueProcessingType.FIFO).writeDebugLogs() // TODO
+        // Remove
+        // for
+        // release
+        // app
+        .build();
         ImageLoader.getInstance().init(config); // Do it on Application start
-        this.imageLoader = ImageLoader.getInstance();
+        imageLoader = ImageLoader.getInstance();
     }
 
     private static class ViewHolder {

@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -32,45 +33,46 @@ public class Notifications extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.notifications);
-        this.mTitle = (TextView) this.findViewById(R.id.menu_center);
-        this.mTitle.setText("SETTINGS");
+        mTitle = (TextView) findViewById(R.id.menu_center);
+        mTitle.setText("SETTINGS");
         // mOk = (ImageView) findViewById(R.id.menu_right);
         // mOk.setBackgroundResource(0);
         // mOk.setImageResource(0);
     }
 
     public void Finish(View v) {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     public void Submit(View v) {
-        this.finish();
-        this.AnimNext();
+        finish();
+        AnimNext();
     }
 
     @Override
     public void onBackPressed() {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     private void AnimPrev() {
-        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
     public void Noti(View view) {
 
-        if (this.toggleImage((ImageView) view)) {
-            this.ToastL("Enable Notification");
-        } else {
-            this.ToastL("Disable Notification");
+        if (toggleImage((ImageView) view)) {
+            ToastL("Enable Notification");
+        }
+        else {
+            ToastL("Disable Notification");
         }
     }
 
@@ -79,7 +81,8 @@ public class Notifications extends FragmentActivity {
             imv.setImageResource(R.drawable.notification_off);
             imv.setTag("off");
             return false;
-        } else {
+        }
+        else {
             imv.setImageResource(R.drawable.notification_on);
             imv.setTag("on");
             return true;
@@ -87,7 +90,7 @@ public class Notifications extends FragmentActivity {
     }
 
     private void ToastL(String text) {
-        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -58,61 +59,63 @@ public class Search extends FragmentActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.search);
 
-        ((TextView) this.findViewById(R.id.menu_center)).setText(("search").toUpperCase(Locale.UK));
-        //((ImageView) this.findViewById(R.id.menu_right)).setImageResource(R.drawable.filter);
-        ((ImageView) this.findViewById(R.id.menu_right)).setVisibility(View.INVISIBLE);
+        ((TextView) findViewById(R.id.menu_center)).setText(("search").toUpperCase(Locale.UK));
+        // ((ImageView)
+        // this.findViewById(R.id.menu_right)).setImageResource(R.drawable.filter);
+        ((ImageView) findViewById(R.id.menu_right)).setVisibility(View.INVISIBLE);
 
-        this.latlon = new LatLng(this.latitude, this.longitude);
-        this.setUpMapIfNeeded(); // Required to check the availability of Maps
-        this.mListView = (ListView) this.findViewById(R.id.search_list);
-        this.mView = this.findViewById(R.id.dummy_id);
-        this.mImageView = (ImageView) this.findViewById(R.id.search_id);
-        this.search = (LinearLayout) this.findViewById(R.id.search_ll);
-        this.mapFrame = (FrameLayout) this.findViewById(R.id.mapFrame);
+        latlon = new LatLng(latitude, longitude);
+        setUpMapIfNeeded(); // Required to check the availability of Maps
+        mListView = (ListView) findViewById(R.id.search_list);
+        mView = findViewById(R.id.dummy_id);
+        mImageView = (ImageView) findViewById(R.id.search_id);
+        search = (LinearLayout) findViewById(R.id.search_ll);
+        mapFrame = (FrameLayout) findViewById(R.id.mapFrame);
 
         final SearchListAdapter adapter = new SearchListAdapter(this);
         final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
-        mScaleInAnimationAdapter.setAbsListView(this.mListView);
-        this.mListView.setAdapter(mScaleInAnimationAdapter);
+        mScaleInAnimationAdapter.setAbsListView(mListView);
+        mListView.setAdapter(mScaleInAnimationAdapter);
     }
 
     public void Finish(View v) {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     public void Submit(View v) {
-        this.finish();
-        this.AnimNext();
+        finish();
+        AnimNext();
     }
 
     @Override
     public void onBackPressed() {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     private void AnimPrev() {
-        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.setUpMapIfNeeded();
+        setUpMapIfNeeded();
     }
 
     private boolean isGooglePlayServicesAvail() {
         final int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (status == ConnectionResult.SUCCESS) {
             return true;
-        } else {
+        }
+        else {
             GooglePlayServicesUtil.getErrorDialog(status, this, 10).show();
         }
         return false;
@@ -120,17 +123,17 @@ public class Search extends FragmentActivity {
     }
 
     private void setUpMapIfNeeded() {
-        if (this.map == null && this.isGooglePlayServicesAvail()) {
+        if (map == null && isGooglePlayServicesAvail()) {
             /*
              * I avoid Crashing, if Google_Play_Services is not Updated or
              * Unavailable
              */
-            this.map = ((SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+            map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
             /*
              * To make sure map is loaded
              */
-            if (this.map != null) {
-                this.setUpMap();
+            if (map != null) {
+                setUpMap();
             }
         }
     }
@@ -140,7 +143,7 @@ public class Search extends FragmentActivity {
          * Add a Marker Adding marker at 12.971689,77.594504;
          */
         // map.getUiSettings().setZoomControlsEnabled(false);
-        this.map.addMarker(new MarkerOptions().position(this.latlon)
+        map.addMarker(new MarkerOptions().position(latlon)
 
                 /*
                  * Add Title when clicked on marker
@@ -154,34 +157,35 @@ public class Search extends FragmentActivity {
         /*
          * NormalMapView
          */
-        this.map.setMapType(GoogleMap.MAP_TYPE_NORMAL); // Normal MapView
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL); // Normal MapView
 
         /*
          * Move Camera to Snippet Location
          */
         final float zoom = 11;
-        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(this.latlon, zoom)); // toPosition,
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, zoom)); // toPosition,
         // ZoomLevel
 
-        this.map.setOnMapClickListener(new OnMapClickListener() {
+        map.setOnMapClickListener(new OnMapClickListener() {
 
             @Override
             public void onMapClick(LatLng touchedLatLon) {
 
                 System.out.println("LatLon : " + touchedLatLon);
 
-                if (Search.this.mView.getVisibility() == View.VISIBLE) {
-                    Search.this.mView.setVisibility(View.GONE);
-                    Search.this.mImageView.setVisibility(View.GONE);
-                    Search.this.search.setVisibility(View.GONE);
+                if (mView.getVisibility() == View.VISIBLE) {
+                    mView.setVisibility(View.GONE);
+                    mImageView.setVisibility(View.GONE);
+                    search.setVisibility(View.GONE);
                     final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 5f);
-                    Search.this.mapFrame.setLayoutParams(mParams);
-                } else {
-                    Search.this.mView.setVisibility(View.VISIBLE);
-                    Search.this.mImageView.setVisibility(View.VISIBLE);
-                    Search.this.search.setVisibility(View.VISIBLE);
+                    mapFrame.setLayoutParams(mParams);
+                }
+                else {
+                    mView.setVisibility(View.VISIBLE);
+                    mImageView.setVisibility(View.VISIBLE);
+                    search.setVisibility(View.VISIBLE);
                     final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 2f);
-                    Search.this.mapFrame.setLayoutParams(mParams);
+                    mapFrame.setLayoutParams(mParams);
                 }
             }
         });
@@ -193,10 +197,10 @@ public class Search extends FragmentActivity {
     }
 
     public void HideTop() {
-        this.mView.setVisibility(View.GONE);
+        mView.setVisibility(View.GONE);
     }
 
     public void ShowTop() {
-        this.mView.setVisibility(View.VISIBLE);
+        mView.setVisibility(View.VISIBLE);
     }
 }

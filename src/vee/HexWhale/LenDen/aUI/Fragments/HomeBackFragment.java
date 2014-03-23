@@ -31,8 +31,6 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 
-import java.util.List;
-
 import vee.HexWhale.LenDen.Preview;
 import vee.HexWhale.LenDen.R;
 import vee.HexWhale.LenDen.Parsers.Categories.Response;
@@ -46,6 +44,8 @@ import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
 
+import java.util.List;
+
 /**
  * A fragment representing the front of the card.
  */
@@ -58,20 +58,20 @@ public class HomeBackFragment extends Fragment {
     List<Response> resposne = SettersNGetters.getCategory().getResponse();
 
     public HomeBackFragment() {
-        this.setRetainInstance(true);
+        setRetainInstance(true);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.sActivity = activity;
+        sActivity = activity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.home_back, container, false);
-        this.mGridView = (GridView) rootView.findViewById(R.id.home_grid);
-        this.tag = TagGen.getTag(this.getClass());
+        mGridView = (GridView) rootView.findViewById(R.id.home_grid);
+        tag = TagGen.getTag(this.getClass());
         return rootView;
     }
 
@@ -79,15 +79,15 @@ public class HomeBackFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.mDataFromUrl = new GetDataFromUrl(this.sActivity, this.mFetcherListener);
+        mDataFromUrl = new GetDataFromUrl(sActivity, mFetcherListener);
         sendRequest();
 
     }
 
     private void sendRequest() {
 
-        this.mDataFromUrl.setAccessToken();
-        this.mDataFromUrl.GetString(TYPE.CATEGORIES, getBody(TYPE.CATEGORIES), GetData.getUrl(URL.CATEGORIES));
+        mDataFromUrl.setAccessToken();
+        mDataFromUrl.GetString(TYPE.CATEGORIES, getBody(TYPE.CATEGORIES), GetData.getUrl(URL.CATEGORIES));
 
     }
 
@@ -178,7 +178,7 @@ public class HomeBackFragment extends Fragment {
     };
 
     protected void AnimNext() {
-        this.getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+        getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
@@ -187,14 +187,14 @@ public class HomeBackFragment extends Fragment {
      * @param RED
      */
     private void LogR(String msg) {
-        Log.wtf(this.tag, msg);
+        Log.wtf(tag, msg);
     }
 
     /**
      * @param text
      */
     private void ToastL(String text) {
-        Toast.makeText(this.sActivity, text, Toast.LENGTH_LONG).show();
+        Toast.makeText(sActivity, text, Toast.LENGTH_LONG).show();
     }
     /*******************************************************************/
 

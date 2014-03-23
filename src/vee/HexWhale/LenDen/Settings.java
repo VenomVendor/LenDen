@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -31,52 +32,52 @@ public class Settings extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.settings);
-        this.mTitle = (TextView) this.findViewById(R.id.menu_center);
-        this.mTitle.setText("SETTINGS");
-        this.mOk = (ImageView) this.findViewById(R.id.menu_right);
-        this.mOk.setVisibility(View.INVISIBLE);
+        mTitle = (TextView) findViewById(R.id.menu_center);
+        mTitle.setText("SETTINGS");
+        mOk = (ImageView) findViewById(R.id.menu_right);
+        mOk.setVisibility(View.INVISIBLE);
 
     }
 
     public void Finish(View v) {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     public void Submit(View v) {
-        this.finish();
-        this.AnimNext();
+        finish();
+        AnimNext();
     }
 
     @Override
     public void onBackPressed() {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     private void AnimPrev() {
-        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
     public void EditProfile(View v) {
-        this.startActivity(new Intent(this.getApplicationContext(), EditProfile.class));
-        this.AnimNext();
+        this.startActivity(new Intent(getApplicationContext(), EditProfile.class));
+        AnimNext();
     }
 
     public void Profile(View v) {
-        this.startActivity(new Intent(this.getApplicationContext(), Profile.class));
-        this.AnimNext();
+        this.startActivity(new Intent(getApplicationContext(), Profile.class));
+        AnimNext();
     }
 
     public void Notifications(View v) {
-        this.startActivity(new Intent(this.getApplicationContext(), Notifications.class));
-        this.AnimNext();
+        this.startActivity(new Intent(getApplicationContext(), Notifications.class));
+        AnimNext();
     }
 
 }

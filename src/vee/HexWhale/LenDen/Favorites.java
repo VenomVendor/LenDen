@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -36,40 +37,40 @@ public class Favorites extends MenuBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.favorites);
-        this.mListView = (ListView) this.findViewById(android.R.id.list);
+        mListView = (ListView) findViewById(android.R.id.list);
         final FavoritesAdapter adapter = new FavoritesAdapter(this);
 
         final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
-        mScaleInAnimationAdapter.setAbsListView(this.mListView);
-        this.mListView.setAdapter(mScaleInAnimationAdapter);
+        mScaleInAnimationAdapter.setAbsListView(mListView);
+        mListView.setAdapter(mScaleInAnimationAdapter);
     }
 
     @SuppressLint("DefaultLocale")
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        this.mImgLeft = (ImageView) this.findViewById(R.id.menu_left);
-        this.mTextCenter = (TextView) this.findViewById(R.id.menu_center);
+        mImgLeft = (ImageView) findViewById(R.id.menu_left);
+        mTextCenter = (TextView) findViewById(R.id.menu_center);
 
-        this.mImgLeft.setVisibility(View.INVISIBLE);
-        this.mTextCenter.setText(("Favorites").toUpperCase(Locale.UK));
+        mImgLeft.setVisibility(View.INVISIBLE);
+        mTextCenter.setText(("Favorites").toUpperCase(Locale.UK));
 
     }
 
     @Override
     public void onBackPressed() {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     private void AnimPrev() {
-        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     @SuppressWarnings("unused")
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 

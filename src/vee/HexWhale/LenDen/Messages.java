@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -36,13 +37,13 @@ public class Messages extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.messages);
-        ((TextView) this.findViewById(R.id.menu_center)).setText(("messages").toUpperCase(Locale.UK));
-        ((ImageView) this.findViewById(R.id.menu_right)).setVisibility(View.INVISIBLE);
+        ((TextView) findViewById(R.id.menu_center)).setText(("messages").toUpperCase(Locale.UK));
+        ((ImageView) findViewById(R.id.menu_right)).setVisibility(View.INVISIBLE);
 
-        this.mListView = (ListView) this.findViewById(android.R.id.list);
+        mListView = (ListView) findViewById(android.R.id.list);
         final MessagesAdapter adapter = new MessagesAdapter(this);
-        this.mListView.setAdapter(adapter);
-        this.mListView.setOnItemClickListener(new OnItemClickListener() {
+        mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -56,23 +57,23 @@ public class Messages extends FragmentActivity {
     }
 
     public void Finish(View v) {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     @Override
     public void onBackPressed() {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     private void AnimPrev() {
-        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 }

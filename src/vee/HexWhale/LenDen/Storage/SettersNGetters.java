@@ -18,6 +18,7 @@ package vee.HexWhale.LenDen.Storage;
 import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
 import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
+import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 
 public class SettersNGetters {
@@ -28,6 +29,8 @@ public class SettersNGetters {
     private static GetAccessToken isRegistered;
     private static GetCategory category;
     private static GetItemCategory itemCategory;
+
+    private static GetDetailedCategory detailedCategory;
 
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
@@ -62,7 +65,7 @@ public class SettersNGetters {
     }
 
     public static GetCategory getCategory() {
-        return category;
+        return SettersNGetters.category;
     }
 
     public static void setCategory(GetCategory category) {
@@ -70,11 +73,19 @@ public class SettersNGetters {
     }
 
     public static GetItemCategory getItemCategory() {
-        return itemCategory;
+        return SettersNGetters.itemCategory;
     }
 
     public static void setItemCategory(GetItemCategory itemCategory) {
         SettersNGetters.itemCategory = itemCategory;
+    }
+
+    public static GetDetailedCategory getDetailedCategory() {
+        return SettersNGetters.detailedCategory;
+    }
+
+    public static void setDetailedCategory(GetDetailedCategory detailedCategory) {
+        SettersNGetters.detailedCategory = detailedCategory;
     }
 
 }

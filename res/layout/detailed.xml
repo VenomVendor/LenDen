@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:background="#fee"
+        android:background="#FEE"
         android:gravity="bottom"
         android:orientation="vertical" >
 
@@ -25,7 +25,7 @@
             android:background="#EEE"
             android:minHeight="150dp" />
 
-        <vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator
+       <vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator
             android:id="@+id/indicator"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -39,71 +39,74 @@
             app:strokeColor="#FFF"
             app:strokeWidth="1dp" />
 
-        <LinearLayout
-            android:id="@+id/ll_dummy"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal" >
+            android:layout_alignTop="@+id/detailed_dp"
+            android:layout_margin="0dp"
+            android:layout_toLeftOf="@+id/detailed_dp"
+            android:background="#32000000"
+            android:padding="5dp" >
 
-            <TextView
-                android:id="@+id/detailed_list_fav"
+            <LinearLayout
+                android:id="@+id/ll_dummy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="2dp"
-                android:drawableStart="@drawable/small__star"
-                android:text="05"
-                android:textColor="@color/white"
-                android:textSize="@dimen/search_list_extras" />
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/detailed_list_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:drawableStart="@drawable/small_like"
+                    android:text="05"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/search_list_extras" />
+
+                <TextView
+                    android:id="@+id/detailed_list_fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="2dp"
+                    android:drawableStart="@drawable/small_fav"
+                    android:text="10"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/search_list_extras" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/detailed_list_cmt"
+                android:id="@+id/detailed_uname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:drawablePadding="2dp"
-                android:drawableStart="@drawable/small__like"
-                android:text="10"
-                android:textColor="@color/white"
-                android:textSize="@dimen/search_list_extras" />
-
-            <TextView
-                android:id="@+id/detailed_list_str"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:drawablePadding="2dp"
-                android:drawableStart="@drawable/small__cmt"
-                android:text="03"
-                android:textColor="@color/white"
-                android:textSize="@dimen/search_list_extras" />
-        </LinearLayout>
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_toRightOf="@+id/ll_dummy"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="VenomVendor"
+                android:textColor="@color/white" />
+        </RelativeLayout>
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/detailed_dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="2dp"
-            android:layout_marginRight="2dp"
+            android:layout_margin="0dp"
             android:adjustViewBounds="true"
+            android:background="#32000000"
             android:maxWidth="60dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/login_edittext_ok" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/imageView1"
-            android:text="VenomVendor"
-            android:textColor="@color/white" />
+            android:src="@drawable/signup_dp" />
     </RelativeLayout>
 
     <ScrollView
@@ -122,31 +125,31 @@
                 android:padding="5dp" >
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/detailed_list_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/textView4"
+                    android:layout_toLeftOf="@+id/detailed_price"
                     android:singleLine="true"
                     android:text="Sony Play Station 4"
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/detailed_list_categ"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/textView2"
+                    android:layout_below="@+id/detailed_list_title"
                     android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/textView4"
+                    android:layout_toLeftOf="@+id/detailed_price"
                     android:singleLine="true"
                     android:text="Games"
                     android:textColor="@color/list_txt" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/detailed_price"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -241,7 +244,7 @@
                     android:textSize="@dimen/search_list_extras" />
             </LinearLayout>
 
-            <vee.HexWhale.LenDen.aUI.NoScrollWebView
+           <vee.HexWhale.LenDen.aUI.NoScrollWebView
                 android:id="@+id/webiew"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

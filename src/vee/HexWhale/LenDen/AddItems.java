@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -39,27 +40,27 @@ public class AddItems extends FragmentActivity {
     }
 
     public void OpenImage(View view) {
-        this.tempView = view;
+        tempView = view;
         final Intent mIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         this.startActivityForResult(mIntent, AddItems.tempID);
     }
 
     public void Sales(View v) {
-        this.setEnabled(1);
+        setEnabled(1);
     }
 
     public void Exchage(View v) {
-        this.setEnabled(2);
+        setEnabled(2);
     }
 
     public void Both(View v) {
-        this.setEnabled(3);
+        setEnabled(3);
     }
 
     private void setEnabled(int i) {
-        final ImageView im1 = (ImageView) this.findViewById(R.id.add_items_arrow_s);
-        final ImageView im2 = (ImageView) this.findViewById(R.id.add_items_arrow_e);
-        final ImageView im3 = (ImageView) this.findViewById(R.id.add_items_arrow_b);
+        final ImageView im1 = (ImageView) findViewById(R.id.add_items_arrow_s);
+        final ImageView im2 = (ImageView) findViewById(R.id.add_items_arrow_e);
+        final ImageView im3 = (ImageView) findViewById(R.id.add_items_arrow_b);
 
         im1.setVisibility(View.INVISIBLE);
         im2.setVisibility(View.INVISIBLE);
@@ -91,45 +92,46 @@ public class AddItems extends FragmentActivity {
             final String[] filePathColumn = {
                     MediaColumns.DATA
             };
-            final Cursor cursor = this.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            final Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
             cursor.moveToFirst();
             final int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             final String picturePath = cursor.getString(columnIndex);
             cursor.close();
-            ((ImageView) this.tempView).setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            ((ImageView) tempView).setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
-        } else {
-            this.ToastL("Unable to select image...");
+        }
+        else {
+            ToastL("Unable to select image...");
         }
     }
 
     private void ToastL(String text) {
-        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     public void Finish(View v) {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     public void Submit(View v) {
-        this.finish();
-        this.AnimNext();
+        finish();
+        AnimNext();
     }
 
     @Override
     public void onBackPressed() {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     private void AnimPrev() {
-        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 

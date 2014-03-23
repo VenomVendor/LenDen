@@ -74,19 +74,19 @@ public class HomeFrontFragment extends Fragment {
     private String tag = "UNKNOWN";
 
     public HomeFrontFragment() {
-        this.setRetainInstance(true);
+        setRetainInstance(true);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.sActivity = activity;
+        sActivity = activity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        this.tag = TagGen.getTag(this.getClass());
+        tag = TagGen.getTag(this.getClass());
 
         if (container == null) {
             return null;
@@ -104,8 +104,8 @@ public class HomeFrontFragment extends Fragment {
         catch (final InflateException e) {
             Log.wtf("S*****", e.getMessage());
         }
-        this.mGridView = (GridView) HomeFrontFragment.view.findViewById(R.id.home_grid);
-        this.mTextView = (TextView) HomeFrontFragment.view.findViewById(R.id.home_dummy_text);
+        mGridView = (GridView) HomeFrontFragment.view.findViewById(R.id.home_grid);
+        mTextView = (TextView) HomeFrontFragment.view.findViewById(R.id.home_dummy_text);
         return HomeFrontFragment.view;
 
     }
@@ -114,20 +114,20 @@ public class HomeFrontFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.mapFrame = (FrameLayout) this.sActivity.findViewById(R.id.mapFrame);
-        this.latlon = new LatLng(this.latitude, this.longitude);
+        mapFrame = (FrameLayout) sActivity.findViewById(R.id.mapFrame);
+        latlon = new LatLng(latitude, longitude);
 
-        this.mDataFromUrl = new GetDataFromUrl(this.sActivity, this.mFetcherListener);
+        mDataFromUrl = new GetDataFromUrl(sActivity, mFetcherListener);
         sendRequest();
 
-        if (this.isGooglePlay()) {
-            this.setUpMapIfNeeded();
+        if (isGooglePlay()) {
+            setUpMapIfNeeded();
         }
     }
 
     private void sendRequest() {
-        this.mDataFromUrl.setAccessToken();
-        this.mDataFromUrl.GetString(TYPE.CATEGORIES, getBody(TYPE.CATEGORIES), GetData.getUrl(URL.CATEGORIES));
+        mDataFromUrl.setAccessToken();
+        mDataFromUrl.GetString(TYPE.CATEGORIES, getBody(TYPE.CATEGORIES), GetData.getUrl(URL.CATEGORIES));
     }
 
     private String getBody(int tokenType) {
@@ -188,7 +188,7 @@ public class HomeFrontFragment extends Fragment {
 
                 });
             }
-            else{
+            else {
                 ToastL("{ Error }");
             }
         }
@@ -217,17 +217,17 @@ public class HomeFrontFragment extends Fragment {
     };
 
     protected void AnimNext() {
-        this.getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+        getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
     private boolean isGooglePlay() {
-        final int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this.getActivity());
+        final int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity());
         if (status == ConnectionResult.SUCCESS) {
             return true;
         }
         else {
-            GooglePlayServicesUtil.getErrorDialog(status, this.getActivity(), 10).show();
+            GooglePlayServicesUtil.getErrorDialog(status, getActivity(), 10).show();
         }
         return false;
 
@@ -238,47 +238,47 @@ public class HomeFrontFragment extends Fragment {
      * @param RED
      */
     private void LogR(String msg) {
-        Log.wtf(this.tag, msg);
+        Log.wtf(tag, msg);
     }
 
     /**
      * @param text
      */
     private void ToastL(String text) {
-        Toast.makeText(this.sActivity, text, Toast.LENGTH_LONG).show();
+        Toast.makeText(sActivity, text, Toast.LENGTH_LONG).show();
     }
 
     /*******************************************************************/
 
     private void setUpMapIfNeeded() {
-        if (this.map == null) {
-            this.map = ((SupportMapFragment) this.getActivity().getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-            if (this.map != null) {
+        if (map == null) {
+            map = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+            if (map != null) {
                 // do things to the map
-                this.map.addMarker(new MarkerOptions().position(this.latlon).title("xxx").snippet("I am a looooooooooooooong Snippet"));
-                this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(this.latlon, 15));
+                map.addMarker(new MarkerOptions().position(latlon).title("xxx").snippet("I am a looooooooooooooong Snippet"));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, 15));
                 // map.getUiSettings().setZoomControlsEnabled(false);
 
-                this.map.setOnMapClickListener(new OnMapClickListener() {
+                map.setOnMapClickListener(new OnMapClickListener() {
 
                     @Override
                     public void onMapClick(LatLng touchedLatLon) {
 
                         System.out.println("LatLon : " + touchedLatLon);
 
-                        if (HomeFrontFragment.this.mTextView.getVisibility() == View.VISIBLE) {
-                            HomeFrontFragment.this.mTextView.setVisibility(View.GONE);
+                        if (mTextView.getVisibility() == View.VISIBLE) {
+                            mTextView.setVisibility(View.GONE);
                             final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                                     0, 5f);
-                            HomeFrontFragment.this.mapFrame.setLayoutParams(mParams);
-                            ((Home) HomeFrontFragment.this.sActivity).HideTop();
+                            mapFrame.setLayoutParams(mParams);
+                            ((Home) sActivity).HideTop();
                         }
                         else {
-                            HomeFrontFragment.this.mTextView.setVisibility(View.VISIBLE);
+                            mTextView.setVisibility(View.VISIBLE);
                             final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                                     0, 2f);
-                            HomeFrontFragment.this.mapFrame.setLayoutParams(mParams);
-                            ((Home) HomeFrontFragment.this.sActivity).ShowTop();
+                            mapFrame.setLayoutParams(mParams);
+                            ((Home) sActivity).ShowTop();
                         }
 
                     }

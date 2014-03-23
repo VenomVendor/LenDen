@@ -23,15 +23,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.Locale;
-
 import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
 import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
+import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
+
+import java.util.Locale;
 
 @SuppressLint("DefaultLocale")
 public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
@@ -50,19 +51,19 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
         this.activity = activity;
         this.type = type;
         this.mFetcherListener = mFetcherListener;
-        this.mTokens = new GetTokens(activity, mFetcherListener);
+        mTokens = new GetTokens(activity, mFetcherListener);
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        this.mFetcherListener.beforeParsing(this.type);
-        this.initObjectMappers();
+        mFetcherListener.beforeParsing(type);
+        initObjectMappers();
     }
 
     @Override
     protected String doInBackground(final String... params) {
-        this.parseString(params[0]);
+        parseString(params[0]);
         return null;
     }
 
@@ -76,14 +77,14 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
     }
 
     private void parseString(String mParams) {
-        this.mFetcherListener.startedParsing(this.type);
+        mFetcherListener.startedParsing(type);
         try {
-            switch (this.type) {
+            switch (type) {
                 case TYPE.AUTHORIZE:
                     SettersNGetters.setAuthCode(StartBackgroundParsing.objectMapper.readValue(mParams, GetAuthCode.class));
                     if (SettersNGetters.getAuthCode().getStatus().equalsIgnoreCase(STRING.SUCCESS))
                     {
-                        this.mTokens.getAccessToken();
+                        mTokens.getAccessToken();
                     }
                     else {
                         SettersNGetters.setAuthCode(null);
@@ -123,7 +124,6 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
 
                     isValidToken(SettersNGetters.isRegistered().getError_code());
 
-
                     break;
 
                 case TYPE.CATEGORIES:
@@ -131,19 +131,26 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
 
                     isValidToken(SettersNGetters.getCategory().getError_code());
 
-
                     break;
 
                 case TYPE.ITEM_CATEGORIES:
-                    SettersNGetters.setItemCategory(objectMapper.readValue(mParams, GetItemCategory.class));
+                    SettersNGetters.setItemCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetItemCategory.class));
 
                     isValidToken(SettersNGetters.getItemCategory().getError_code());
 
+                    break;
+
+                case TYPE.ITEM_DETAILS:
+                    SettersNGetters.setDetailedCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetDetailedCategory.class));
+
+                    isValidToken(SettersNGetters.getDetailedCategory().getError_code());
+
+                    break;
 
             }
         }
         catch (final Exception e) {
-            this.mFetcherListener.ParsingException(e);
+            mFetcherListener.ParsingException(e);
             System.out.println("Exception");
             e.printStackTrace();
 
@@ -171,7 +178,7 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        this.mFetcherListener.finishedParsing(this.type);
+        mFetcherListener.finishedParsing(type);
     }
 
     @Override

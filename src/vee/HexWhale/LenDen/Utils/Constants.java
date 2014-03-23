@@ -40,6 +40,7 @@ public final class Constants {
         }
 
         public final static class STRING {
+            public final static String CACHE_LOC = "data/.vee.HexWhale.LenDen/.imgCache";
             public final static String KEY = "client_key";
             public final static String SECRET = "client_secret";
             public final static String AUTH = "auth_code";
@@ -53,13 +54,18 @@ public final class Constants {
             public final static String PAGE = "page";
             public final static String OFFSET = "offset";
             public final static String CATEGORY_ID = "category_id";
-
+            public final static String ITEM_ID = "item_id";
+            public final static String POSITION = "position";
+            public final static String TITLE = "title";
+            public final static String DESCRIPTION = "description";
+            public final static String PRICE = "price";
 
         }
 
         public final static class IMAGEURL {
             public final static String ICON = "/icon/";
             public final static String PICTURE = "/picture/";
+            public final static String DP = "users/photo/";
         }
 
         public final static class URL {
@@ -74,6 +80,7 @@ public final class Constants {
             public final static String CATEGORIES = "categories/";
             public final static String ITEM_CATEGORIES = "items/category/";
             public final static String ITEM_SUBCATEGORY = "items/subcategory/";
+            public final static String ITEM_DETAILS = "items/details/";
 
         }
 
@@ -89,6 +96,7 @@ public final class Constants {
             public final static int CATEGORIES = 9;
             public final static int ITEM_CATEGORIES = 10;
             public final static int ITEM_SUBCATEGORY = 11;
+            public final static int ITEM_DETAILS = 12;
         }
 
     }

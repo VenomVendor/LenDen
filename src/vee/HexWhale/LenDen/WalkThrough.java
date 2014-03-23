@@ -48,19 +48,19 @@ public class WalkThrough extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.walkthrough);
-        this.scheduleTaskExecutor = Executors.newScheduledThreadPool(1);
-        this.pager = (ViewPager) this.findViewById(R.id.pager);
-        this.mRL = (RelativeLayout) this.findViewById(R.id.wlk_thrg_rel_lyt);
+        scheduleTaskExecutor = Executors.newScheduledThreadPool(1);
+        pager = (ViewPager) findViewById(R.id.pager);
+        mRL = (RelativeLayout) findViewById(R.id.wlk_thrg_rel_lyt);
 
-        this.InitilizePager(); // XXX 1
+        InitilizePager(); // XXX 1
     }
 
     private void InitilizePager() {
         final WalkThroughPager adapter = new WalkThroughPager(this);
-        this.pager.setAdapter(adapter);
-        final CirclePageIndicator indicator = (CirclePageIndicator) this.findViewById(R.id.indicator);
-        this.mIndicator = indicator;
-        indicator.setViewPager(this.pager);
+        pager.setAdapter(adapter);
+        final CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
+        mIndicator = indicator;
+        indicator.setViewPager(pager);
         indicator.setOnPageChangeListener(new OnPageChangeListener() {
 
             @Override
@@ -69,7 +69,7 @@ public class WalkThrough extends Activity {
 
                 asdf.setPropertyName("alpha");
                 asdf.setDuration(100);
-                asdf.setTarget(WalkThrough.this.mRL);
+                asdf.setTarget(mRL);
                 asdf.setFloatValues(1.0f, .7f);
                 asdf.start();
                 asdf.setRepeatCount(0);
@@ -90,15 +90,15 @@ public class WalkThrough extends Activity {
 
                         xx.setPropertyName("alpha");
                         xx.setDuration(100);
-                        xx.setTarget(WalkThrough.this.mRL);
+                        xx.setTarget(mRL);
                         xx.setFloatValues(.8f, 1f);
                         xx.start();
                         xx.setRepeatCount(0);
                         if (position % 2 == 1) {
-                            WalkThrough.this.mRL.setBackgroundResource(R.drawable.bg);
+                            mRL.setBackgroundResource(R.drawable.bg);
                         }
                         else {
-                            WalkThrough.this.mRL.setBackgroundResource(R.drawable.walkthrough_bg);
+                            mRL.setBackgroundResource(R.drawable.walkthrough_bg);
                         }
                     }
 
@@ -109,15 +109,15 @@ public class WalkThrough extends Activity {
 
                         xx.setPropertyName("alpha");
                         xx.setDuration(100);
-                        xx.setTarget(WalkThrough.this.mRL);
+                        xx.setTarget(mRL);
                         xx.setFloatValues(.8f, 1f);
                         xx.start();
                         xx.setRepeatCount(0);
                         if (position % 2 == 1) {
-                            WalkThrough.this.mRL.setBackgroundResource(R.drawable.bg);
+                            mRL.setBackgroundResource(R.drawable.bg);
                         }
                         else {
-                            WalkThrough.this.mRL.setBackgroundResource(R.drawable.walkthrough_bg);
+                            mRL.setBackgroundResource(R.drawable.walkthrough_bg);
                         }
                     }
                 });
@@ -135,15 +135,15 @@ public class WalkThrough extends Activity {
             }
         });
 
-        this.scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 WalkThrough.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        int next = WalkThrough.this.pager.getCurrentItem() + 1;
-                        next = (next % WalkThrough.this.pager.getAdapter().getCount());
-                        WalkThrough.this.pager.setCurrentItem(next, true);
+                        int next = pager.getCurrentItem() + 1;
+                        next = (next % pager.getAdapter().getCount());
+                        pager.setCurrentItem(next, true);
                     }
                 });
             }
@@ -161,26 +161,26 @@ public class WalkThrough extends Activity {
 
     @Override
     public void onBackPressed() {
-        this.shutDown();
-        this.finish();
+        shutDown();
+        finish();
     }
 
     public void Signup(View v) {
-        this.shutDown();
-        this.startActivity(new Intent(this.getApplicationContext(), SignUp.class));
-        this.AnimNext();
+        shutDown();
+        this.startActivity(new Intent(getApplicationContext(), SignUp.class));
+        AnimNext();
     }
 
     public void Login(View v) {
-        this.shutDown();
-        this.startActivity(new Intent(this.getApplicationContext(), Login.class));
-        this.finish();
-        this.AnimNext();
+        shutDown();
+        this.startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
+        AnimNext();
     }
 
     @Override
     protected void onDestroy() {
-        this.shutDown();
+        shutDown();
         super.onDestroy();
     }
 
@@ -191,12 +191,12 @@ public class WalkThrough extends Activity {
             return;
         }
 
-        this.scheduleTaskExecutor.shutdown();
+        scheduleTaskExecutor.shutdown();
 
     }
 
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 

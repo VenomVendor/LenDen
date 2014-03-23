@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -35,7 +36,7 @@ public class MessagesFullAdapterOld extends BaseAdapter {
     Activity sActivity;
 
     public MessagesFullAdapterOld(Activity activity) {
-        this.sActivity = activity;
+        sActivity = activity;
     }
 
     @Override
@@ -60,7 +61,7 @@ public class MessagesFullAdapterOld extends BaseAdapter {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            final LayoutInflater mInflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater mInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.messages_full_list, null);
 
             holder.mRecTime = (TextView) convertView.findViewById(R.id.rec_timestamp);
@@ -70,12 +71,13 @@ public class MessagesFullAdapterOld extends BaseAdapter {
             holder.mMeLyt = (RelativeLayout) convertView.findViewById(R.id.msg_me_lyt);
 
             convertView.setTag(holder);
-        } else {
+        }
+        else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.mRecTime.setText(this.getCustomTime());
-        holder.mMeTime.setText(this.getCustomTime());
+        holder.mRecTime.setText(getCustomTime());
+        holder.mMeTime.setText(getCustomTime());
 
         // if (position % 5 == 0) {
         // holder.mRecLyt.setVisibility(View.GONE);

@@ -39,7 +39,6 @@ import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
 import vee.HexWhale.LenDen.Utils.Constants.API.URL;
-import vee.HexWhale.LenDen.Utils.Constants.KEY;
 import vee.HexWhale.LenDen.aUI.MenuBar;
 import vee.HexWhale.LenDen.aUI.Adapters.PreviewAdapter;
 import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
@@ -62,13 +61,13 @@ public class Preview extends MenuBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.tag = TagGen.getTag(this.getClass());
-        this.setContentView(R.layout.preview);
-        this.mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
-        this.mListView = (ListView) this.findViewById(android.R.id.list);
+        tag = TagGen.getTag(getClass());
+        setContentView(R.layout.preview);
+        mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
+        mListView = (ListView) findViewById(android.R.id.list);
         mPrefs = new GlobalSharedPrefs(this);
 
-        Intent mIntent = getIntent();
+        final Intent mIntent = getIntent();
         if (mIntent != null)
         {
             cate_id = mIntent.getStringExtra("cate_id");
@@ -86,7 +85,7 @@ public class Preview extends MenuBar {
             switch (mType) {
                 case TYPE.ITEM_CATEGORIES:
                     System.out.println("ISSUE " + TYPE.ACCESSTOKEN);
-                    mJsonObject.put(STRING.PAGE, "" + page);
+                    mJsonObject.put(STRING.PAGE, "" + Preview.page);
                     mJsonObject.put(STRING.OFFSET, "" + 10);
                     mJsonObject.put(STRING.CATEGORY_ID, cate_id);
                     break;
@@ -134,17 +133,20 @@ public class Preview extends MenuBar {
                     // ScaleInAnimationAdapter(adapter, 0.5f, 110, 400);
 
                     final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
-                    mScaleInAnimationAdapter.setAbsListView(Preview.this.mListView);
-                    Preview.this.mListView.setAdapter(mScaleInAnimationAdapter);
+                    mScaleInAnimationAdapter.setAbsListView(mListView);
+                    mListView.setAdapter(mScaleInAnimationAdapter);
 
-                    Preview.this.mListView.setOnItemClickListener(new OnItemClickListener() {
+                    mListView.setOnItemClickListener(new OnItemClickListener() {
 
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                            final Intent mIntent = new Intent(Preview.this.getApplicationContext(), Detailed.class);
-                            Preview.this.startActivity(mIntent);
-                            Preview.this.AnimNext();
+                            final Intent mIntent = new Intent(getApplicationContext(), Detailed.class);
+
+                            mIntent.putExtra(STRING.POSITION, position);
+
+                            startActivity(mIntent);
+                            AnimNext();
                         }
 
                     });
@@ -186,11 +188,11 @@ public class Preview extends MenuBar {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        this.mImgLeft = (ImageView) this.findViewById(R.id.menu_left);
-        this.mTextCenter = (TextView) this.findViewById(R.id.menu_center);
+        mImgLeft = (ImageView) findViewById(R.id.menu_left);
+        mTextCenter = (TextView) findViewById(R.id.menu_center);
 
-        this.mImgLeft.setImageResource(R.drawable.filter);
-        this.mTextCenter.setText(("Home").toUpperCase(Locale.UK));
+        mImgLeft.setImageResource(R.drawable.filter);
+        mTextCenter.setText(("Preview").toUpperCase(Locale.UK));
 
     }
 
@@ -212,17 +214,17 @@ public class Preview extends MenuBar {
 
     @Override
     public void onBackPressed() {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     private void AnimPrev() {
-        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 

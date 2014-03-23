@@ -29,6 +29,7 @@
     <dimen name="login_txt">10sp</dimen>
     <dimen name="msg_time">9sp</dimen>
     <dimen name="search_list_img_max">90dp</dimen>
+    <dimen name="search_list_img_min">90dp</dimen>
     <dimen name="zero">0dp</dimen>
 <dimen name="msg_title">16sp</dimen>
 </resources>

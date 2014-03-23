@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -19,7 +20,7 @@ public class Response {
     private String refresh_token;
 
     public String getAccess_token() {
-        return this.access_token;
+        return access_token;
     }
 
     public void setAccess_token(String access_token) {
@@ -27,7 +28,7 @@ public class Response {
     }
 
     public String getRefresh_token() {
-        return this.refresh_token;
+        return refresh_token;
     }
 
     public void setRefresh_token(String refresh_token) {

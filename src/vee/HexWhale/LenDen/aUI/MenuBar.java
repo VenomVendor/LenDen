@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -43,27 +44,27 @@ public class MenuBar extends FragmentActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        this.initiateMenu();
+        initiateMenu();
     }
 
     private void initiateMenu() {
-        this.mSlideHolder = (SlideHolder) this.findViewById(R.id.slideHolder);
-        this.mRelLayTop = (RelativeLayout) this.findViewById(R.id.menu_lyt);
-        this.mImgRight = (ImageView) this.findViewById(R.id.menu_right);
-        this.mImgLeft = (ImageView) this.findViewById(R.id.menu_left);
-        this.mTextCenter = (TextView) this.findViewById(R.id.menu_center);
-        this.mDrawerList = (ListView) this.findViewById(R.id.menu_drawer);
-        this.mSlideHolder.setDirection(SlideHolder.DIRECTION_RIGHT);
-        this.mSlideHolder.setAllowInterceptTouch(false);
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+        mRelLayTop = (RelativeLayout) findViewById(R.id.menu_lyt);
+        mImgRight = (ImageView) findViewById(R.id.menu_right);
+        mImgLeft = (ImageView) findViewById(R.id.menu_left);
+        mTextCenter = (TextView) findViewById(R.id.menu_center);
+        mDrawerList = (ListView) findViewById(R.id.menu_drawer);
+        mSlideHolder.setDirection(SlideHolder.DIRECTION_RIGHT);
+        mSlideHolder.setAllowInterceptTouch(false);
 
-        this.mDrawerList.setAdapter(new MenuDrawerAdapter(this));
+        mDrawerList.setAdapter(new MenuDrawerAdapter(this));
 
-        this.mDrawerList.setOnItemClickListener(new OnItemClickListener() {
+        mDrawerList.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                MenuBar.this.mSlideHolder.toggle();
+                mSlideHolder.toggle();
                 MenuBar.this.startActivity(new Intent(MenuBar.this.getApplicationContext(), Constants.menuclass[position]));
                 MenuBar.this.AnimPrev();
             }
@@ -72,23 +73,23 @@ public class MenuBar extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     private void AnimPrev() {
-        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     @SuppressWarnings("unused")
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
     public void ToggleMenu(View v) {
-        this.mSlideHolder.toggle();
+        mSlideHolder.toggle();
     }
 
 }

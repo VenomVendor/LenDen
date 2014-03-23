@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -50,33 +51,34 @@ public class Splash extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.tag = TagGen.getTag(this.getClass());
+        tag = TagGen.getTag(this.getClass());
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.splash);
-        this.mBar = (ProgressBar) this.findViewById(R.id.splash_progress);
-        this.mTextView = (TextView) this.findViewById(R.id.splash_text);
-        this.checkInternet();
+        mBar = (ProgressBar) findViewById(R.id.splash_progress);
+        mTextView = (TextView) findViewById(R.id.splash_text);
+        checkInternet();
     }
 
     private void checkInternet() {
-        if (!NetworkConnection.isAvail(this.getApplicationContext())) {
-            this.ToastL("No internet Connection");
-            this.mBar.setVisibility(View.GONE);
-            this.setAlert("No internet connection");
+        if (!NetworkConnection.isAvail(getApplicationContext())) {
+            ToastL("No internet Connection");
+            mBar.setVisibility(View.GONE);
+            setAlert("No internet connection");
             return;
         }
-        this.mPrefs = new GlobalSharedPrefs(this);
+        mPrefs = new GlobalSharedPrefs(this);
 
-        this.mGetTokens = new GetTokens(this, this.mFetcherListener);
+        mGetTokens = new GetTokens(this, mFetcherListener);
 
-        if (this.mPrefs.getStringInPref(KEY.REFRESH_TOKEN) == null) {
-            this.mTextView.setText("Authorizing...");
-            this.LogBlk("Authorizing");
-            this.mGetTokens.getAuthToken();
-        } else {
-            this.mTextView.setText("Refreshing...");
-            this.LogBlk("Refreshing");
-            this.mGetTokens.refreshToken();
+        if (mPrefs.getStringInPref(KEY.REFRESH_TOKEN) == null) {
+            mTextView.setText("Authorizing...");
+            LogBlk("Authorizing");
+            mGetTokens.getAuthToken();
+        }
+        else {
+            mTextView.setText("Refreshing...");
+            LogBlk("Refreshing");
+            mGetTokens.refreshToken();
         }
 
     }
@@ -120,7 +122,7 @@ public class Splash extends Activity {
         @Override
         public void beforeParsing(int type) { // used as alternative
 
-            Splash.this.mTextView.setText("Validating/Accessing...");
+            mTextView.setText("Validating/Accessing...");
             Splash.this.LogBlk("Validating/Accessing");
 
         }
@@ -166,13 +168,13 @@ public class Splash extends Activity {
     /*******************************************************************/
 
     protected void startNextActivity() {
-        this.startActivity(new Intent(this.getApplicationContext(), WalkThrough.class));
-        this.finish();
-        this.AnimNext();
+        this.startActivity(new Intent(getApplicationContext(), WalkThrough.class));
+        finish();
+        AnimNext();
     }
 
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
@@ -180,21 +182,21 @@ public class Splash extends Activity {
      * @param RED
      */
     public void LogR(String msg) {
-        Log.wtf(this.tag, msg);
+        Log.wtf(tag, msg);
     }
 
     /**
      * @param Black
      */
     public void LogBlk(String msg) {
-        Log.v(this.tag, msg);
+        Log.v(tag, msg);
     }
 
     /**
      * @param text
      */
     private void ToastL(String text) {
-        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
     /*******************************************************************/

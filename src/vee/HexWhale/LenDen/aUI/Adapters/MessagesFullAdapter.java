@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -35,7 +36,7 @@ public class MessagesFullAdapter extends BaseAdapter {
     Activity sActivity;
 
     public MessagesFullAdapter(Activity activity) {
-        this.sActivity = activity;
+        sActivity = activity;
     }
 
     @Override
@@ -60,7 +61,7 @@ public class MessagesFullAdapter extends BaseAdapter {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            final LayoutInflater mInflater = (LayoutInflater) this.sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater mInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.messages_full_list, null);
 
             holder.mRecDP = (ImageView) convertView.findViewById(R.id.rec_dp);
@@ -79,7 +80,8 @@ public class MessagesFullAdapter extends BaseAdapter {
             holder.mRecLyt = (RelativeLayout) convertView.findViewById(R.id.msg_rec_lyt);
 
             convertView.setTag(holder);
-        } else {
+        }
+        else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -87,15 +89,16 @@ public class MessagesFullAdapter extends BaseAdapter {
             holder.mMeMsg
             .setText("C was created by Dennis Ritchie. Brian Kernighan wrote the first C tutorial. The authors came together to write the book in conjunction with the language");
             holder.mRecMsg.setText("Ok, Can I learn it from you?");
-        } else {
+        }
+        else {
             holder.mRecMsg
             .setText("Dennis RitchieHe created the C programming language and, with long-time colleague Ken ... His father was Alistair E. Ritchie, a longtime Bell Labs scientist");
             holder.mMeMsg.setText("C is one of the most widely used programming languages of all time");
 
         }
 
-        holder.mMeTime.setText(this.getCustomTime());
-        holder.mRecTime.setText(this.getCustomTime());
+        holder.mMeTime.setText(getCustomTime());
+        holder.mRecTime.setText(getCustomTime());
 
         // if (position % 5 == 0) {
         // holder.mRecLyt.setVisibility(View.GONE);

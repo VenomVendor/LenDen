@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -31,24 +32,24 @@ public class GlobalSharedPrefs {
     protected static SettersNGetters mSettersNGetters = new SettersNGetters();
 
     public GlobalSharedPrefs(Context context) {
-        this.mContext = context;
+        mContext = context;
     }
 
     public boolean setAppOpenedTimes() {
 
-        System.out.println("INITIAL TIMES COUNT " + this.getAppOpenedTimes()); // DO
+        System.out.println("INITIAL TIMES COUNT " + getAppOpenedTimes()); // DO
         // NOT
         // REMOVE
         // ME
-        this.edit();
-        this.mEditor.putInt(KEY.OPENED_TIMES_COUNT, (this.mLocalRefOpened + 1));
-        return this.commit();
+        edit();
+        mEditor.putInt(KEY.OPENED_TIMES_COUNT, (mLocalRefOpened + 1));
+        return commit();
     }
 
     public int getAppOpenedTimes() {
-        this.initiateSharedPrefrences();
-        this.mLocalRefOpened = this.mSharedPreferences.getInt(KEY.OPENED_TIMES_COUNT, 0);
-        return this.mLocalRefOpened;
+        initiateSharedPrefrences();
+        mLocalRefOpened = mSharedPreferences.getInt(KEY.OPENED_TIMES_COUNT, 0);
+        return mLocalRefOpened;
     }
 
     /**
@@ -56,7 +57,7 @@ public class GlobalSharedPrefs {
      */
 
     private void initiateSharedPrefrences() {
-        this.mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.mContext);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
     }
 
     /**
@@ -65,7 +66,7 @@ public class GlobalSharedPrefs {
      */
     @SuppressLint("CommitPrefEdits")
     private void edit() {
-        this.mEditor = this.mSharedPreferences.edit();
+        mEditor = mSharedPreferences.edit();
     }
 
     /**
@@ -73,7 +74,7 @@ public class GlobalSharedPrefs {
      * Make sure {@link #edit()} is called <b>BEFORE</b> this.
      */
     private boolean commit() {
-        return this.mEditor.commit();
+        return mEditor.commit();
     }
 
     /**
@@ -83,11 +84,11 @@ public class GlobalSharedPrefs {
      *            String
      */
     public boolean setStringInPref(String xKey, String value) {
-        this.initiateSharedPrefrences();
-        this.edit();
-        this.mEditor.putString(xKey, null);
-        this.mEditor.putString(xKey, value);
-        return this.commit();
+        initiateSharedPrefrences();
+        edit();
+        mEditor.putString(xKey, null);
+        mEditor.putString(xKey, value);
+        return commit();
     }
 
     /**
@@ -98,11 +99,11 @@ public class GlobalSharedPrefs {
      */
 
     public boolean setIntInPref(String xKey, int value) {
-        this.initiateSharedPrefrences();
-        this.edit();
-        this.mEditor.putInt(xKey, -1);
-        this.mEditor.putInt(xKey, value);
-        return this.commit();
+        initiateSharedPrefrences();
+        edit();
+        mEditor.putInt(xKey, -1);
+        mEditor.putInt(xKey, value);
+        return commit();
     }
 
     /**
@@ -111,8 +112,8 @@ public class GlobalSharedPrefs {
      * @return <b>VALUE</b> String
      */
     public String getStringInPref(String xKey) {
-        this.initiateSharedPrefrences();
-        return this.mSharedPreferences.getString(xKey, null);
+        initiateSharedPrefrences();
+        return mSharedPreferences.getString(xKey, null);
     }
 
     /**
@@ -121,8 +122,8 @@ public class GlobalSharedPrefs {
      * @return <b>VALUE</b> int
      */
     public int getIntInPref(String xKey) {
-        this.initiateSharedPrefrences();
-        return this.mSharedPreferences.getInt(xKey, -1);
+        initiateSharedPrefrences();
+        return mSharedPreferences.getInt(xKey, -1);
     }
 
 }

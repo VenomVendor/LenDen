@@ -52,53 +52,53 @@ public class Login extends FragmentActivity {
     int type = -1;
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        this.tag = TagGen.getTag(this.getClass());
-        super.onCreate(arg0);
+    protected void onCreate(Bundle savedInstanceState) {
+        tag = TagGen.getTag(this.getClass());
+        super.onCreate(savedInstanceState);
         this.setContentView(R.layout.login);
-        this.mDataFromUrl = new GetDataFromUrl(this, this.mFetcherListener);
-        this.mUserName = (EditText) this.findViewById(R.id.login_name);
-        this.mPassword = (EditText) this.findViewById(R.id.login_psw);
+        mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
+        mUserName = (EditText) findViewById(R.id.login_name);
+        mPassword = (EditText) findViewById(R.id.login_psw);
 
-        this.mUserName.setText("naa@naa.com");
-        this.mPassword.setText("qwerty");
+        mUserName.setText("naa@naa.com");
+        mPassword.setText("qwerty");
 
     }
 
     public void Signin(View v) {
-        this.validate();
+        validate();
     }
 
     private void validate() {
-        if (!Validator.hasMinChars(this.mUserName, 4).equals("k")) {
-            this.mUserName.setError(Validator.hasMinChars(this.mUserName, 4));
+        if (!Validator.hasMinChars(mUserName, 4).equals("k")) {
+            mUserName.setError(Validator.hasMinChars(mUserName, 4));
             return;
         }
 
-        if (!Validator.hasMinChars(this.mPassword, 6).equals("k")) {
-            this.mPassword.setError(Validator.hasMinChars(this.mPassword, 4));
+        if (!Validator.hasMinChars(mPassword, 6).equals("k")) {
+            mPassword.setError(Validator.hasMinChars(mPassword, 4));
             return;
         }
 
-        this.SigninI();
+        SigninI();
 
     }
 
     private void SigninI() {
-        if (!NetworkConnection.isAvail(this.getApplicationContext())) {
-            this.ToastL("No internet Connection");
+        if (!NetworkConnection.isAvail(getApplicationContext())) {
+            ToastL("No internet Connection");
             return;
         }
-        this.mDataFromUrl.setAccessToken();
-        this.mDataFromUrl.GetString(TYPE.LOGIN_EMAIL, this.getBody(TYPE.LOGIN_EMAIL), GetData.getUrl(URL.LOGIN_EMAIL));
+        mDataFromUrl.setAccessToken();
+        mDataFromUrl.GetString(TYPE.LOGIN_EMAIL, getBody(TYPE.LOGIN_EMAIL), GetData.getUrl(URL.LOGIN_EMAIL));
     }
 
     private String getBody(int tokenType) {
         JSONObject mJsonObject = null;
         mJsonObject = new JSONObject();
         try {
-            mJsonObject.put(STRING.PASSWORD, this.mPassword.getText().toString().trim());
-            mJsonObject.put(STRING.EMAIL, this.mUserName.getText().toString().trim());
+            mJsonObject.put(STRING.PASSWORD, mPassword.getText().toString().trim());
+            mJsonObject.put(STRING.EMAIL, mUserName.getText().toString().trim());
             return mJsonObject.toString();
         }
         catch (final JSONException e) {
@@ -194,18 +194,18 @@ public class Login extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        this.startActivity(new Intent(this.getApplicationContext(), WalkThrough.class));
-        this.finish();
-        this.AnimPrev();
+        this.startActivity(new Intent(getApplicationContext(), WalkThrough.class));
+        finish();
+        AnimPrev();
     }
 
     private void AnimPrev() {
-        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
@@ -214,14 +214,14 @@ public class Login extends FragmentActivity {
      * @param RED
      */
     private void LogR(String msg) {
-        Log.wtf(this.tag, msg);
+        Log.wtf(tag, msg);
     }
 
     /**
      * @param text
      */
     private void ToastL(String text) {
-        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
     /*******************************************************************/

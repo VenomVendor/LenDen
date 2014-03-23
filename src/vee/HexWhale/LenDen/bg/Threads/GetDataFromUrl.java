@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -55,9 +56,9 @@ public class GetDataFromUrl {
      */
     public GetDataFromUrl(Activity activity, FetcherListener mFetcherListener) {
         this.activity = activity;
-        this.tag = TagGen.getTag(this.getClass());
+        tag = TagGen.getTag(this.getClass());
         GetDataFromUrl.mQueue = Volley.newRequestQueue(activity);
-        this.mPrefs = new GlobalSharedPrefs(activity);
+        mPrefs = new GlobalSharedPrefs(activity);
         this.mFetcherListener = mFetcherListener;
     }
 
@@ -68,7 +69,7 @@ public class GetDataFromUrl {
      */
     public void GetString(int type, String body, String url) {
         this.type = type;
-        GetDataFromUrl.mQueue.add(this.getJSONRequest(url, body));
+        GetDataFromUrl.mQueue.add(getJSONRequest(url, body));
     }
 
     /**
@@ -81,7 +82,7 @@ public class GetDataFromUrl {
     public void GetString(int type, String body, String url, boolean cancelOldRequests) {
         this.type = type;
         this.cancelOldRequests = cancelOldRequests;
-        GetDataFromUrl.mQueue.add(this.getJSONRequest(url, body));
+        GetDataFromUrl.mQueue.add(getJSONRequest(url, body));
     }
 
     /**
@@ -91,11 +92,11 @@ public class GetDataFromUrl {
      */
     private Request<?> getJSONRequest(String mURL, String body) {
 
-        this.LogO("``" + mURL + "``");
-        this.LogB("`*`" + body + "`*`");
+        LogO("``" + mURL + "``");
+        LogB("`*`" + body + "`*`");
 
-        if (this.cancelOldRequests) {
-            GetDataFromUrl.mQueue.cancelAll(this.activity);
+        if (cancelOldRequests) {
+            GetDataFromUrl.mQueue.cancelAll(activity);
             GetDataFromUrl.mQueue.cancelAll(new RequestQueue.RequestFilter() {
                 @Override
                 public boolean apply(Request<?> request) {
@@ -108,7 +109,7 @@ public class GetDataFromUrl {
         /**
          * JsonRequest
          */
-        final JsonRequest<String> mJsonRequest = new JsonRequest<String>(Method.POST, mURL, body, this.successListener, this.errorListener) {
+        final JsonRequest<String> mJsonRequest = new JsonRequest<String>(Method.POST, mURL, body, successListener, errorListener) {
 
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
@@ -126,9 +127,9 @@ public class GetDataFromUrl {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 final HashMap<String, String> params = new HashMap<String, String>();
 
-                if (GetDataFromUrl.this.accessToken) {
-                    GetDataFromUrl.this.accessToken = false;
-                    params.put(HEADERS.ACCESS_TOKEN, GetDataFromUrl.this.mPrefs.getStringInPref(KEY.ACCESS_TOKEN));
+                if (accessToken) {
+                    accessToken = false;
+                    params.put(HEADERS.ACCESS_TOKEN, mPrefs.getStringInPref(KEY.ACCESS_TOKEN));
                 }
                 params.put(HEADERS.CONTENT_TYPE, HEADERS.JSON);
 
@@ -144,7 +145,7 @@ public class GetDataFromUrl {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            GetDataFromUrl.this.mFetcherListener.errorFetching(GetDataFromUrl.this.type, error);
+            mFetcherListener.errorFetching(type, error);
         }
     };
 
@@ -152,8 +153,9 @@ public class GetDataFromUrl {
 
         @Override
         public void onResponse(String response) {
-            GetDataFromUrl.this.mFetcherListener.finishedFetching(GetDataFromUrl.this.type, response);
-            new StartBackgroundParsing(GetDataFromUrl.this.activity, GetDataFromUrl.this.type, GetDataFromUrl.this.mFetcherListener).execute(response);
+            mFetcherListener.finishedFetching(type, response);
+            new StartBackgroundParsing(activity, type, mFetcherListener)
+            .execute(response);
         }
     };
 
@@ -161,25 +163,25 @@ public class GetDataFromUrl {
      * @param Blue
      */
     private void LogB(String msg) {
-        Log.d(this.tag, msg);
+        Log.d(tag, msg);
     }
 
     /**
      * @param Orange
      */
     public void LogO(String msg) {
-        Log.v(this.tag, msg);
+        Log.v(tag, msg);
     }
 
     public void setAccessToken() {
-        this.accessToken = true;
+        accessToken = true;
     }
 
     /**
      * @param text
      */
     private void ToastL(String text) {
-        Toast.makeText(this.activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(activity.getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
     /*******************************************************************/

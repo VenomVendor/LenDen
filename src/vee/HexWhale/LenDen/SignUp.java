@@ -7,7 +7,8 @@
  * Contact : info@VenomVendor.com
  * URL : https://www.google.co.in/search?q=VenomVendor
  * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
  * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
@@ -54,27 +55,27 @@ public class SignUp extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.tag = TagGen.getTag(this.getClass());
+        tag = TagGen.getTag(this.getClass());
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.signup);
-        this.mName = (EditText) this.findViewById(R.id.signup_name);
-        this.mLName = (EditText) this.findViewById(R.id.signup_uname);
-        this.mMail = (EditText) this.findViewById(R.id.signup_email);
-        this.mPsw = (EditText) this.findViewById(R.id.signup_psw);
-        this.mRePsw = (EditText) this.findViewById(R.id.signup_repsw);
-        this.mBar = (ProgressBar) this.findViewById(R.id.signup_progressbar);
+        mName = (EditText) findViewById(R.id.signup_name);
+        mLName = (EditText) findViewById(R.id.signup_uname);
+        mMail = (EditText) findViewById(R.id.signup_email);
+        mPsw = (EditText) findViewById(R.id.signup_psw);
+        mRePsw = (EditText) findViewById(R.id.signup_repsw);
+        mBar = (ProgressBar) findViewById(R.id.signup_progressbar);
 
-        this.mName.setText("Android");
-        this.mLName.setText("Test");
-        this.mMail.setText("naa@naa.com");
-        this.mPsw.setText("qwerty");
-        this.mRePsw.setText("qwerty");
+        mName.setText("Android");
+        mLName.setText("Test");
+        mMail.setText("naa@naa.com");
+        mPsw.setText("qwerty");
+        mRePsw.setText("qwerty");
 
-        this.mPrefs = new GlobalSharedPrefs(this);
-        this.mDataFromUrl = new GetDataFromUrl(this, this.mFetcherListener);
-        if (this.mPrefs.getStringInPref(KEY.ACCESS_TOKEN) == null) {
+        mPrefs = new GlobalSharedPrefs(this);
+        mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
+        if (mPrefs.getStringInPref(KEY.ACCESS_TOKEN) == null) {
             System.out.println("FetchToken");
-            this.mDataFromUrl.GetString(TYPE.ACCESSTOKEN, this.getBody(TYPE.ACCESSTOKEN), GetData.getUrl(URL.ACCESSTOKEN));
+            mDataFromUrl.GetString(TYPE.ACCESSTOKEN, getBody(TYPE.ACCESSTOKEN), GetData.getUrl(URL.ACCESSTOKEN));
 
         }
 
@@ -88,16 +89,16 @@ public class SignUp extends FragmentActivity {
 
                 case TYPE.ACCESSTOKEN:
                     System.out.println("ISSUE " + TYPE.ACCESSTOKEN);
-                    mJsonObject.put(STRING.AUTH, this.mPrefs.getStringInPref(KEY.AUTH_CODE));
+                    mJsonObject.put(STRING.AUTH, mPrefs.getStringInPref(KEY.AUTH_CODE));
                     break;
 
                 case TYPE.REGISTER_EMAIL:
                     System.out.println("REGISTER_EMAIL " + TYPE.REGISTER_EMAIL);
-                    this.mDataFromUrl.setAccessToken();
-                    mJsonObject.put(STRING.FIRSTNAME, this.mName.getText().toString());
-                    mJsonObject.put(STRING.LASTNAME, this.mLName.getText().toString());
-                    mJsonObject.put(STRING.EMAIL, this.mMail.getText().toString());
-                    mJsonObject.put(STRING.PASSWORD, this.mRePsw.getText().toString());
+                    mDataFromUrl.setAccessToken();
+                    mJsonObject.put(STRING.FIRSTNAME, mName.getText().toString());
+                    mJsonObject.put(STRING.LASTNAME, mLName.getText().toString());
+                    mJsonObject.put(STRING.EMAIL, mMail.getText().toString());
+                    mJsonObject.put(STRING.PASSWORD, mRePsw.getText().toString());
                     break;
 
             }
@@ -124,38 +125,42 @@ public class SignUp extends FragmentActivity {
 
             switch (typ) {
                 case TYPE.ACCESSTOKEN:
-                    SignUp.this.mAccessToken = SettersNGetters.getAccessToken();
+                    mAccessToken = SettersNGetters.getAccessToken();
 
-                    if (SignUp.this.mAccessToken != null) {
-                        if (SignUp.this.mAccessToken.getStatus().equalsIgnoreCase("success")) {
+                    if (mAccessToken != null) {
+                        if (mAccessToken.getStatus().equalsIgnoreCase("success")) {
 
-                            SignUp.this.mPrefs.setStringInPref(KEY.ACCESS_TOKEN, SignUp.this.mAccessToken.getResponse().getAccess_token());
-                            SignUp.this.mPrefs.setStringInPref(KEY.REFRESH_TOKEN, SignUp.this.mAccessToken.getResponse().getRefresh_token());
-                            SignUp.this.LogBlk("AccessToken " + SignUp.this.mAccessToken.getResponse().getAccess_token());
-                            SignUp.this.LogBlk("AccessToken's RefreshToken  " + SignUp.this.mAccessToken.getResponse().getRefresh_token());
+                            mPrefs.setStringInPref(KEY.ACCESS_TOKEN, mAccessToken.getResponse().getAccess_token());
+                            mPrefs.setStringInPref(KEY.REFRESH_TOKEN, mAccessToken.getResponse().getRefresh_token());
+                            SignUp.this.LogBlk("AccessToken " + mAccessToken.getResponse().getAccess_token());
+                            SignUp.this.LogBlk("AccessToken's RefreshToken  " + mAccessToken.getResponse().getRefresh_token());
 
-                        } else {
-                            SignUp.this.ToastL("Error : " + SignUp.this.mAccessToken.getError_message());
                         }
-                    } else {
+                        else {
+                            SignUp.this.ToastL("Error : " + mAccessToken.getError_message());
+                        }
+                    }
+                    else {
                         SignUp.this.ToastL("{ ERROR }");
                     }
                     break;
 
                 case TYPE.REGISTER_EMAIL:
-                    SignUp.this.isRegistered = SettersNGetters.isRegistered();
+                    isRegistered = SettersNGetters.isRegistered();
 
-                    if (SignUp.this.isRegistered != null) {
-                        if (SignUp.this.isRegistered.getStatus().equalsIgnoreCase("success")) {
+                    if (isRegistered != null) {
+                        if (isRegistered.getStatus().equalsIgnoreCase("success")) {
 
                             SignUp.this.ToastL("Registered Successfully");
                             SignUp.this.finish();
                             SignUp.this.AnimNext();
 
-                        } else {
-                            SignUp.this.ToastL("Error : " + SignUp.this.isRegistered.getError_message());
                         }
-                    } else {
+                        else {
+                            SignUp.this.ToastL("Error : " + isRegistered.getError_message());
+                        }
+                    }
+                    else {
                         SignUp.this.ToastL("{ SERVER ERROR }");
                     }
                     break;
@@ -168,17 +173,17 @@ public class SignUp extends FragmentActivity {
 
         @Override
         public void finishedFetching(int type, String response) {
-            SignUp.this.buttonSignup.setEnabled(true);
-            SignUp.this.buttonSignup.setImageResource(R.drawable.signup_proceed);
-            SignUp.this.mBar.setVisibility(View.GONE);
+            buttonSignup.setEnabled(true);
+            buttonSignup.setImageResource(R.drawable.signup_proceed);
+            mBar.setVisibility(View.GONE);
             SignUp.this.LogR("+++" + response.toString());
         }
 
         @Override
         public void errorFetching(int type, VolleyError error) {
-            SignUp.this.buttonSignup.setEnabled(true);
-            SignUp.this.buttonSignup.setImageResource(R.drawable.signup_proceed);
-            SignUp.this.mBar.setVisibility(View.GONE);
+            buttonSignup.setEnabled(true);
+            buttonSignup.setImageResource(R.drawable.signup_proceed);
+            mBar.setVisibility(View.GONE);
             SignUp.this.type = type;
             try {
                 error.printStackTrace();
@@ -208,63 +213,63 @@ public class SignUp extends FragmentActivity {
     };
 
     public void Finish(View v) {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     public void Validate(View v) {
 
-        if (!Validator.hasMinChars(this.mName, 4).equals("k")) {
-            this.mName.setError(Validator.hasMinChars(this.mName, 4));
+        if (!Validator.hasMinChars(mName, 4).equals("k")) {
+            mName.setError(Validator.hasMinChars(mName, 4));
             return;
         }
-        if (!Validator.hasMinChars(this.mLName, 1).equals("k")) {
-            this.mLName.setError(Validator.hasMinChars(this.mLName, 1));
+        if (!Validator.hasMinChars(mLName, 1).equals("k")) {
+            mLName.setError(Validator.hasMinChars(mLName, 1));
             return;
         }
-        if (!Validator.isvalidEmail(this.mMail).equals("k")) {
-            this.mMail.setError(Validator.isvalidEmail(this.mMail));
+        if (!Validator.isvalidEmail(mMail).equals("k")) {
+            mMail.setError(Validator.isvalidEmail(mMail));
             return;
         }
-        if (!Validator.hasMinChars(this.mPsw, 6).equals("k")) {
-            this.mPsw.setError(Validator.hasMinChars(this.mPsw, 6));
-            return;
-        }
-
-        if (!Validator.hasMinChars(this.mRePsw, 1).equals("k")) {
-            this.mRePsw.setError("Password doesn't match");
+        if (!Validator.hasMinChars(mPsw, 6).equals("k")) {
+            mPsw.setError(Validator.hasMinChars(mPsw, 6));
             return;
         }
 
-        if (!Validator.doesPasswordMatch(this.mPsw, this.mRePsw)) {
-            this.mRePsw.setError("Password doesn't match");
+        if (!Validator.hasMinChars(mRePsw, 1).equals("k")) {
+            mRePsw.setError("Password doesn't match");
             return;
         }
 
-        this.buttonSignup = (ImageView) v;
+        if (!Validator.doesPasswordMatch(mPsw, mRePsw)) {
+            mRePsw.setError("Password doesn't match");
+            return;
+        }
 
-        this.buttonSignup.setImageResource(0);
+        buttonSignup = (ImageView) v;
 
-        this.buttonSignup.setEnabled(false);
+        buttonSignup.setImageResource(0);
 
-        this.mBar.setVisibility(View.VISIBLE);
+        buttonSignup.setEnabled(false);
 
-        this.mDataFromUrl.GetString(TYPE.REGISTER_EMAIL, this.getBody(TYPE.REGISTER_EMAIL), GetData.getUrl(URL.REGISTER_EMAIL));
+        mBar.setVisibility(View.VISIBLE);
+
+        mDataFromUrl.GetString(TYPE.REGISTER_EMAIL, getBody(TYPE.REGISTER_EMAIL), GetData.getUrl(URL.REGISTER_EMAIL));
     }
 
     @Override
     public void onBackPressed() {
-        this.finish();
-        this.AnimPrev();
+        finish();
+        AnimPrev();
     }
 
     private void AnimPrev() {
-        this.overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
+        overridePendingTransition(R.anim.android_slide_in_left, R.anim.android_slide_out_right);
         return;
     }
 
     private void AnimNext() {
-        this.overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
     }
 
@@ -274,28 +279,28 @@ public class SignUp extends FragmentActivity {
      * @param RED
      */
     public void LogR(String msg) {
-        Log.wtf(this.tag, msg);
+        Log.wtf(tag, msg);
     }
 
     /**
      * @param Black
      */
     public void LogBlk(String msg) {
-        Log.v(this.tag, msg);
+        Log.v(tag, msg);
     }
 
     /**
      * @param text
      */
     private void ToastL(String text) {
-        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
     /**
      * @param text
      */
     private void ToastS(String text) {
-        Toast.makeText(this.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     /*******************************************************************/
