@@ -15,12 +15,14 @@
 
 package vee.HexWhale.LenDen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -158,11 +160,8 @@ public class Search extends FragmentActivity {
 
         @Override
         public void finishedParsing(int typ) {
-System.out.println("----------------------");
             switch (typ) {
-
                 case TYPE.ITEMS:
-                    System.out.println("---------================-------------");
                     searchCategory = SettersNGetters.getSearchCategory();
                     if (searchCategory.getResponse().getTotal_item_count() > 0)
                     {
@@ -189,7 +188,6 @@ System.out.println("----------------------");
     }
 
     protected void setSearchList() {
-        System.out.println("----------66666666666666666666------------");
         isSearchDone = true;
         mItems = searchCategory.getResponse().getItems();
         final SearchListAdapter adapter = new SearchListAdapter(this, mItems);
@@ -205,6 +203,10 @@ System.out.println("----------------------");
     }
 
     protected void fetchDataforSearch(String searchText) {
+
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
         ToastL(searchText);
         mDataFromUrl.setAccessToken();
         mDataFromUrl.GetString(TYPE.ITEMS, getBody(TYPE.ITEMS, searchText), GetData.getUrl(URL.ITEMS));

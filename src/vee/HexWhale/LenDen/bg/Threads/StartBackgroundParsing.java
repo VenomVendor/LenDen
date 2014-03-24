@@ -150,7 +150,7 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
 
                 case TYPE.ITEMS:
                     SettersNGetters.setSearchCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetSearchCategory.class));
-                    System.out.println("///////////////*****************");
+
                     validateToken(SettersNGetters.getSearchCategory().getError_code());
 
                     break;
