@@ -12,13 +12,15 @@
         android:id="@+id/mapFrame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2" >
+        android:layout_weight="2"
+        android:background="@android:color/transparent" >
 
         <fragment
             android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:name="vee.HexWhale.LenDen.aUI.Fragments.NiceSupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/transparent"
             map:uiZoomControls="false" />
     </FrameLayout>
 

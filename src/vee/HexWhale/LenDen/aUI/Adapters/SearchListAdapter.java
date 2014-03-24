@@ -24,20 +24,33 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Parsers.SearchCategory.Items;
 
 public class SearchListAdapter extends BaseAdapter {
 
     Activity sActivity;
+    List<Items> sItems;
 
     public SearchListAdapter(Activity activity) {
-        sActivity = activity;
+        this.sActivity = activity;
+    }
+
+    public SearchListAdapter(Activity activity, List<Items> mItems) {
+        this.sActivity = activity;
+        this.sItems = mItems;
     }
 
     @Override
     public int getCount() {
 
-        return 100;
+        if (sItems == null)
+        {
+            return 0;
+        }
+        return sItems.size();
     }
 
     @Override

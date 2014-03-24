@@ -59,6 +59,13 @@ public final class Constants {
             public final static String TITLE = "title";
             public final static String DESCRIPTION = "description";
             public final static String PRICE = "price";
+            public final static String LATITUDE = "latitude";
+            public final static String LONGITUDE = "longitude";
+            public final static String RANGE = "range";
+            public final static String SEARCH = "search";
+
+
+
 
         }
 
@@ -81,6 +88,7 @@ public final class Constants {
             public final static String ITEM_CATEGORIES = "items/category/";
             public final static String ITEM_SUBCATEGORY = "items/subcategory/";
             public final static String ITEM_DETAILS = "items/details/";
+            public final static String ITEMS = "items/";
 
         }
 
@@ -97,6 +105,8 @@ public final class Constants {
             public final static int ITEM_CATEGORIES = 10;
             public final static int ITEM_SUBCATEGORY = 11;
             public final static int ITEM_DETAILS = 12;
+            public final static int ITEMS = 13;
+
         }
 
     }
@@ -112,18 +122,18 @@ public final class Constants {
     }
 
     public final static int[] gridImages = {
-        R.drawable.bp5_crop1, R.drawable.bp5_crop2, R.drawable.bp5_crop3, R.drawable.bp5_crop4, R.drawable.bp5_crop5, R.drawable.bp5_crop6
+            R.drawable.bp5_crop1, R.drawable.bp5_crop2, R.drawable.bp5_crop3, R.drawable.bp5_crop4, R.drawable.bp5_crop5, R.drawable.bp5_crop6
     };
 
     public final static int[] menuImages = {
-        R.drawable.add_items, R.drawable.search, R.drawable.favorites, R.drawable.messages, R.drawable.profile, R.drawable.settings
+            R.drawable.add_items, R.drawable.search, R.drawable.favorites, R.drawable.messages, R.drawable.profile, R.drawable.settings
     };
     public final static String[] menuText = {
-        "Add items", "Search", "Favorites", "Messages", "Profile", "Settings"
+            "Add items", "Search", "Favorites", "Messages", "Profile", "Settings"
     };
 
     public final static Class<?>[] menuclass = {
-        AddItems.class, Search.class, Favorites.class, Messages.class, Profile.class, Settings.class
+            AddItems.class, Search.class, Favorites.class, Messages.class, Profile.class, Settings.class
     };
 
 }

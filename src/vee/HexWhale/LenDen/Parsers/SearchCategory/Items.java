@@ -13,7 +13,7 @@
  * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
-package vee.HexWhale.LenDen.Parsers.ItemCategory;
+package vee.HexWhale.LenDen.Parsers.SearchCategory;
 
 public class Items {
     private String category_name;

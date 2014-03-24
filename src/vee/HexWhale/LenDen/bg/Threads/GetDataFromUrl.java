@@ -104,6 +104,8 @@ public class GetDataFromUrl {
                     return true;
                 }
             });
+        }else{
+            cancelOldRequests = !cancelOldRequests;
         }
 
         /**
@@ -155,7 +157,7 @@ public class GetDataFromUrl {
         public void onResponse(String response) {
             mFetcherListener.finishedFetching(type, response);
             new StartBackgroundParsing(activity, type, mFetcherListener)
-            .execute(response);
+                    .execute(response);
         }
     };
 

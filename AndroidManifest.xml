@@ -82,7 +82,7 @@
 
         <!-- Menu -->
         <activity android:name="vee.HexWhale.LenDen.AddItems" />
-        <activity android:name="vee.HexWhale.LenDen.Search" />
+        <activity android:name="vee.HexWhale.LenDen.Search" android:windowSoftInputMode="stateHidden" />
         <activity android:name="vee.HexWhale.LenDen.Favorites" />
         <activity android:name="vee.HexWhale.LenDen.Messages" />
         <activity android:name="vee.HexWhale.LenDen.MessagesFull" />
