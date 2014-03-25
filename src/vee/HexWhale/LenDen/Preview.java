@@ -54,7 +54,6 @@ public class Preview extends MenuBar {
     private String tag = "UNKNOWN";
     GetDataFromUrl mDataFromUrl;
     GetItemCategory mItemCategory;
-    GlobalSharedPrefs mPrefs;
     static int page = 1;
     String cate_id = null;
 
@@ -65,7 +64,6 @@ public class Preview extends MenuBar {
         setContentView(R.layout.preview);
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
         mListView = (ListView) findViewById(android.R.id.list);
-        mPrefs = new GlobalSharedPrefs(this);
 
         final Intent mIntent = getIntent();
         if (mIntent != null)

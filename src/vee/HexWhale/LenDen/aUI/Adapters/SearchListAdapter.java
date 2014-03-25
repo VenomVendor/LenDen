@@ -17,6 +17,8 @@ package vee.HexWhale.LenDen.aUI.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,23 +26,41 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import java.io.File;
 import java.util.List;
 
 import vee.HexWhale.LenDen.R;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.Items;
+import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
+import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
+import vee.HexWhale.LenDen.bg.Threads.GetData;
 
 public class SearchListAdapter extends BaseAdapter {
 
     Activity sActivity;
     List<Items> sItems;
+    DisplayImageOptions optionsIcon;
+    File cacheDir = new File(Environment.getExternalStorageDirectory(), STRING.CACHE_LOC);
+    ImageLoader imageLoader;
 
     public SearchListAdapter(Activity activity) {
         this.sActivity = activity;
+        initilizeImageCache() ;
     }
 
     public SearchListAdapter(Activity activity, List<Items> mItems) {
         this.sActivity = activity;
         this.sItems = mItems;
+        initilizeImageCache() ;
     }
 
     @Override
@@ -74,49 +94,88 @@ public class SearchListAdapter extends BaseAdapter {
             final LayoutInflater mInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.search_list, null);
             holder = new ViewHolder();
-            holder.sImg = (ImageView) convertView.findViewById(R.id.search_list_img);
+
+            holder.sIcon = (ImageView) convertView.findViewById(R.id.search_list_img);
             holder.sTitle = (TextView) convertView.findViewById(R.id.search_list_title);
-            holder.sType = (TextView) convertView.findViewById(R.id.search_list_type);
+            holder.sCategory = (TextView) convertView.findViewById(R.id.search_list_type); // mDescprtion
             holder.sPrice = (TextView) convertView.findViewById(R.id.search_list_price);
-            holder.sFav = (TextView) convertView.findViewById(R.id.search_list_fav);
-            holder.sLike = (TextView) convertView.findViewById(R.id.search_list_lik);
-            holder.sBtn = (TextView) convertView.findViewById(R.id.search_list_type_btn);
+            holder.sLikeCnt = (TextView) convertView.findViewById(R.id.search_list_lik);
+            holder.sFavCnt = (TextView) convertView.findViewById(R.id.search_list_fav);
+            holder.sTypeButton = (TextView) convertView.findViewById(R.id.search_list_type_btn);
+
             convertView.setTag(holder);
         }
         else {
             holder = (ViewHolder) convertView.getTag();
         }
+        final vee.HexWhale.LenDen.Parsers.SearchCategory.Items mItems = sItems.get(position);
 
-        if (position % 3 == 0) {
-            holder.sTitle.setText("Am Loooooooooooooooooooooooooooooooooong title");
-            holder.sBtn.setText("SALE");
-            holder.sBtn.setBackgroundResource(R.drawable.sales_rnd_bg);
-            holder.sPrice.setText("$" + (position + 14));
+        int mTadeMode = mItems.getTrade_mode();
+        mTadeMode = 2; // TODO - REMOVE THIS HARDCODED MODE
+
+
+        holder.sTitle.setText("" + mItems.getTitle());
+        holder.sCategory.setText("" + mItems.getCategory_name());
+        holder.sFavCnt.setText("" + mItems.getFavorite_count());
+        holder.sLikeCnt.setText("" + mItems.getLike_count());
+
+        // if (position > (totalCount - 2) && !noMoreTopics)
+        // /items/<item_id>/picture/<num:int>/
+        imageLoader.displayImage("" + GetData.getUrl("items/" + mItems.getItem_id() + "/picture/" + 1), holder.sIcon, optionsIcon);
+
+        // /users/photo/<user_id>/
+        holder.sPrice.setText("$" + mItems.getSelling_price());
+
+        if (mTadeMode == 1) {
+            holder.sTypeButton.setText("SELL");
+            holder.sTypeButton.setBackgroundResource(R.drawable.sales_rnd_bg);
             holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.menu_bg));
         }
         else
-            if (position % 3 == 1) {
-                holder.sTitle.setText("Am small title");
-                holder.sBtn.setText("EXCHANGE");
-                holder.sBtn.setBackgroundResource(R.drawable.exch_rnd_bg);
-                holder.sPrice.setText("$" + (position + 14));
+            if (mTadeMode == 2) {
+                holder.sTypeButton.setText("EXCHANGE");
+                holder.sTypeButton.setBackgroundResource(R.drawable.exch_rnd_bg);
                 holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.orange));
             }
             else {
-                holder.sTitle.setText("Am extra title");
-                holder.sBtn.setText("BOTH");
-                holder.sBtn.setBackgroundResource(R.drawable.both_rnd_bg);
-                holder.sPrice.setText("$" + (position + 14));
+                holder.sTypeButton.setText("BOTH");
+                holder.sTypeButton.setBackgroundResource(R.drawable.both_rnd_bg);
                 holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.saani));
             }
-
         holder.sTitle.setSelected(true);
-
         return convertView;
     }
 
     private static class ViewHolder {
-        public ImageView sImg;
-        public TextView sTitle, sType, sPrice, sFav, sLike, sBtn;
+        TextView sTitle, sCategory, sPrice, sFavCnt, sLikeCnt, sTypeButton;
+        ImageView sIcon;
+    }
+
+    private void initilizeImageCache() {
+        optionsIcon =
+                new DisplayImageOptions.Builder()
+                        .showImageForEmptyUri(R.drawable.noimage)
+                        .showImageOnFail(R.drawable.noimage)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
+
+        final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(sActivity.getApplicationContext())
+                .defaultDisplayImageOptions(optionsIcon)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
+
+        ImageLoader.getInstance().init(config); // Do it on Application start
+        imageLoader = ImageLoader.getInstance();
     }
 }

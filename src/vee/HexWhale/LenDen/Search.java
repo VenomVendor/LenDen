@@ -163,10 +163,19 @@ public class Search extends FragmentActivity {
             switch (typ) {
                 case TYPE.ITEMS:
                     searchCategory = SettersNGetters.getSearchCategory();
+
+                    if (searchCategory == null) {
+                        ToastL("{ Unknown Error }");
+                        return;
+                    }
+
                     if (searchCategory.getResponse().getTotal_item_count() > 0)
                     {
                         setSearchList();
                         enableClickListiner();
+                    }
+                    else {
+                        ToastL("{ No related posts }");
                     }
                     break;
 
@@ -203,7 +212,6 @@ public class Search extends FragmentActivity {
     }
 
     protected void fetchDataforSearch(String searchText) {
-
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
@@ -375,7 +383,7 @@ public class Search extends FragmentActivity {
                     disableList();
                 }
                 else {
-                   enableList();
+                    enableList();
                 }
             }
         });

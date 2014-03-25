@@ -16,34 +16,165 @@
 package vee.HexWhale.LenDen;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
+import com.android.volley.VolleyError;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
+import vee.HexWhale.LenDen.Storage.SettersNGetters;
+import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
+import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
+import vee.HexWhale.LenDen.Utils.Constants.API.URL;
 import vee.HexWhale.LenDen.aUI.MenuBar;
 import vee.HexWhale.LenDen.aUI.Adapters.FavoritesAdapter;
+import vee.HexWhale.LenDen.aUI.Adapters.PreviewAdapter;
+import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
+import vee.HexWhale.LenDen.bg.Threads.GetData;
+import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
+import vee.HexWhale.LenDen.bg.Threads.TagGen;
 
 import java.util.Locale;
 
 public class Favorites extends MenuBar {
 
     ListView mListView;
+    private String tag = "UNKNOWN";
+    GetDataFromUrl mDataFromUrl;
+    GetFavCategory mFavCategory;
+    static int page = 1;
+    String cate_id = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        tag = TagGen.getTag(getClass());
         this.setContentView(R.layout.favorites);
-        mListView = (ListView) findViewById(android.R.id.list);
-        final FavoritesAdapter adapter = new FavoritesAdapter(this);
 
-        final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
-        mScaleInAnimationAdapter.setAbsListView(mListView);
-        mListView.setAdapter(mScaleInAnimationAdapter);
+        mListView = (ListView) findViewById(android.R.id.list);
+        mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
+        mDataFromUrl.setAccessToken();
+        mDataFromUrl.GetString(TYPE.FAVORITE, getBody(TYPE.FAVORITE), GetData.getUrl(URL.FAVORITE));
+
     }
+
+    private String getBody(final int mType) {
+        JSONObject mJsonObject = null;
+        mJsonObject = new JSONObject();
+        try {
+            switch (mType) {
+                case TYPE.FAVORITE:
+                    mJsonObject.put(STRING.PAGE, "" + Favorites.page);
+                    mJsonObject.put(STRING.OFFSET, "" + 10);
+                    break;
+
+            }
+            return mJsonObject.toString();
+        }
+        catch (final JSONException e) {
+            e.printStackTrace();
+        }
+        catch (final Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private final FetcherListener mFetcherListener = new FetcherListener() {
+
+        @Override
+        public void tokenError(String tokenError) {
+            ToastL(tokenError);
+
+        }
+
+        @Override
+        public void startedParsing(int type) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void finishedParsing(int typ) {
+
+            switch (typ) {
+                case TYPE.FAVORITE:
+
+                    mFavCategory = SettersNGetters.getFavCategory();
+                    if (mFavCategory == null) {
+                        ToastL("{ Unknown Error }");
+                    }
+                    final FavoritesAdapter adapter = new FavoritesAdapter(Favorites.this, mFavCategory);
+
+                    // SwingBottomInAnimationAdapter mScaleInAnimationAdapter =
+                    // new
+                    // SwingBottomInAnimationAdapter(adapter, 110, 400);
+                    // ScaleInAnimationAdapter mScaleInAnimationAdapter = new
+                    // ScaleInAnimationAdapter(adapter, 0.5f, 110, 400);
+
+                    final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+                    mScaleInAnimationAdapter.setAbsListView(mListView);
+                    mListView.setAdapter(mScaleInAnimationAdapter);
+
+                    mListView.setOnItemClickListener(new OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            final Intent mIntent = new Intent(getApplicationContext(), Detailed.class);
+
+                            mIntent.putExtra(STRING.POSITION, position);
+
+                            startActivity(mIntent);
+                            AnimNext();
+                        }
+
+                    });
+
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+        @Override
+        public void finishedFetching(int type, String response) {
+            LogR(response);
+
+        }
+
+        @Override
+        public void errorFetching(int type, VolleyError error) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeParsing(int type) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void ParsingException(Exception e) {
+            // TODO Auto-generated method stub
+
+        }
+    };
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -74,4 +205,14 @@ public class Favorites extends MenuBar {
         return;
     }
 
+    protected void LogR(String msg) {
+        Log.wtf(tag, msg);
+    }
+
+    /**
+     * @param text
+     */
+    private void ToastL(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+    }
 }

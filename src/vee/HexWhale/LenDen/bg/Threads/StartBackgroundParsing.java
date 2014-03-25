@@ -27,6 +27,7 @@ import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
 import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
 import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
+import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.GetSearchCategory;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
@@ -147,11 +148,17 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
                     validateToken(SettersNGetters.getDetailedCategory().getError_code());
 
                     break;
-
                 case TYPE.ITEMS:
                     SettersNGetters.setSearchCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetSearchCategory.class));
 
                     validateToken(SettersNGetters.getSearchCategory().getError_code());
+
+                    break;
+
+                case TYPE.FAVORITE:
+                    SettersNGetters.setFavCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetFavCategory.class));
+
+                    validateToken(SettersNGetters.getFavCategory().getError_code());
 
                     break;
             }
@@ -169,6 +176,7 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
             SettersNGetters.setItemCategory(null);
             SettersNGetters.setDetailedCategory(null);
             SettersNGetters.setSearchCategory(null);
+            SettersNGetters.setFavCategory(null);
         }
 
         return;

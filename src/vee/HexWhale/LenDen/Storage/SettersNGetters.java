@@ -19,6 +19,7 @@ import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
 import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
 import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
+import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.GetSearchCategory;
 
@@ -32,6 +33,7 @@ public class SettersNGetters {
     private static GetItemCategory itemCategory;
     private static GetDetailedCategory detailedCategory;
     private static GetSearchCategory searchCategory;
+    private static GetFavCategory favCategory;
 
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
@@ -95,6 +97,14 @@ public class SettersNGetters {
 
     public static void setSearchCategory(GetSearchCategory searchCategory) {
         SettersNGetters.searchCategory = searchCategory;
+    }
+
+    public static GetFavCategory getFavCategory() {
+        return favCategory;
+    }
+
+    public static void setFavCategory(GetFavCategory favCategory) {
+        SettersNGetters.favCategory = favCategory;
     }
 
 }

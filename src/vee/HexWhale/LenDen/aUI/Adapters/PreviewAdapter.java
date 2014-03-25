@@ -39,6 +39,7 @@ import vee.HexWhale.LenDen.R;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.Items;
 import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
+import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
 
 import java.io.File;
@@ -52,7 +53,7 @@ public class PreviewAdapter extends BaseAdapter {
     static int totalItemCount;
 
     DisplayImageOptions optionsIcon, optionsDp;
-    File cacheDir = new File(Environment.getExternalStorageDirectory(), "data/.vee.HexWhale.LenDen/.imgCache");
+    File cacheDir = new File(Environment.getExternalStorageDirectory(), STRING.CACHE_LOC);
     ImageLoader imageLoader;
 
     public PreviewAdapter(Activity activity) {
@@ -102,20 +103,20 @@ public class PreviewAdapter extends BaseAdapter {
             final LayoutInflater mInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.preview_list, null);
 
-            holder.mDP = (ImageView) convertView.findViewById(R.id.preview_dp);
-            holder.mName = (TextView) convertView.findViewById(R.id.preview_name);
-            holder.mTime = (TextView) convertView.findViewById(R.id.preview_time);
-            holder.mType = (ImageView) convertView.findViewById(R.id.preview_type);
+            holder.sDP = (ImageView) convertView.findViewById(R.id.preview_dp);
+            holder.sName = (TextView) convertView.findViewById(R.id.preview_name);
+            holder.sTime = (TextView) convertView.findViewById(R.id.preview_time);
+            holder.sType = (ImageView) convertView.findViewById(R.id.preview_type);
 
-            holder.mIcon = (ImageView) convertView.findViewById(R.id.search_list_img);
-            holder.mTitle = (TextView) convertView.findViewById(R.id.search_list_title);
-            holder.mCategory = (TextView) convertView.findViewById(R.id.search_list_type); // mDescprtion
-            holder.mPrice = (TextView) convertView.findViewById(R.id.search_list_price);
+            holder.sIcon = (ImageView) convertView.findViewById(R.id.search_list_img);
+            holder.sTitle = (TextView) convertView.findViewById(R.id.search_list_title);
+            holder.sCategory = (TextView) convertView.findViewById(R.id.search_list_type); // mDescprtion
+            holder.sPrice = (TextView) convertView.findViewById(R.id.search_list_price);
 
-            holder.mLikeCnt = (TextView) convertView.findViewById(R.id.search_list_lik);
-            holder.mFavCnt = (TextView) convertView.findViewById(R.id.search_list_fav);
+            holder.sLikeCnt = (TextView) convertView.findViewById(R.id.search_list_lik);
+            holder.sFavCnt = (TextView) convertView.findViewById(R.id.search_list_fav);
 
-            holder.mTypeButton = (TextView) convertView.findViewById(R.id.search_list_type_btn);
+            holder.sTypeButton = (TextView) convertView.findViewById(R.id.search_list_type_btn);
 
             convertView.setTag(holder);
         }
@@ -127,50 +128,50 @@ public class PreviewAdapter extends BaseAdapter {
         int mTadeMode = mItems.getTrade_mode();
         mTadeMode = 2; // TODO - REMOVE THIS HARDCODED MODE
 
-        holder.mName.setText("" + mItems.getUser_first_name());
+        holder.sName.setText("" + mItems.getUser_first_name());
 
-        holder.mTitle.setText("" + mItems.getTitle());
-        holder.mCategory.setText("" + mItems.getCategory_name());
-        holder.mTime.setText("" + mItems.getCreation_date());
+        holder.sTitle.setText("" + mItems.getTitle());
+        holder.sCategory.setText("" + mItems.getCategory_name());
+        holder.sTime.setText("" + mItems.getCreation_date());
 
-        holder.mFavCnt.setText("" + mItems.getFavorite_count());
-        holder.mLikeCnt.setText("" + mItems.getLike_count());
+        holder.sFavCnt.setText("" + mItems.getFavorite_count());
+        holder.sLikeCnt.setText("" + mItems.getLike_count());
 
         // if (position > (totalCount - 2) && !noMoreTopics)
         // /items/<item_id>/picture/<num:int>/
-        imageLoader.displayImage("" + GetData.getUrl("items/" + mItems.getItem_id() + "/picture/" + 1), holder.mIcon, optionsIcon);
+        imageLoader.displayImage("" + GetData.getUrl("items/" + mItems.getItem_id() + "/picture/" + 1), holder.sIcon, optionsIcon);
 
         // /users/photo/<user_id>/
-        imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + mItems.getUser_id()), holder.mDP, optionsDp);
-        holder.mPrice.setText("$" + mItems.getSelling_price());
+        imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + mItems.getUser_id()), holder.sDP, optionsDp);
+        holder.sPrice.setText("$" + mItems.getSelling_price());
 
         if (mTadeMode == 1) {
-            holder.mTypeButton.setText("SELL");
-            holder.mTypeButton.setBackgroundResource(R.drawable.sales_rnd_bg);
-            holder.mPrice.setTextColor(convertView.getResources().getColor(R.color.menu_bg));
-            holder.mType.setImageResource(R.drawable.pyth_sale);
+            holder.sTypeButton.setText("SELL");
+            holder.sTypeButton.setBackgroundResource(R.drawable.sales_rnd_bg);
+            holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.menu_bg));
+            holder.sType.setImageResource(R.drawable.pyth_sale);
         }
         else
             if (mTadeMode == 2) {
-                holder.mTypeButton.setText("EXCHANGE");
-                holder.mTypeButton.setBackgroundResource(R.drawable.exch_rnd_bg);
-                holder.mPrice.setTextColor(convertView.getResources().getColor(R.color.orange));
-                holder.mType.setImageResource(R.drawable.pyth_exchange);
+                holder.sTypeButton.setText("EXCHANGE");
+                holder.sTypeButton.setBackgroundResource(R.drawable.exch_rnd_bg);
+                holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.orange));
+                holder.sType.setImageResource(R.drawable.pyth_exchange);
             }
             else {
-                holder.mTypeButton.setText("BOTH");
-                holder.mTypeButton.setBackgroundResource(R.drawable.both_rnd_bg);
-                holder.mPrice.setTextColor(convertView.getResources().getColor(R.color.saani));
-                holder.mType.setImageResource(R.drawable.pyth_both);
+                holder.sTypeButton.setText("BOTH");
+                holder.sTypeButton.setBackgroundResource(R.drawable.both_rnd_bg);
+                holder.sPrice.setTextColor(convertView.getResources().getColor(R.color.saani));
+                holder.sType.setImageResource(R.drawable.pyth_both);
             }
-
+        holder.sTitle.setSelected(true);
         return convertView;
     }
 
     private static class ViewHolder {
 
-        TextView mName, mTime, mTitle, mCategory, mPrice, mFavCnt, mLikeCnt, mTypeButton;
-        ImageView mDP, mType, mIcon;
+        TextView sName, sTime, sTitle, sCategory, sPrice, sFavCnt, sLikeCnt, sTypeButton;
+        ImageView sDP, sType, sIcon;
 
     }
 

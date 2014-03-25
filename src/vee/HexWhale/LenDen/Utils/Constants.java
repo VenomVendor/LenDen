@@ -89,6 +89,8 @@ public final class Constants {
             public final static String ITEM_SUBCATEGORY = "items/subcategory/";
             public final static String ITEM_DETAILS = "items/details/";
             public final static String ITEMS = "items/";
+            public final static String FAVORITE = "items/me/favorite/";
+
 
         }
 
@@ -106,6 +108,7 @@ public final class Constants {
             public final static int ITEM_SUBCATEGORY = 11;
             public final static int ITEM_DETAILS = 12;
             public final static int ITEMS = 13;
+            public final static int FAVORITE = 14;
 
         }
 
