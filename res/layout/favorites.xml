@@ -18,16 +18,27 @@
 
         <include layout="@layout/bar_menu" />
 
+        <TextView
+            android:id="@+id/fav_no_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="No Items Favourited"
+            android:textColor="#F00"
+            android:textSize="23sp"
+            android:visibility="gone" />
+
         <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="2dp"
             android:background="#EEE"
+            android:clipToPadding="false"
             android:divider="@android:color/transparent"
             android:dividerHeight="2dp"
             android:padding="0dp"
-			android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay" >
         </ListView>
     </LinearLayout>

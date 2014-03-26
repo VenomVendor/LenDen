@@ -21,11 +21,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.VolleyError;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
@@ -40,7 +40,6 @@ import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
 import vee.HexWhale.LenDen.Utils.Constants.API.URL;
 import vee.HexWhale.LenDen.aUI.MenuBar;
 import vee.HexWhale.LenDen.aUI.Adapters.FavoritesAdapter;
-import vee.HexWhale.LenDen.aUI.Adapters.PreviewAdapter;
 import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
@@ -56,6 +55,7 @@ public class Favorites extends MenuBar {
     GetFavCategory mFavCategory;
     static int page = 1;
     String cate_id = null;
+    TextView mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class Favorites extends MenuBar {
         tag = TagGen.getTag(getClass());
         this.setContentView(R.layout.favorites);
 
+        mView = (TextView) findViewById(R.id.fav_no_item);
         mListView = (ListView) findViewById(android.R.id.list);
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
         mDataFromUrl.setAccessToken();
@@ -114,8 +115,18 @@ public class Favorites extends MenuBar {
 
                     mFavCategory = SettersNGetters.getFavCategory();
                     if (mFavCategory == null) {
+                        mView.setVisibility(View.VISIBLE);
+                        mListView.setVisibility(View.GONE);
                         ToastL("{ Unknown Error }");
+                        return;
                     }
+
+                    if (mFavCategory.getResponse().getItems().size() == 0) {
+                        mView.setVisibility(View.VISIBLE);
+                        mListView.setVisibility(View.GONE);
+                        return;
+                    }
+
                     final FavoritesAdapter adapter = new FavoritesAdapter(Favorites.this, mFavCategory);
 
                     // SwingBottomInAnimationAdapter mScaleInAnimationAdapter =
@@ -123,7 +134,8 @@ public class Favorites extends MenuBar {
                     // SwingBottomInAnimationAdapter(adapter, 110, 400);
                     // ScaleInAnimationAdapter mScaleInAnimationAdapter = new
                     // ScaleInAnimationAdapter(adapter, 0.5f, 110, 400);
-
+                    mView.setVisibility(View.GONE);
+                    mListView.setVisibility(View.VISIBLE);
                     final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
                     mScaleInAnimationAdapter.setAbsListView(mListView);
                     mListView.setAdapter(mScaleInAnimationAdapter);
@@ -145,8 +157,6 @@ public class Favorites extends MenuBar {
 
                     break;
 
-                default:
-                    break;
             }
 
         }
