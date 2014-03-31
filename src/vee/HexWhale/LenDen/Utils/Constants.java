@@ -68,6 +68,8 @@ public final class Constants {
             public final static String PICTURE = "picture";
             public final static String PREVIEW = "PREVIEW";
             public final static String STATUS = "status";
+            public final static String CURRENT_PASSWORD = "current_password";
+            public final static String NEW_PASSWORD = "new_password";
 
 
 
@@ -103,6 +105,7 @@ public final class Constants {
             public final static String PROFILE_ITEMS_STATS = "items/me/stats/";
             public final static String PROFILE_PIC = "users/me/photo/upload/";
             public final static String PROFILE_EDIT = "users/me/edit/";
+            public final static String CHANGE_PASSWORD = "users/me/change/password/";
 
         }
 
@@ -129,6 +132,7 @@ public final class Constants {
             public final static int PROFILE_ITEMS_STATS = 20;
             public final static int PROFILE_PIC = 21;
             public final static int PROFILE_EDIT = 22;
+            public final static int CHANGE_PASSWORD = 23;
         }
 
     }

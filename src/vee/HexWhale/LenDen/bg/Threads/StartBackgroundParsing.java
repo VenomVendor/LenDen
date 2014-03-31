@@ -33,6 +33,7 @@ import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
 import vee.HexWhale.LenDen.Parsers.Messages.CreateMessage;
 import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
 import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
+import vee.HexWhale.LenDen.Parsers.Profile.ChangePassword;
 import vee.HexWhale.LenDen.Parsers.Profile.GetEditProfile;
 import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
 import vee.HexWhale.LenDen.Parsers.ProfileItems.GetProfileItems;
@@ -217,6 +218,13 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
 
                     break;
 
+                case TYPE.CHANGE_PASSWORD:
+                    SettersNGetters.setChangePassword(StartBackgroundParsing.objectMapper.readValue(resultJsonString, ChangePassword.class));
+
+                    validateToken(SettersNGetters.getChangePassword().getError_code());
+
+                    break;
+
             }
         }
         catch (final Exception e) {
@@ -297,6 +305,14 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
 
                     SettersNGetters.setItemStats(null);
                     break;
+                case TYPE.PROFILE_EDIT:
+
+                    SettersNGetters.setEditProfile(null);
+                    break;
+                case TYPE.CHANGE_PASSWORD:
+
+                    SettersNGetters.setChangePassword(null);
+                    break;
 
             }
 
@@ -306,6 +322,7 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
     }
 
     private void validateToken(String error_code) {
+
         if (error_code != null)
         {
             if (error_code.toLowerCase(Locale.ENGLISH).contains("token"))

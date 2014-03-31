@@ -98,16 +98,20 @@ public class Profile extends MenuBar {
         mEmail = (TextView) findViewById(R.id.profile_loc);
 
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
-
-        if (mPrefs.getStringInPref(KEY.MY_F_NAME) != null || mPrefs.getStringInPref(KEY.MY_F_NAME) != "")
-        {
-            mDataFromUrl.setAccessToken();
-            mDataFromUrl.GetString(TYPE.PROFILE_ITEMS_STATS, getBody(TYPE.PROFILE_ITEMS_STATS), GetData.getUrl(URL.PROFILE_ITEMS_STATS));
-            return;
-        }
         mDataFromUrl.setAccessToken();
-        mDataFromUrl.GetString(TYPE.PROFILE_ME, getBody(TYPE.PROFILE_ME), GetData.getUrl(URL.PROFILE_ME));
 
+        if (mPrefs.getStringInPref(KEY.MY_F_NAME).equalsIgnoreCase("") || mPrefs.getStringInPref(KEY.MY_F_NAME) == null)
+        {
+            mDataFromUrl.GetString(TYPE.PROFILE_ME, getBody(TYPE.PROFILE_ME), GetData.getUrl(URL.PROFILE_ME));
+        }
+        else {
+            mName.setText(mPrefs.getStringInPref(KEY.MY_F_NAME) + " " + mPrefs.getStringInPref(KEY.MY_L_NAME));
+            mEmail.setText(mPrefs.getStringInPref(KEY.MY_E_MAIL));
+            System.out.println(""+mPrefs.getStringInPref(KEY.MY_I_URL));
+            imageLoader.displayImage(mPrefs.getStringInPref(KEY.MY_I_URL), mDp, optionsDp);
+            mDataFromUrl.GetString(TYPE.PROFILE_ITEMS_STATS, getBody(TYPE.PROFILE_ITEMS_STATS), GetData.getUrl(URL.PROFILE_ITEMS_STATS));
+        }
+        return;
     }
 
     @Override

@@ -113,7 +113,7 @@ public class GlobalSharedPrefs {
      */
     public String getStringInPref(String xKey) {
         initiateSharedPrefrences();
-        return mSharedPreferences.getString(xKey, null);
+        return mSharedPreferences.getString(xKey, "");
     }
 
     /**

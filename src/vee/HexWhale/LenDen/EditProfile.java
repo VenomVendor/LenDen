@@ -120,9 +120,13 @@ public class EditProfile extends FragmentActivity {
         initilizeImageCache();
         mPrefs = new GlobalSharedPrefs(this);
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
+        mDataFromUrl.setAccessToken();
 
-        if (mPrefs.getStringInPref(KEY.MY_F_NAME) != null || mPrefs.getStringInPref(KEY.MY_F_NAME) != "")
+        if (mPrefs.getStringInPref(KEY.MY_F_NAME).equalsIgnoreCase("") || mPrefs.getStringInPref(KEY.MY_F_NAME) == null)
         {
+            mDataFromUrl.GetString(TYPE.PROFILE_ME, getBody(TYPE.PROFILE_ME), GetData.getUrl(URL.PROFILE_ME));
+        }
+        else {
             firstName.setText(mPrefs.getStringInPref(KEY.MY_F_NAME));
             lastName.setText(mPrefs.getStringInPref(KEY.MY_L_NAME));
             eMail.setText(mPrefs.getStringInPref(KEY.MY_E_MAIL));
@@ -137,11 +141,8 @@ public class EditProfile extends FragmentActivity {
                 e.printStackTrace();
             }
 
-            return;
         }
-
-        mDataFromUrl.setAccessToken();
-        mDataFromUrl.GetString(TYPE.PROFILE_ME, getBody(TYPE.PROFILE_ME), GetData.getUrl(URL.PROFILE_ME));
+        return;
 
     }
 
@@ -155,8 +156,6 @@ public class EditProfile extends FragmentActivity {
 
         @Override
         public void startedParsing(int type) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
@@ -165,7 +164,7 @@ public class EditProfile extends FragmentActivity {
             switch (typ) {
 
                 case TYPE.PROFILE_ME:
-
+                    System.out.println("SEtting PROFILE details");
                     profile = SettersNGetters.getProfile();
 
                     if (profile == null) {
@@ -196,13 +195,14 @@ public class EditProfile extends FragmentActivity {
                 case TYPE.PROFILE_EDIT:
 
                     editProfile = SettersNGetters.getEditProfile();
-                    if (profile == null) {
+                    if (editProfile == null) {
                         ToastL("{ Unable to Update }");
                         return;
                     }
 
                     if (editProfile.getStatus().equalsIgnoreCase(STRING.SUCCESS))
                     {
+                        mPrefs.setStringInPref(KEY.MY_F_NAME, "");
                         updatedText = true;
                         if (updatedImage && updatedText)
                         {
@@ -228,20 +228,14 @@ public class EditProfile extends FragmentActivity {
 
         @Override
         public void errorFetching(int type, VolleyError error) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void beforeParsing(int type) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void ParsingException(Exception e) {
-            // TODO Auto-generated method stub
-
         }
     };
 
@@ -265,7 +259,7 @@ public class EditProfile extends FragmentActivity {
 
         if (!Validator.hasMinChars(lastName, 3).equalsIgnoreCase("k"))
         {
-            lastName.setError(Validator.hasMinChars(lastName, 3));
+            lastName.setError(Validator.hasMinChars(lastName, 1));
             return;
         }
 
@@ -352,10 +346,10 @@ public class EditProfile extends FragmentActivity {
         {
             if (enableEdit)
             {
-                view.animate().translationX(25)
+                view.animate().translationX(50)
                         .alpha(0.23f)
-                        .scaleX(0.75f)
-                        .scaleY(0.75f)
+                        .scaleX(0.90f)
+                        .scaleY(0.90f)
                         .setDuration(350)
                         .setListener(null);
             }

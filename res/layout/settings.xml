@@ -56,7 +56,6 @@
                 android:minHeight="48dp"
                 android:onClick="EditProfile"
                 android:padding="10dp"
-                android:text="VenomVendor"
                 android:textColor="@color/list_txt"
                 android:textSize="12sp" />
         </RelativeLayout>
@@ -84,6 +83,7 @@
                 android:textColor="#636363" />
 
             <TextView
+                android:onClick="EditPassword"
                 android:id="@+id/settings_psw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
