@@ -63,7 +63,7 @@ public class Favorites extends MenuBar {
         tag = TagGen.getTag(getClass());
         this.setContentView(R.layout.favorites);
 
-        mView = (TextView) findViewById(R.id.fav_no_item);
+        mView = (TextView) findViewById(R.id.no_item);
         mListView = (ListView) findViewById(android.R.id.list);
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
         mDataFromUrl.setAccessToken();
@@ -80,7 +80,6 @@ public class Favorites extends MenuBar {
                     mJsonObject.put(STRING.PAGE, "" + Favorites.page);
                     mJsonObject.put(STRING.OFFSET, "" + 10);
                     break;
-
             }
             return mJsonObject.toString();
         }
@@ -154,6 +153,7 @@ public class Favorites extends MenuBar {
                         }
 
                     });
+
 
                     break;
 

@@ -76,7 +76,7 @@
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTask" />
         <activity android:name="vee.HexWhale.LenDen.Preview" />
-        <activity android:name="vee.HexWhale.LenDen.EditProfile" />
+        <activity android:name="vee.HexWhale.LenDen.EditProfile" android:windowSoftInputMode="stateHidden" />
         <activity android:name="vee.HexWhale.LenDen.Notifications" />
         <activity android:name="vee.HexWhale.LenDen.Detailed" />
 

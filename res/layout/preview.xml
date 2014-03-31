@@ -19,7 +19,17 @@
 
         <include layout="@layout/bar_menu" />
 
-        <ListView
+        <TextView
+            android:id="@+id/no_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="No Items"
+            android:textColor="#F00"
+            android:textSize="23sp"
+            android:visibility="gone" />
+        <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -29,6 +29,12 @@ import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
 import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
 import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
+import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
+import vee.HexWhale.LenDen.Parsers.Messages.CreateMessage;
+import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
+import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
+import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
+import vee.HexWhale.LenDen.Parsers.ProfileItems.GetProfileItems;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.GetSearchCategory;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
@@ -161,6 +167,49 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
                     validateToken(SettersNGetters.getFavCategory().getError_code());
 
                     break;
+
+                case TYPE.MESSSAGES:
+                    SettersNGetters.setMessages(StartBackgroundParsing.objectMapper.readValue(mParams, GetMessages.class));
+
+                    validateToken(SettersNGetters.getMessages().getError_code());
+
+                    break;
+
+                case TYPE.MESSSAGES_USER:
+                    SettersNGetters.setMessagesFull(StartBackgroundParsing.objectMapper.readValue(mParams, GetMessagesFull.class));
+
+                    validateToken(SettersNGetters.getMessagesFull().getError_code());
+
+                    break;
+
+                case TYPE.PROFILE_ME:
+                    SettersNGetters.setProfile(StartBackgroundParsing.objectMapper.readValue(mParams, GetProfile.class));
+
+                    validateToken(SettersNGetters.getProfile().getError_code());
+
+                    break;
+
+                case TYPE.MESSSAGES_CREATE:
+                    SettersNGetters.setCreateMessage(StartBackgroundParsing.objectMapper.readValue(mParams, CreateMessage.class));
+
+                    validateToken(SettersNGetters.getCreateMessage().getError_code());
+
+                    break;
+
+                case TYPE.PROFILE_ITEMS:
+                    SettersNGetters.setProfileItems(StartBackgroundParsing.objectMapper.readValue(mParams, GetProfileItems.class));
+
+                    validateToken(SettersNGetters.getProfileItems().getError_code());
+
+                    break;
+
+                case TYPE.PROFILE_ITEMS_STATS:
+                    SettersNGetters.setItemStats(StartBackgroundParsing.objectMapper.readValue(mParams, GetItemStats.class));
+
+                    validateToken(SettersNGetters.getItemStats().getError_code());
+
+                    break;
+
             }
         }
         catch (final Exception e) {
@@ -168,15 +217,82 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
             System.out.println("Exception");
             e.printStackTrace();
 
-            SettersNGetters.setAuthCode(null);
-            SettersNGetters.setAccessToken(null);
-            SettersNGetters.setLoggedInViaEmail(null);
-            SettersNGetters.setRegistered(null);
-            SettersNGetters.setCategory(null);
-            SettersNGetters.setItemCategory(null);
-            SettersNGetters.setDetailedCategory(null);
-            SettersNGetters.setSearchCategory(null);
-            SettersNGetters.setFavCategory(null);
+            switch (type) {
+                case TYPE.AUTHORIZE:
+                    SettersNGetters.setAuthCode(null);
+                    break;
+                case TYPE.ACCESSTOKEN:
+
+                    SettersNGetters.setAccessToken(null);
+                    break;
+                case TYPE.REFRESH:
+                    // TODO
+                    break;
+                case TYPE.LOGIN_EMAIL:
+
+                    SettersNGetters.setLoggedInViaEmail(null);
+                    break;
+                case TYPE.REGISTER_EMAIL:
+
+                    SettersNGetters.setRegistered(null);
+                    break;
+
+                case TYPE.CATEGORIES:
+
+                    SettersNGetters.setCategory(null);
+                    break;
+
+                case TYPE.ITEM_CATEGORIES:
+
+                    SettersNGetters.setItemCategory(null);
+                    break;
+
+                case TYPE.ITEM_DETAILS:
+                    SettersNGetters.setDetailedCategory(null);
+
+                    break;
+                case TYPE.ITEMS:
+                    SettersNGetters.setSearchCategory(null);
+
+                    break;
+
+                case TYPE.FAVORITE:
+                    SettersNGetters.setFavCategory(null);
+
+                    break;
+
+                case TYPE.MESSSAGES:
+
+                    SettersNGetters.setMessages(null);
+                    break;
+
+                case TYPE.MESSSAGES_USER:
+
+                    SettersNGetters.setMessagesFull(null);
+                    break;
+
+                case TYPE.MESSSAGES_CREATE:
+
+                    SettersNGetters.setCreateMessage(null);
+                    break;
+
+                case TYPE.PROFILE_ME:
+
+                    SettersNGetters.setProfile(null);
+                    break;
+
+                case TYPE.PROFILE_ITEMS:
+
+                    SettersNGetters.setProfileItems(null);
+                    break;
+
+                case TYPE.PROFILE_ITEMS_STATS:
+
+                    SettersNGetters.setItemStats(null);
+                    break;
+
+            }
+
         }
 
         return;

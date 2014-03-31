@@ -35,14 +35,13 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
-import java.io.File;
-import java.util.List;
-
 import vee.HexWhale.LenDen.R;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.Items;
-import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
+
+import java.io.File;
+import java.util.List;
 
 public class SearchListAdapter extends BaseAdapter {
 
@@ -108,7 +107,7 @@ public class SearchListAdapter extends BaseAdapter {
         else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final vee.HexWhale.LenDen.Parsers.SearchCategory.Items mItems = sItems.get(position);
+        final Items mItems = sItems.get(position);
 
         int mTadeMode = mItems.getTrade_mode();
         mTadeMode = 2; // TODO - REMOVE THIS HARDCODED MODE
@@ -123,7 +122,6 @@ public class SearchListAdapter extends BaseAdapter {
         // /items/<item_id>/picture/<num:int>/
         imageLoader.displayImage("" + GetData.getUrl("items/" + mItems.getItem_id() + "/picture/" + 1), holder.sIcon, optionsIcon);
 
-        // /users/photo/<user_id>/
         holder.sPrice.setText("$" + mItems.getSelling_price());
 
         if (mTadeMode == 1) {

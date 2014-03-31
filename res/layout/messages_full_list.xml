@@ -18,21 +18,22 @@
             android:id="@+id/me_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/me_dp"
-            android:background="@drawable/chat_bubble_green"
-            android:padding="15dp"
-            android:text="ok"
-            android:textColor="@color/white"
-            android:textSize="@dimen/search_list_type" />
+            android:layout_toRightOf="@+id/me_dp"
+            android:background="@drawable/chat_bubble_grey"
+            android:padding="16dp"
+            android:text="Lorem ipsum dolorin ultrices. \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper purus et vehicula ornare.\nMorbi vestibulum quis orci in ultrices. "
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/search_list_title" />
 
         <vee.HexWhale.LenDen.aUI.SquareImageView
             android:id="@+id/me_dp"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/me_msg"
-            android:layout_alignRight="@+id/me_name"
+            android:layout_alignParentLeft="true"
             android:adjustViewBounds="true"
             android:maxHeight="60dp"
             android:src="@drawable/camera" />
@@ -41,10 +42,9 @@
             android:id="@+id/me_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/me_msg"
-            android:text="VenomVendor"
-            android:textColor="@color/msg_msg" />
+            android:text="Dennis Ritchie" />
 
         <TextView
             android:id="@+id/me_timestamp"
@@ -52,7 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/me_name"
             android:layout_centerHorizontal="true"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/msg_msg"
+            android:textSize="@dimen/msg_time" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -66,21 +68,22 @@
             android:id="@+id/rec_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/rec_dp"
-            android:background="@drawable/chat_bubble_grey"
+            android:layout_toLeftOf="@+id/rec_dp"
+            android:background="@drawable/chat_bubble_green"
             android:padding="16dp"
-            android:text="Lorem ipsum dolorin ultrices. \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper purus et vehicula ornare.\nMorbi vestibulum quis orci in ultrices. "
-            android:textColor="@color/black"
-            android:textSize="@dimen/search_list_type" />
+            android:text="ok"
+            android:textColor="@color/white"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/search_list_title" />
 
         <vee.HexWhale.LenDen.aUI.SquareImageView
             android:id="@+id/rec_dp"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/rec_msg"
-            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/rec_name"
             android:adjustViewBounds="true"
             android:maxHeight="60dp"
             android:src="@drawable/camera" />
@@ -89,10 +92,9 @@
             android:id="@+id/rec_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/rec_msg"
-            android:text="Dennis Ritchie"
-            android:textColor="@color/msg_msg" />
+            android:text="VenomVendor" />
 
         <TextView
             android:id="@+id/rec_timestamp"
@@ -100,7 +102,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rec_name"
             android:layout_centerHorizontal="true"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/msg_msg"
+            android:textSize="@dimen/msg_time" />
     </RelativeLayout>
 
 </LinearLayout>

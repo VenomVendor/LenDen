@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:singleLine="true"
-                android:text="VenomVendor"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="23sp" />
 
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:singleLine="true"
-                android:text="Bangalore"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -79,10 +79,11 @@
                 android:paddingTop="5dp" >
 
                 <TextView
+                    android:id="@+id/profile_stats_listings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="20"
+                    android:text="-"
                     android:textColor="#1ABE97"
                     android:textSize="@dimen/search_list_price" />
 
@@ -107,10 +108,11 @@
                 android:paddingTop="5dp" >
 
                 <TextView
+                    android:id="@+id/profile_stats_favs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="30"
+                    android:text="-"
                     android:textColor="#676767"
                     android:textSize="@dimen/search_list_price" />
 
@@ -135,10 +137,11 @@
                 android:paddingTop="5dp" >
 
                 <TextView
+                    android:id="@+id/profile_stats_likes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="24"
+                    android:text="-"
                     android:textColor="#676767"
                     android:textSize="@dimen/search_list_price" />
 
@@ -146,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="MESSAGES"
+                    android:text="LIKES"
                     android:textColor="#676767"
                     android:textSize="@dimen/search_list_extras" />
             </LinearLayout>
@@ -166,17 +169,28 @@
                 android:textSize="@dimen/search_list_title" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/no_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="No Items"
+            android:textColor="#F00"
+            android:textSize="23sp"
+            android:visibility="gone" />
+
         <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:background="@color/white"
+            android:clipToPadding="false"
             android:divider="#EEE"
             android:dividerHeight="2dp"
             android:padding="0dp"
-            android:clipToPadding="false"
-            android:scrollbarStyle="outsideOverlay"/>
+            android:scrollbarStyle="outsideOverlay" />
     </LinearLayout>
 
 </com.agimind.widget.SlideHolder>

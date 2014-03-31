@@ -17,6 +17,8 @@ package vee.HexWhale.LenDen.aUI.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,23 +27,68 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import vee.HexWhale.LenDen.R;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.L;
 
+import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
+import vee.HexWhale.LenDen.Parsers.MessagesFull.Messages_list;
+import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
+import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
+import vee.HexWhale.LenDen.bg.Threads.GetData;
+
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class MessagesFullAdapter extends BaseAdapter {
 
     Activity sActivity;
+    GetMessagesFull sMessagesFull;
+    List<Messages_list> mSingleFullMesg;
+
+    DisplayImageOptions optionsDp;
+    File cacheDir = new File(Environment.getExternalStorageDirectory(), STRING.CACHE_LOC);
+    ImageLoader imageLoader;
+    String ZerothMsgId = "";
 
     public MessagesFullAdapter(Activity activity) {
         sActivity = activity;
+        initilizeImageCache();
+    }
+
+    public MessagesFullAdapter(Activity activity, GetMessagesFull messagesFull) {
+        sActivity = activity;
+        sMessagesFull = messagesFull;
+        if (sMessagesFull == null)
+        {
+            mSingleFullMesg = null;
+
+        }
+        else {
+            mSingleFullMesg = sMessagesFull.getResponse().getMessages_list();
+            ZerothMsgId = mSingleFullMesg.get(0).getUser_id();
+        }
+
+        initilizeImageCache();
     }
 
     @Override
     public int getCount() {
-        return 100;
+        if (mSingleFullMesg == null)
+        {
+            return 0;
+        }
+        return mSingleFullMesg.size();
     }
 
     @Override
@@ -58,8 +105,9 @@ public class MessagesFullAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder;
-
+        final Messages_list mOneSingleFullMsg = mSingleFullMesg.get(position);
         if (convertView == null) {
+
             holder = new ViewHolder();
             final LayoutInflater mInflater = (LayoutInflater) sActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.messages_full_list, null);
@@ -85,28 +133,26 @@ public class MessagesFullAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if (position % 2 == 0) {
-            holder.mMeMsg
-            .setText("C was created by Dennis Ritchie. Brian Kernighan wrote the first C tutorial. The authors came together to write the book in conjunction with the language");
-            holder.mRecMsg.setText("Ok, Can I learn it from you?");
+        if (ZerothMsgId.equalsIgnoreCase(mOneSingleFullMsg.getUser_id())) {
+            holder.mMeMsg.setText("" + mOneSingleFullMsg.getMessage());
+            holder.mMeName.setText("" + mOneSingleFullMsg.getUser_first_name());
+            holder.mMeTime.setText("" + mOneSingleFullMsg.getDate_time());
+            // TODO-DP
+            imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + mOneSingleFullMsg.getUser_id()), holder.mMeDP, optionsDp);
+
+            holder.mRecLyt.setVisibility(View.GONE);
+
         }
         else {
-            holder.mRecMsg
-            .setText("Dennis RitchieHe created the C programming language and, with long-time colleague Ken ... His father was Alistair E. Ritchie, a longtime Bell Labs scientist");
-            holder.mMeMsg.setText("C is one of the most widely used programming languages of all time");
+            holder.mRecMsg.setText("" + mOneSingleFullMsg.getMessage());
+            holder.mRecName.setText("" + mOneSingleFullMsg.getUser_first_name());
+            holder.mRecTime.setText("" + mOneSingleFullMsg.getDate_time());
+            // TODO-mRecDP
+            imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + mOneSingleFullMsg.getUser_id()), holder.mRecDP, optionsDp);
+
+            holder.mMeLyt.setVisibility(View.GONE);
 
         }
-
-        holder.mMeTime.setText(getCustomTime());
-        holder.mRecTime.setText(getCustomTime());
-
-        // if (position % 5 == 0) {
-        // holder.mRecLyt.setVisibility(View.GONE);
-        // }
-        //
-        // if (position % 8 == 0) {
-        // holder.mRecLyt.setVisibility(View.GONE);
-        // }
 
         return convertView;
     }
@@ -129,6 +175,36 @@ public class MessagesFullAdapter extends BaseAdapter {
         TextView mRecName, mMeName, mRecMsg, mMeMsg, mRecTime, mMeTime;
         ImageView mRecDP, mMeDP;
         RelativeLayout mRecLyt, mMeLyt;
+    }
+
+    private void initilizeImageCache() {
+        L.disableLogging();
+        optionsDp =
+                new DisplayImageOptions.Builder()
+                        .showImageForEmptyUri(R.drawable.signup_dp)
+                        .showImageOnFail(R.drawable.signup_dp)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
+
+        final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(sActivity.getApplicationContext())
+                .defaultDisplayImageOptions(optionsDp)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
+
+        ImageLoader.getInstance().init(config); // Do it on Application start
+        imageLoader = ImageLoader.getInstance();
+
     }
 
 }

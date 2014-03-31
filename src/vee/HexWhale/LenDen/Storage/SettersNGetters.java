@@ -21,6 +21,12 @@ import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
 import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
 import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
+import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
+import vee.HexWhale.LenDen.Parsers.Messages.CreateMessage;
+import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
+import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
+import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
+import vee.HexWhale.LenDen.Parsers.ProfileItems.GetProfileItems;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.GetSearchCategory;
 
 public class SettersNGetters {
@@ -34,6 +40,12 @@ public class SettersNGetters {
     private static GetDetailedCategory detailedCategory;
     private static GetSearchCategory searchCategory;
     private static GetFavCategory favCategory;
+    private static GetMessages messages;
+    private static GetMessagesFull messagesFull;
+    private static GetProfile profile;
+    private static GetItemStats itemStats;
+    private static GetProfileItems profileItems;
+    private static CreateMessage createMessage;
 
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
@@ -105,6 +117,54 @@ public class SettersNGetters {
 
     public static void setFavCategory(GetFavCategory favCategory) {
         SettersNGetters.favCategory = favCategory;
+    }
+
+    public static GetMessages getMessages() {
+        return messages;
+    }
+
+    public static void setMessages(GetMessages messages) {
+        SettersNGetters.messages = messages;
+    }
+
+    public static GetProfile getProfile() {
+        return profile;
+    }
+
+    public static void setProfile(GetProfile profile) {
+        SettersNGetters.profile = profile;
+    }
+
+    public static GetMessagesFull getMessagesFull() {
+        return messagesFull;
+    }
+
+    public static void setMessagesFull(GetMessagesFull messagesFull) {
+        SettersNGetters.messagesFull = messagesFull;
+    }
+
+    public static GetItemStats getItemStats() {
+        return itemStats;
+    }
+
+    public static void setItemStats(GetItemStats itemStats) {
+        SettersNGetters.itemStats = itemStats;
+    }
+
+    public static GetProfileItems getProfileItems() {
+        return profileItems;
+    }
+
+    public static void setProfileItems(GetProfileItems profileItems) {
+        SettersNGetters.profileItems = profileItems;
+    }
+
+    public static CreateMessage getCreateMessage() {
+        return createMessage;
+    }
+
+    public static void setCreateMessage(CreateMessage createMessage) {
+        SettersNGetters.createMessage = createMessage;
     }
 
 }

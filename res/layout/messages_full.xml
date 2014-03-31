@@ -1,9 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/list"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:dividerHeight="3dp"
-    android:divider="#E1E1E1"
     android:layout_height="match_parent"
-	android:clipToPadding="false"
-    android:scrollbarStyle="outsideOverlay"	/>
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/no_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="No Messages"
+        android:textColor="#F00"
+        android:textSize="23sp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/send_lyt"
+            android:layout_alignParentTop="true"
+            android:clipToPadding="false"
+            android:divider="#E1E1E1"
+            android:dividerHeight="0dp"
+            android:paddingBottom="10dp"
+            android:scrollbarStyle="outsideOverlay" />
+
+        <RelativeLayout
+            android:id="@+id/send_lyt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" >
+
+            <EditText
+                android:id="@+id/send_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/send_btn"
+                android:maxHeight="150dp"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical"
+                android:hint="New message" />
+
+            <Button
+                android:id="@+id/send_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:onClick="SendMessage"
+                android:text="Send" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

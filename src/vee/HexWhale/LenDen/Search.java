@@ -56,6 +56,7 @@ import vee.HexWhale.LenDen.aUI.Fragments.NiceSupportMapFragment;
 import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
+import vee.HexWhale.LenDen.bg.Threads.LocationFinder;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
 
 import java.util.List;
@@ -82,6 +83,7 @@ public class Search extends FragmentActivity {
     List<Items> mItems;
     int type = -1;
     private String tag = "UNKNOWN";
+    LocationFinder myLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,7 @@ public class Search extends FragmentActivity {
         tag = TagGen.getTag(this.getClass());
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.search);
+        myLocation = new LocationFinder(getApplicationContext());
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
         ((TextView) findViewById(R.id.menu_center)).setText(("search").toUpperCase(Locale.UK));
         // ((ImageView)
@@ -126,6 +129,13 @@ public class Search extends FragmentActivity {
         searchFrame.setVisibility(View.GONE);
         final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 5f);
         mapFrame.setLayoutParams(mParams);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        myLocation.stopUpdates();
+        super.onDestroy();
     }
 
     private final FetcherListener mFetcherListener = new FetcherListener() {
@@ -226,8 +236,12 @@ public class Search extends FragmentActivity {
         try {
             switch (mType) {
                 case TYPE.ITEMS:
-                    mJsonObject.put(STRING.LATITUDE, "" + 10.00);
-                    mJsonObject.put(STRING.LONGITUDE, "" + 11.00);
+
+                    ToastL((myLocation == null) ? "Unknown Latitude" : "" + myLocation.getLocation().getLatitude());
+                    ToastL((myLocation == null) ? "Unknown Longitude" : "" + myLocation.getLocation().getLongitude());
+
+                    mJsonObject.put(STRING.LATITUDE, (myLocation == null) ? "00" : "" + myLocation.getLocation().getLatitude());
+                    mJsonObject.put(STRING.LONGITUDE, (myLocation == null) ? "00" : "" + myLocation.getLocation().getLongitude());
                     mJsonObject.put(STRING.RANGE, "" + 10000);
                     mJsonObject.put(STRING.SEARCH, searchText);
                     break;

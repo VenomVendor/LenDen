@@ -34,7 +34,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
-import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
@@ -56,12 +55,14 @@ public class Preview extends MenuBar {
     GetItemCategory mItemCategory;
     static int page = 1;
     String cate_id = null;
+    TextView mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tag = TagGen.getTag(getClass());
         setContentView(R.layout.preview);
+        mView = (TextView) findViewById(R.id.no_item);
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
         mListView = (ListView) findViewById(android.R.id.list);
 
@@ -121,6 +122,22 @@ public class Preview extends MenuBar {
                 case TYPE.ITEM_CATEGORIES:
 
                     mItemCategory = SettersNGetters.getItemCategory();
+
+
+                    if (mItemCategory == null) {
+                        mView.setVisibility(View.VISIBLE);
+                        mListView.setVisibility(View.GONE);
+                        ToastL("{ Unknown Error }");
+                        return;
+                    }
+
+                    if (mItemCategory.getResponse().getItems().size() == 0) {
+                        mView.setVisibility(View.VISIBLE);
+                        mListView.setVisibility(View.GONE);
+                        ToastL("{ No Items }");
+                        return;
+                    }
+
 
                     final PreviewAdapter adapter = new PreviewAdapter(Preview.this, mItemCategory);
 
@@ -190,7 +207,7 @@ public class Preview extends MenuBar {
         mTextCenter = (TextView) findViewById(R.id.menu_center);
 
         mImgLeft.setImageResource(R.drawable.filter);
-        mTextCenter.setText(("Preview").toUpperCase(Locale.UK));
+        mTextCenter.setText(STRING.PREVIEW);
 
     }
 

@@ -16,32 +16,223 @@
 package vee.HexWhale.LenDen;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.L;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
+import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
+import vee.HexWhale.LenDen.Parsers.ProfileItems.GetProfileItems;
+import vee.HexWhale.LenDen.Storage.SettersNGetters;
+import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
+import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
+import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
+import vee.HexWhale.LenDen.Utils.Constants.API.URL;
 import vee.HexWhale.LenDen.aUI.MenuBar;
 import vee.HexWhale.LenDen.aUI.Adapters.ProfileListAdapter;
+import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
+import vee.HexWhale.LenDen.bg.Threads.GetData;
+import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
+import vee.HexWhale.LenDen.bg.Threads.LocationFinder;
+import vee.HexWhale.LenDen.bg.Threads.TagGen;
 
+import java.io.File;
 import java.util.Locale;
 
 public class Profile extends MenuBar {
 
     ListView mListView;
+    GetDataFromUrl mDataFromUrl;
+
+    private String tag = "UNKNOWN";
+    DisplayImageOptions optionsDp;
+    File cacheDir = new File(Environment.getExternalStorageDirectory(), STRING.CACHE_LOC);
+    ImageLoader imageLoader;
+    ImageView mDp;
+    TextView mView, mName, mEmail, mSListings, mSFavs, mSLikes;
+    GetProfile profile;
+    GetItemStats itemStats;
+    GetProfileItems profileItems;
+    LocationFinder myLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.profile);
+        tag = TagGen.getTag(getClass());
+        initilizeImageCache();
+        myLocation = new LocationFinder(getApplicationContext());
+        mView = (TextView) findViewById(R.id.no_item);
         mListView = (ListView) findViewById(android.R.id.list);
-        final ProfileListAdapter adapter = new ProfileListAdapter(this);
-        final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
-        mScaleInAnimationAdapter.setAbsListView(mListView);
-        mListView.setAdapter(mScaleInAnimationAdapter);
+        mDp = (ImageView) findViewById(R.id.profile_dp);
+        mName = (TextView) findViewById(R.id.profile_name);
+        mSListings = (TextView) findViewById(R.id.profile_stats_listings);
+        mSFavs = (TextView) findViewById(R.id.profile_stats_favs);
+        mSLikes = (TextView) findViewById(R.id.profile_stats_likes);
+
+        mEmail = (TextView) findViewById(R.id.profile_loc);
+
+        mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
+        mDataFromUrl.setAccessToken();
+        mDataFromUrl.GetString(TYPE.PROFILE_ME, getBody(TYPE.PROFILE_ME), GetData.getUrl(URL.PROFILE_ME));
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        myLocation.stopUpdates();
+        super.onDestroy();
+    }
+
+    private final FetcherListener mFetcherListener = new FetcherListener() {
+
+        @Override
+        public void tokenError(String tokenError) {
+            ToastL(tokenError);
+
+        }
+
+        @Override
+        public void startedParsing(int type) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void finishedParsing(int typ) {
+
+            switch (typ) {
+
+                case TYPE.PROFILE_ME:
+                    mDataFromUrl.setAccessToken();
+                    mDataFromUrl.GetString(TYPE.PROFILE_ITEMS_STATS, getBody(TYPE.PROFILE_ITEMS_STATS), GetData.getUrl(URL.PROFILE_ITEMS_STATS));
+
+                    profile = SettersNGetters.getProfile();
+
+                    if (profile == null) {
+                        ToastL("{ Unknown Profile }");
+                        return;
+                    }
+                    mName.setText(profile.getResponse().getFirst_name() + " " + profile.getResponse().getLast_name());
+                    mEmail.setText(profile.getResponse().getEmail());
+                    imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()), mDp, optionsDp);
+
+                    break;
+
+                case TYPE.PROFILE_ITEMS_STATS:
+
+                    mDataFromUrl.setAccessToken();
+                    mDataFromUrl.GetString(TYPE.PROFILE_ITEMS, getBody(TYPE.PROFILE_ITEMS), GetData.getUrl(URL.PROFILE_ITEMS));
+
+                    itemStats = SettersNGetters.getItemStats();
+
+                    if (itemStats == null)
+                    {
+                        ToastL("{ Unknown Error }");
+                        return;
+                    }
+
+                    mSListings.setText("" + itemStats.getResponse().getListed_items_count());
+                    mSFavs.setText("" + itemStats.getResponse().getFavorite_items_count());
+                    mSLikes.setText("" + itemStats.getResponse().getLiked_items_count());
+
+                    break;
+
+                case TYPE.PROFILE_ITEMS:
+
+                    profileItems = SettersNGetters.getProfileItems();
+                    if (profileItems == null) {
+                        mView.setVisibility(View.VISIBLE);
+                        mListView.setVisibility(View.GONE);
+                        ToastL("{ Unknown Error }");
+                        return;
+
+                    }
+
+                    if (profileItems.getResponse().getItems().size() == 0) {
+                        mView.setVisibility(View.VISIBLE);
+                        mListView.setVisibility(View.GONE);
+                        ToastL("{ No Items Listed }");
+                        return;
+                    }
+
+                    final ProfileListAdapter adapter = new ProfileListAdapter(Profile.this, profileItems);
+                    final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
+                    mScaleInAnimationAdapter.setAbsListView(mListView);
+                    mListView.setAdapter(mScaleInAnimationAdapter);
+                    break;
+
+            }
+
+        }
+
+        @Override
+        public void finishedFetching(int type, String response) {
+            LogR(response);
+
+        }
+
+        @Override
+        public void errorFetching(int type, VolleyError error) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeParsing(int type) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void ParsingException(Exception e) {
+            // TODO Auto-generated method stub
+
+        }
+    };
+
+    private String getBody(final int mType) {
+
+        if (mType == TYPE.PROFILE_ITEMS)
+        {
+            JSONObject mJsonObject = null;
+            mJsonObject = new JSONObject();
+            ToastL((myLocation == null) ? "Unknown Latitude" : "" + myLocation.getLocation().getLatitude());
+            ToastL((myLocation == null) ? "Unknown Longitude" : "" + myLocation.getLocation().getLongitude());
+            try {
+                mJsonObject.put(STRING.LATITUDE, (myLocation == null) ? "00" : "" + myLocation.getLocation().getLatitude());
+                mJsonObject.put(STRING.LONGITUDE, (myLocation == null) ? "00" : "" + myLocation.getLocation().getLongitude());
+                mJsonObject.put(STRING.RANGE, "" + 10000);
+                System.out.println(mJsonObject.toString());
+                return mJsonObject.toString();
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return null;
     }
 
     @SuppressLint("DefaultLocale")
@@ -79,4 +270,43 @@ public class Profile extends MenuBar {
         return;
     }
 
+    protected void LogR(String msg) {
+        Log.wtf(tag, msg);
+    }
+
+    /**
+     * @param text
+     */
+    private void ToastL(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+    }
+
+    private void initilizeImageCache() {
+        L.disableLogging();
+        optionsDp =
+                new DisplayImageOptions.Builder()
+                        .showImageForEmptyUri(R.drawable.signup_dp)
+                        .showImageOnFail(R.drawable.signup_dp)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
+
+        final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(optionsDp)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
+
+        ImageLoader.getInstance().init(config); // Do it on Application start
+        imageLoader = ImageLoader.getInstance();
+    }
 }

@@ -6,12 +6,23 @@
 
     <include layout="@layout/bar_top_nav" />
 
+    <TextView
+        android:id="@+id/no_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="No Messages"
+        android:textColor="#F00"
+        android:textSize="23sp"
+        android:visibility="gone" />
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F2F2F2"
-		android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"	/>
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay" />
 
 </LinearLayout>

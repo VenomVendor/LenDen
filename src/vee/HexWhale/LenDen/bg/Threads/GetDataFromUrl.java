@@ -156,8 +156,7 @@ public class GetDataFromUrl {
         @Override
         public void onResponse(String response) {
             mFetcherListener.finishedFetching(type, response);
-            new StartBackgroundParsing(activity, type, mFetcherListener)
-                    .execute(response);
+            new StartBackgroundParsing(activity, type, mFetcherListener).execute(response);
         }
     };
 

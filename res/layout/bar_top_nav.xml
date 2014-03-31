@@ -4,18 +4,19 @@
     android:id="@+id/menu_lyt"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:background="@color/menu_bg"
     android:minHeight="48dp"
     android:padding="5dp"
     tools:ignore="ContentDescription,HardcodedText" >
 
     <ImageView
-        android:onClick="Finish"
         android:id="@+id/menu_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:onClick="Finish"
         android:src="@drawable/add_items_back" />
 
     <TextView
@@ -29,12 +30,12 @@
         android:textSize="@dimen/menu_txt" />
 
     <ImageView
-        android:onClick="Submit"
         android:id="@+id/menu_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:onClick="Submit"
         android:src="@drawable/add_items_ok" />
 
 </RelativeLayout>

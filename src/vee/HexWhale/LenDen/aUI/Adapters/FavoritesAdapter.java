@@ -63,7 +63,13 @@ public class FavoritesAdapter extends BaseAdapter {
     public FavoritesAdapter(Activity activity, GetFavCategory mFavCategory) {
         sActivity = activity;
         sFavCategory = mFavCategory;
-        slist = sFavCategory.getResponse().getItems();
+        if (sFavCategory == null)
+        {
+            slist = null;
+        }
+        else {
+            slist = sFavCategory.getResponse().getItems();
+        }
         initilizeImageCache();
     }
 

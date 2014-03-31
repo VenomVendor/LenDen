@@ -63,9 +63,10 @@ public final class Constants {
             public final static String LONGITUDE = "longitude";
             public final static String RANGE = "range";
             public final static String SEARCH = "search";
-
-
-
+            public final static String PARTNER_ID = "partner_id";
+            public final static String MESSAGE = "message";
+            public final static String PICTURE = "picture";
+            public final static String PREVIEW = "PREVIEW";
 
         }
 
@@ -90,7 +91,13 @@ public final class Constants {
             public final static String ITEM_DETAILS = "items/details/";
             public final static String ITEMS = "items/";
             public final static String FAVORITE = "items/me/favorite/";
-
+            public final static String MESSSAGES = "messages/";
+            public final static String MESSSAGES_USER = "messages/user/";
+            public final static String MESSSAGES_CREATE = "messages/create/";
+            public final static String PROFILE_ME = "users/me/";
+            public final static String PROFILE_ITEMS = ITEMS;
+            public final static String PROFILE_ITEMS_STATS = "items/me/stats/";
+            public final static String PROFILE_PIC = "users/me/photo/upload/";
 
         }
 
@@ -109,7 +116,13 @@ public final class Constants {
             public final static int ITEM_DETAILS = 12;
             public final static int ITEMS = 13;
             public final static int FAVORITE = 14;
-
+            public final static int MESSSAGES = 15;
+            public final static int MESSSAGES_USER = 16;
+            public final static int MESSSAGES_CREATE = 17;
+            public final static int PROFILE_ME = 18;
+            public final static int PROFILE_ITEMS = 19;
+            public final static int PROFILE_ITEMS_STATS = 20;
+            public final static int PROFILE_PIC = 21;
         }
 
     }
