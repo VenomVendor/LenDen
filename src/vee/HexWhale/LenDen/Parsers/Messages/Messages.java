@@ -1,15 +1,16 @@
 /**
- * ***Copyright(c)	:	2014-Present, VenomVendor.***
- * Author		:	VenomVendor
- * Dated		:	1 Apr, 2014 12:40:13 AM
- * Project		:	LenDen-Android
- * Client		:	LenDen
- * Contact		:	info@VenomVendor.com
- * URL			:	https://www.google.co.in/search?q=VenomVendor
- * Copyright(c)	:	2014-Present, VenomVendor.
- * License		:	This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
- *					License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- *					Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c) : 2014-Present, VenomVendor.***
+ * Author : VenomVendor
+ * Dated : 1 Apr, 2014 12:40:13 AM
+ * Project : LenDen-Android
+ * Client : LenDen
+ * Contact : info@VenomVendor.com
+ * URL : https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c) : 2014-Present, VenomVendor.
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
+ * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
 package vee.HexWhale.LenDen.Parsers.Messages;
@@ -27,7 +28,7 @@ public class Messages {
     private int unread_messages;
 
     public String getItem_id() {
-        return this.item_id;
+        return item_id;
     }
 
     public void setItem_id(String item_id) {
@@ -35,7 +36,7 @@ public class Messages {
     }
 
     public String getItem_title() {
-        return this.item_title;
+        return item_title;
     }
 
     public void setItem_title(String item_title) {
@@ -43,7 +44,7 @@ public class Messages {
     }
 
     public String getLast_message() {
-        return this.last_message;
+        return last_message;
     }
 
     public void setLast_message(String last_message) {
@@ -51,7 +52,7 @@ public class Messages {
     }
 
     public String getLast_message_date_time() {
-        return this.last_message_date_time;
+        return last_message_date_time;
     }
 
     public void setLast_message_date_time(String last_message_date_time) {
@@ -59,7 +60,7 @@ public class Messages {
     }
 
     public String getLast_message_first_name() {
-        return this.last_message_first_name;
+        return last_message_first_name;
     }
 
     public void setLast_message_first_name(String last_message_first_name) {
@@ -67,7 +68,7 @@ public class Messages {
     }
 
     public String getLast_message_last_name() {
-        return this.last_message_last_name;
+        return last_message_last_name;
     }
 
     public void setLast_message_last_name(String last_message_last_name) {
@@ -75,7 +76,7 @@ public class Messages {
     }
 
     public String getPartner_first_name() {
-        return this.partner_first_name;
+        return partner_first_name;
     }
 
     public void setPartner_first_name(String partner_first_name) {
@@ -83,7 +84,7 @@ public class Messages {
     }
 
     public String getPartner_id() {
-        return this.partner_id;
+        return partner_id;
     }
 
     public void setPartner_id(String partner_id) {
@@ -91,7 +92,7 @@ public class Messages {
     }
 
     public String getPartner_last_name() {
-        return this.partner_last_name;
+        return partner_last_name;
     }
 
     public void setPartner_last_name(String partner_last_name) {
@@ -99,7 +100,7 @@ public class Messages {
     }
 
     public int getUnread_messages() {
-        return this.unread_messages;
+        return unread_messages;
     }
 
     public void setUnread_messages(int unread_messages) {

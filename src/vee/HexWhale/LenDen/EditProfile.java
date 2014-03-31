@@ -1,17 +1,17 @@
 /**
- * ***Copyright(c) : 2014-Present, VenomVendor.***
- * Author : VenomVendor
- * Dated : 17 Feb, 2014 3:29:01 AM
- * Project : LenDen-Android
- * Client : LenDen
- * Contact : info@VenomVendor.com
- * URL : https://www.google.co.in/search?q=VenomVendor
- * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
- * (CC BY-NC 3.0).
- * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c)  :   2014-Present, VenomVendor.***
+ * Author           :   VenomVendor
+ * Dated            :   17 Feb, 2014 3:29:01 AM
+ * Project          :   LenDen-Android
+ * Client           :   LenDen
+ * Contact          :   info@VenomVendor.com
+ * URL              :   https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)     :   2014-Present, VenomVendor.
+ * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
+
 
 package vee.HexWhale.LenDen;
 
@@ -97,7 +97,7 @@ public class EditProfile extends FragmentActivity {
     DisplayImageOptions optionsDp;
     File cacheDir = new File(Environment.getExternalStorageDirectory(), STRING.CACHE_LOC);
     ImageLoader imageLoader;
-    ImageView menu_right, edit_profile_dp;
+    ImageView mSubmit, mDpic;
     private String tag = "UNKNOWN";
     EditText firstName, lastName, eMail;
     String tempFName, tempLName, tempEmail;
@@ -113,10 +113,10 @@ public class EditProfile extends FragmentActivity {
         lastName = (EditText) findViewById(R.id.edit_profile_lname);
         eMail = (EditText) findViewById(R.id.edit_profile_mail);
 
-        edit_profile_dp = (ImageView) findViewById(R.id.edit_profile_dp);
-        edit_profile_dp.setFocusable(true);
-        menu_right = (ImageView) findViewById(R.id.menu_right);
-        menu_right.setVisibility(View.INVISIBLE);
+        mDpic = (ImageView) findViewById(R.id.edit_profile_dp);
+        mDpic.setFocusable(true);
+        mSubmit = (ImageView) findViewById(R.id.menu_right);
+        mSubmit.setVisibility(View.INVISIBLE);
         initilizeImageCache();
         mPrefs = new GlobalSharedPrefs(this);
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
@@ -130,14 +130,14 @@ public class EditProfile extends FragmentActivity {
             firstName.setText(mPrefs.getStringInPref(KEY.MY_F_NAME));
             lastName.setText(mPrefs.getStringInPref(KEY.MY_L_NAME));
             eMail.setText(mPrefs.getStringInPref(KEY.MY_E_MAIL));
-            imageLoader.displayImage("" + mPrefs.getStringInPref(KEY.MY_I_URL), edit_profile_dp, optionsDp);
-            edit_profile_dp.setFocusable(true);
+            imageLoader.displayImage("" + mPrefs.getStringInPref(KEY.MY_I_URL), mDpic, optionsDp);
+            mDpic.setFocusable(true);
             try {
                 tempFName = firstName.getText().toString();
                 tempLName = lastName.getText().toString();
                 tempEmail = eMail.getText().toString();
             }
-            catch (Exception e) {
+            catch (final Exception e) {
                 e.printStackTrace();
             }
 
@@ -179,14 +179,14 @@ public class EditProfile extends FragmentActivity {
                     firstName.setText(profile.getResponse().getFirst_name());
                     lastName.setText(profile.getResponse().getLast_name());
                     eMail.setText(profile.getResponse().getEmail());
-                    imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()), edit_profile_dp, optionsDp);
+                    imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()), mDpic, optionsDp);
 
                     try {
                         tempFName = firstName.getText().toString();
                         tempLName = lastName.getText().toString();
                         tempEmail = eMail.getText().toString();
                     }
-                    catch (Exception e) {
+                    catch (final Exception e) {
                         e.printStackTrace();
                     }
 
@@ -206,8 +206,8 @@ public class EditProfile extends FragmentActivity {
                         mPrefs.setStringInPref(KEY.MY_L_NAME, lastName.getText().toString());
                         mPrefs.setStringInPref(KEY.MY_E_MAIL, eMail.getText().toString());
 
-                        updatedText = true;
-                        if (updatedImage && updatedText)
+                        EditProfile.updatedText = true;
+                        if (EditProfile.updatedImage && EditProfile.updatedText)
                         {
                             ToastL("{ Updated Successfully }");
                             finish();
@@ -276,14 +276,14 @@ public class EditProfile extends FragmentActivity {
                 || !tempLName.equalsIgnoreCase(lastName.getText().toString())
                 || !tempEmail.equalsIgnoreCase(eMail.getText().toString()))
         {
-            updatedText = false;
+            EditProfile.updatedText = false;
             mDataFromUrl.setAccessToken();
             mDataFromUrl.GetString(TYPE.PROFILE_EDIT, getBody(TYPE.PROFILE_EDIT), GetData.getUrl(URL.PROFILE_EDIT));
         }
 
         if (isChanged)
         {
-            updatedImage = false;
+            EditProfile.updatedImage = false;
             new UploadImage().execute(picturePath);
         }
 
@@ -302,7 +302,7 @@ public class EditProfile extends FragmentActivity {
                     System.out.println(mJsonObject.toString());
                     return mJsonObject.toString();
                 }
-                catch (JSONException e) {
+                catch (final JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -350,32 +350,32 @@ public class EditProfile extends FragmentActivity {
             if (enableEdit)
             {
                 view.animate().translationX(50)
-                        .alpha(0.23f)
-                        .scaleX(0.90f)
-                        .scaleY(0.90f)
-                        .setDuration(350)
-                        .setListener(null);
+                .alpha(0.23f)
+                .scaleX(0.90f)
+                .scaleY(0.90f)
+                .setDuration(350)
+                .setListener(null);
             }
             else {
                 view.animate().translationX(0)
-                        .alpha(1f)
-                        .scaleX(1f)
-                        .scaleY(1f)
-                        .setDuration(350)
-                        .setListener(null);
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(350)
+                .setListener(null);
             }
         }
         else {
             if (enableEdit)
             {
-                Animation animation = new TranslateAnimation(25, 0, 0, 0);
+                final Animation animation = new TranslateAnimation(25, 0, 0, 0);
                 animation.setDuration(350);
                 animation.setFillAfter(true);
                 view.startAnimation(animation);
 
             }
             else {
-                Animation animation = new TranslateAnimation(0, 25, 0, 0);
+                final Animation animation = new TranslateAnimation(0, 25, 0, 0);
                 animation.setDuration(350);
                 animation.setFillAfter(true);
                 view.startAnimation(animation);
@@ -386,11 +386,11 @@ public class EditProfile extends FragmentActivity {
     }
 
     private void changeInputType(EditText[] mEditTExt) {
-        for (EditText editText : mEditTExt) {
+        for (final EditText editText : mEditTExt) {
 
             if (enableEdit)
             {
-                menu_right.setVisibility(View.VISIBLE);
+                mSubmit.setVisibility(View.VISIBLE);
                 editText.setEnabled(true);
                 editText.setInputType(InputType.TYPE_CLASS_TEXT);
                 editText.setTextColor(getResources().getColor(R.color.blue_normal));
@@ -399,7 +399,7 @@ public class EditProfile extends FragmentActivity {
                 editText.setSelected(true);
             }
             else {
-                menu_right.setVisibility(View.INVISIBLE);
+                mSubmit.setVisibility(View.INVISIBLE);
                 editText.setEnabled(false);
                 editText.setFocusable(false);
                 editText.setTextColor(getResources().getColor(R.color.list_txt));
@@ -444,24 +444,24 @@ public class EditProfile extends FragmentActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            File mFile = new File(params[0]);
-            String url = GetData.getUrl(URL.PROFILE_PIC);
+            final File mFile = new File(params[0]);
+            final String url = GetData.getUrl(URL.PROFILE_PIC);
 
             try
             {
-                HttpClient client = new DefaultHttpClient();
-                HttpPost post = new HttpPost(url);
-                FileBody mFileBody = new FileBody(mFile);
-                MultipartEntityBuilder multipartEntity = MultipartEntityBuilder.create();
+                final HttpClient client = new DefaultHttpClient();
+                final HttpPost post = new HttpPost(url);
+                final FileBody mFileBody = new FileBody(mFile);
+                final MultipartEntityBuilder multipartEntity = MultipartEntityBuilder.create();
                 multipartEntity.setMode(HttpMultipartMode.STRICT); // SET MODE
                 multipartEntity.addPart(STRING.PICTURE, mFileBody); // ADD BODY
                 post.addHeader(HEADERS.ACCESS_TOKEN, mPrefs.getStringInPref(KEY.ACCESS_TOKEN)); // ADD
-                                                                                                // HEADER
+                // HEADER
 
                 post.setEntity(multipartEntity.build());
                 System.out.println(post.getEntity());
 
-                HttpResponse response = client.execute(post);
+                final HttpResponse response = client.execute(post);
                 resEntity = response.getEntity();
 
                 if (resEntity != null) {
@@ -471,16 +471,17 @@ public class EditProfile extends FragmentActivity {
                     Log.i("RESPONSE", response_str);
 
                     runOnUiThread(new Runnable() {
+                        @Override
                         public void run() {
                             try {
 
-                                JSONObject mObject = new JSONObject(response_str);
+                                final JSONObject mObject = new JSONObject(response_str);
 
-                                String statis = mObject.getString(STRING.STATUS);
+                                final String statis = mObject.getString(STRING.STATUS);
                                 if (statis.equalsIgnoreCase(STRING.SUCCESS))
                                 {
-                                    updatedImage = true;
-                                    if (updatedImage && updatedText)
+                                    EditProfile.updatedImage = true;
+                                    if (EditProfile.updatedImage && EditProfile.updatedText)
                                     {
                                         ToastL("{ Updated Successfully }");
                                         finish();
@@ -492,14 +493,14 @@ public class EditProfile extends FragmentActivity {
                                 }
 
                             }
-                            catch (Exception e) {
+                            catch (final Exception e) {
                                 e.printStackTrace();
                             }
                         }
                     });
                 }
             }
-            catch (Exception ex) {
+            catch (final Exception ex) {
                 Log.e("Debug", "error: " + ex.getMessage(), ex);
             }
             return null;
@@ -511,26 +512,26 @@ public class EditProfile extends FragmentActivity {
         L.disableLogging();
         optionsDp =
                 new DisplayImageOptions.Builder()
-                        .showImageForEmptyUri(R.drawable.signup_dp)
-                        .showImageOnFail(R.drawable.signup_dp)
-                        .resetViewBeforeLoading(false)
-                        .cacheInMemory(true)
-                        .cacheOnDisc(true)
-                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-                        .bitmapConfig(Bitmap.Config.RGB_565)
-                        .displayer(new RoundedBitmapDisplayer(10))
-                        .displayer(new FadeInBitmapDisplayer(0))
-                        .build();
+        .showImageForEmptyUri(R.drawable.camera)
+        .showImageOnFail(R.drawable.camera)
+        .resetViewBeforeLoading(false)
+        .cacheInMemory(true)
+        .cacheOnDisc(true)
+        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+        .bitmapConfig(Bitmap.Config.RGB_565)
+        .displayer(new RoundedBitmapDisplayer(10))
+        .displayer(new FadeInBitmapDisplayer(0))
+        .build();
 
         final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-                .defaultDisplayImageOptions(optionsDp)
-                .threadPriority(Thread.NORM_PRIORITY)
-                .threadPoolSize(3)
-                .denyCacheImageMultipleSizesInMemory()
-                .discCache(new UnlimitedDiscCache(cacheDir))
-                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.FIFO)
-                .build();
+        .defaultDisplayImageOptions(optionsDp)
+        .threadPriority(Thread.NORM_PRIORITY)
+        .threadPoolSize(3)
+        .denyCacheImageMultipleSizesInMemory()
+        .discCache(new UnlimitedDiscCache(cacheDir))
+        // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+        .tasksProcessingOrder(QueueProcessingType.FIFO)
+        .build();
 
         ImageLoader.getInstance().init(config); // Do it on Application start
         imageLoader = ImageLoader.getInstance();

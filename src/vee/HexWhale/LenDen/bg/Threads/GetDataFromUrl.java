@@ -104,7 +104,7 @@ public class GetDataFromUrl {
                     return true;
                 }
             });
-        }else{
+        } else {
             cancelOldRequests = !cancelOldRequests;
         }
 

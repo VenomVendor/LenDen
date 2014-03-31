@@ -1,17 +1,17 @@
 /**
- * ***Copyright(c) : 2014-Present, VenomVendor.***
- * Author : VenomVendor
- * Dated : 17 Feb, 2014 3:28:57 AM
- * Project : LenDen-Android
- * Client : LenDen
- * Contact : info@VenomVendor.com
- * URL : https://www.google.co.in/search?q=VenomVendor
- * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
- * (CC BY-NC 3.0).
- * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c)  :   2014-Present, VenomVendor.***
+ * Author           :   VenomVendor
+ * Dated            :   17 Feb, 2014 3:28:57 AM
+ * Project          :   LenDen-Android
+ * Client           :   LenDen
+ * Contact          :   info@VenomVendor.com
+ * URL              :   https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)     :   2014-Present, VenomVendor.
+ * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
+
 
 package vee.HexWhale.LenDen;
 
@@ -207,7 +207,7 @@ public class Search extends FragmentActivity {
     }
 
     protected void setSearchList() {
-        isSearchDone = true;
+        Search.isSearchDone = true;
         mItems = searchCategory.getResponse().getItems();
         final SearchListAdapter adapter = new SearchListAdapter(this, mItems);
         final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
@@ -223,7 +223,7 @@ public class Search extends FragmentActivity {
 
     protected void fetchDataforSearch(String searchText) {
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
         ToastL(searchText);
         mDataFromUrl.setAccessToken();
@@ -370,7 +370,7 @@ public class Search extends FragmentActivity {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, zoom)); // toPosition,
         // ZoomLevel
 
-        if (isSearchDone)
+        if (Search.isSearchDone)
         {
             enableClickListiner();
         }

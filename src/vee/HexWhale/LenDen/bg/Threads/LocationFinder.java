@@ -1,15 +1,16 @@
 /**
- * ***Copyright(c)	:	2014-Present, VenomVendor.***
- * Author		:	VenomVendor
- * Dated		:	1 Apr, 2014 12:38:45 AM
- * Project		:	LenDen-Android
- * Client		:	LenDen
- * Contact		:	info@VenomVendor.com
- * URL			:	https://www.google.co.in/search?q=VenomVendor
- * Copyright(c)	:	2014-Present, VenomVendor.
- * License		:	This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
- *					License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- *					Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c) : 2014-Present, VenomVendor.***
+ * Author : VenomVendor
+ * Dated : 1 Apr, 2014 12:38:45 AM
+ * Project : LenDen-Android
+ * Client : LenDen
+ * Contact : info@VenomVendor.com
+ * URL : https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c) : 2014-Present, VenomVendor.
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
+ * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
 package vee.HexWhale.LenDen.bg.Threads;
@@ -79,12 +80,12 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
         // Iterate through all the providers on the system, keeping
         // note of the most accurate result within the acceptable time limit.
         // If no result is found within maxTime, return the newest Location.
-        List<String> matchingProviders = locationManager.getAllProviders();
-        for (String provider : matchingProviders) {
+        final List<String> matchingProviders = locationManager.getAllProviders();
+        for (final String provider : matchingProviders) {
             location = locationManager.getLastKnownLocation(provider);
             if (location != null) {
-                float accuracy = location.getAccuracy();
-                long time = location.getTime();
+                final float accuracy = location.getAccuracy();
+                final long time = location.getTime();
 
                 if ((time > minTime && accuracy < bestAccuracy)) {
                     bestResult = location;
@@ -109,7 +110,7 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
         // location updates every [minTime] and [minDistance].
         if ((bestTime < minTime || bestAccuracy > minDistance)) {
 
-            for (String provider : matchingProviders) {
+            for (final String provider : matchingProviders) {
                 locationManager.requestLocationUpdates(provider, 0, 0, (android.location.LocationListener) mListener);
             }
         }
@@ -137,7 +138,7 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        mLocationClient.requestLocationUpdates(REQUEST, this); // LocationListener
+        mLocationClient.requestLocationUpdates(LocationFinder.REQUEST, this); // LocationListener
     }
 
     @Override
@@ -154,22 +155,22 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
         }
     }
 
-
     /**
-     *  <pre>
-     *
-        //Add this method
-        &nbsp;@Override
-        protected void onDestroy() {
-            myLocation.stopUpdates();
-            super.onDestroy();
-        }</pre>
+     * <pre>
+     * 
+     * // Add this method
+     * &#064;Override
+     * protected void onDestroy() {
+     *     myLocation.stopUpdates();
+     *     super.onDestroy();
+     * }
+     * </pre>
      */
     public synchronized Location getLocation() {
 
         if (location == null)
         {
-            setLocation(this.getLastBestLocation(500, System.currentTimeMillis() - (AlarmManager.INTERVAL_FIFTEEN_MINUTES / 4)));
+            setLocation(getLastBestLocation(500, System.currentTimeMillis() - (AlarmManager.INTERVAL_FIFTEEN_MINUTES / 4)));
         }
         return location;
     }

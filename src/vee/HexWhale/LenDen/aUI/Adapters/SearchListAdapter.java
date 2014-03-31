@@ -1,16 +1,15 @@
 /**
- * ***Copyright(c) : 2014-Present, VenomVendor.***
- * Author : VenomVendor
- * Dated : 17 Feb, 2014 3:29:01 AM
- * Project : LenDen-Android
- * Client : LenDen
- * Contact : info@VenomVendor.com
- * URL : https://www.google.co.in/search?q=VenomVendor
- * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
- * (CC BY-NC 3.0).
- * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c)  :   2014-Present, VenomVendor.***
+ * Author           :   VenomVendor
+ * Dated            :   17 Feb, 2014 3:29:01 AM
+ * Project          :   LenDen-Android
+ * Client           :   LenDen
+ * Contact          :   info@VenomVendor.com
+ * URL              :   https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)     :   2014-Present, VenomVendor.
+ * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
 package vee.HexWhale.LenDen.aUI.Adapters;
@@ -52,14 +51,14 @@ public class SearchListAdapter extends BaseAdapter {
     ImageLoader imageLoader;
 
     public SearchListAdapter(Activity activity) {
-        this.sActivity = activity;
-        initilizeImageCache() ;
+        sActivity = activity;
+        initilizeImageCache();
     }
 
     public SearchListAdapter(Activity activity, List<Items> mItems) {
-        this.sActivity = activity;
-        this.sItems = mItems;
-        initilizeImageCache() ;
+        sActivity = activity;
+        sItems = mItems;
+        initilizeImageCache();
     }
 
     @Override
@@ -111,7 +110,6 @@ public class SearchListAdapter extends BaseAdapter {
 
         int mTadeMode = mItems.getTrade_mode();
         mTadeMode = 2; // TODO - REMOVE THIS HARDCODED MODE
-
 
         holder.sTitle.setText("" + mItems.getTitle());
         holder.sCategory.setText("" + mItems.getCategory_name());

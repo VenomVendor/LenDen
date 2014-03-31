@@ -53,8 +53,6 @@ public class SettersNGetters {
     private static ChangePassword changePassword;
     private static ForgotPassword forgotPassword;
 
-
-
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
     }
@@ -112,7 +110,7 @@ public class SettersNGetters {
     }
 
     public static GetSearchCategory getSearchCategory() {
-        return searchCategory;
+        return SettersNGetters.searchCategory;
     }
 
     public static void setSearchCategory(GetSearchCategory searchCategory) {
@@ -120,7 +118,7 @@ public class SettersNGetters {
     }
 
     public static GetFavCategory getFavCategory() {
-        return favCategory;
+        return SettersNGetters.favCategory;
     }
 
     public static void setFavCategory(GetFavCategory favCategory) {
@@ -128,7 +126,7 @@ public class SettersNGetters {
     }
 
     public static GetMessages getMessages() {
-        return messages;
+        return SettersNGetters.messages;
     }
 
     public static void setMessages(GetMessages messages) {
@@ -136,7 +134,7 @@ public class SettersNGetters {
     }
 
     public static GetProfile getProfile() {
-        return profile;
+        return SettersNGetters.profile;
     }
 
     public static void setProfile(GetProfile profile) {
@@ -144,7 +142,7 @@ public class SettersNGetters {
     }
 
     public static GetMessagesFull getMessagesFull() {
-        return messagesFull;
+        return SettersNGetters.messagesFull;
     }
 
     public static void setMessagesFull(GetMessagesFull messagesFull) {
@@ -152,7 +150,7 @@ public class SettersNGetters {
     }
 
     public static GetItemStats getItemStats() {
-        return itemStats;
+        return SettersNGetters.itemStats;
     }
 
     public static void setItemStats(GetItemStats itemStats) {
@@ -160,7 +158,7 @@ public class SettersNGetters {
     }
 
     public static GetProfileItems getProfileItems() {
-        return profileItems;
+        return SettersNGetters.profileItems;
     }
 
     public static void setProfileItems(GetProfileItems profileItems) {
@@ -168,7 +166,7 @@ public class SettersNGetters {
     }
 
     public static CreateMessage getCreateMessage() {
-        return createMessage;
+        return SettersNGetters.createMessage;
     }
 
     public static void setCreateMessage(CreateMessage createMessage) {
@@ -176,7 +174,7 @@ public class SettersNGetters {
     }
 
     public static GetEditProfile getEditProfile() {
-        return editProfile;
+        return SettersNGetters.editProfile;
     }
 
     public static void setEditProfile(GetEditProfile editProfile) {
@@ -184,7 +182,7 @@ public class SettersNGetters {
     }
 
     public static ChangePassword getChangePassword() {
-        return changePassword;
+        return SettersNGetters.changePassword;
     }
 
     public static void setChangePassword(ChangePassword changePassword) {
@@ -192,7 +190,7 @@ public class SettersNGetters {
     }
 
     public static ForgotPassword getForgotPassword() {
-        return forgotPassword;
+        return SettersNGetters.forgotPassword;
     }
 
     public static void setForgotPassword(ForgotPassword forgotPassword) {

@@ -21,7 +21,7 @@ public class GetData {
 
     /**
      * Gets the url.
-     *
+     * 
      * @param tokenType the token type
      * @return the url
      * @refer {@link vee.HexWhale.LenDen.Utils.Constants.API.URL}

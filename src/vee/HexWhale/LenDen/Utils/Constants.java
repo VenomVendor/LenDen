@@ -72,9 +72,6 @@ public final class Constants {
             public final static String CURRENT_PASSWORD = "current_password";
             public final static String NEW_PASSWORD = "new_password";
 
-
-
-
         }
 
         public final static class IMAGEURL {
@@ -102,7 +99,7 @@ public final class Constants {
             public final static String MESSSAGES_USER = "messages/user/";
             public final static String MESSSAGES_CREATE = "messages/create/";
             public final static String PROFILE_ME = "users/me/";
-            public final static String PROFILE_ITEMS = ITEMS;
+            public final static String PROFILE_ITEMS = URL.ITEMS;
             public final static String PROFILE_ITEMS_STATS = "items/me/stats/";
             public final static String PROFILE_PIC = "users/me/photo/upload/";
             public final static String PROFILE_EDIT = "users/me/edit/";

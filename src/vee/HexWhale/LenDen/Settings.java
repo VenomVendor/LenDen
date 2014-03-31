@@ -1,22 +1,21 @@
 /**
- * ***Copyright(c) : 2014-Present, VenomVendor.***
- * Author : VenomVendor
- * Dated : 17 Feb, 2014 3:28:57 AM
- * Project : LenDen-Android
- * Client : LenDen
- * Contact : info@VenomVendor.com
- * URL : https://www.google.co.in/search?q=VenomVendor
- * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
- * (CC BY-NC 3.0).
- * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c)  :   2014-Present, VenomVendor.***
+ * Author           :   VenomVendor
+ * Dated            :   17 Feb, 2014 3:28:57 AM
+ * Project          :   LenDen-Android
+ * Client           :   LenDen
+ * Contact          :   info@VenomVendor.com
+ * URL              :   https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)     :   2014-Present, VenomVendor.
+ * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
+
 
 package vee.HexWhale.LenDen;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -200,8 +199,8 @@ public class Settings extends FragmentActivity {
         builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setTitle("Edit Password");
-        LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.change_password, null);
+        final LayoutInflater li = LayoutInflater.from(this);
+        final View promptsView = li.inflate(R.layout.change_password, null);
         final EditText oldPass = (EditText) promptsView.findViewById(R.id.change_password_old);
         final EditText input = (EditText) promptsView.findViewById(R.id.change_password_new);
         oldPass.setText(oldPassword);
@@ -215,10 +214,10 @@ public class Settings extends FragmentActivity {
                 {
                     if (s.toString().trim().length() > 5 && oldPass.getText().length() > 0)
                     {
-                        dialog.getButton(Dialog.BUTTON_POSITIVE).setEnabled(true);
+                        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
                     }
                     else {
-                        dialog.getButton(Dialog.BUTTON_POSITIVE).setEnabled(false);
+                        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
                     }
                 }
 
@@ -236,6 +235,7 @@ public class Settings extends FragmentActivity {
         });
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface dialog, int whichButton) {
 
                 if (input != null)
@@ -246,6 +246,7 @@ public class Settings extends FragmentActivity {
         });
 
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.dismiss();
             }
@@ -253,7 +254,7 @@ public class Settings extends FragmentActivity {
 
         dialog = builder.create();
         dialog.show();
-        dialog.getButton(Dialog.BUTTON_POSITIVE).setEnabled(false);
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
 
     }
 
@@ -261,7 +262,7 @@ public class Settings extends FragmentActivity {
 
         if (newPassword.contains(" "))
         {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setTitle("Warning!");
             alertDialog.setMessage(Html.fromHtml("Password can't have <b><font =\"#FF0000\">'WhiteSpace'</font></b>\n would you like to update?"));
             alertDialog.setPositiveButton("Yes",
@@ -296,7 +297,7 @@ public class Settings extends FragmentActivity {
             mDataFromUrl.GetString(TYPE.CHANGE_PASSWORD, mJsonObject.toString(), GetData.getUrl(URL.CHANGE_PASSWORD));
 
         }
-        catch (JSONException e) {
+        catch (final JSONException e) {
             e.printStackTrace();
         }
 

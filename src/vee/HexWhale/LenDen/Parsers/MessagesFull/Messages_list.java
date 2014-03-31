@@ -1,15 +1,16 @@
 /**
- * ***Copyright(c)	:	2014-Present, VenomVendor.***
- * Author		:	VenomVendor
- * Dated		:	1 Apr, 2014 12:40:27 AM
- * Project		:	LenDen-Android
- * Client		:	LenDen
- * Contact		:	info@VenomVendor.com
- * URL			:	https://www.google.co.in/search?q=VenomVendor
- * Copyright(c)	:	2014-Present, VenomVendor.
- * License		:	This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
- *					License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- *					Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c) : 2014-Present, VenomVendor.***
+ * Author : VenomVendor
+ * Dated : 1 Apr, 2014 12:40:27 AM
+ * Project : LenDen-Android
+ * Client : LenDen
+ * Contact : info@VenomVendor.com
+ * URL : https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c) : 2014-Present, VenomVendor.
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
+ * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
 
 package vee.HexWhale.LenDen.Parsers.MessagesFull;
@@ -22,7 +23,7 @@ public class Messages_list {
     private String user_last_name;
 
     public String getDate_time() {
-        return this.date_time;
+        return date_time;
     }
 
     public void setDate_time(String date_time) {
@@ -30,7 +31,7 @@ public class Messages_list {
     }
 
     public String getMessage() {
-        return this.message;
+        return message;
     }
 
     public void setMessage(String message) {
@@ -38,7 +39,7 @@ public class Messages_list {
     }
 
     public String getUser_first_name() {
-        return this.user_first_name;
+        return user_first_name;
     }
 
     public void setUser_first_name(String user_first_name) {
@@ -46,7 +47,7 @@ public class Messages_list {
     }
 
     public String getUser_id() {
-        return this.user_id;
+        return user_id;
     }
 
     public void setUser_id(String user_id) {
@@ -54,7 +55,7 @@ public class Messages_list {
     }
 
     public String getUser_last_name() {
-        return this.user_last_name;
+        return user_last_name;
     }
 
     public void setUser_last_name(String user_last_name) {

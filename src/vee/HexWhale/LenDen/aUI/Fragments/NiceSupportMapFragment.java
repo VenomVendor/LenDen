@@ -1,3 +1,17 @@
+/**
+ * ***Copyright(c)  :	2014-Present, VenomVendor.***
+ * Author           :	VenomVendor
+ * Dated            :	1 Apr, 2014 3:41:21 AM
+ * Project          :	LenDen-Android
+ * Client           :	LenDen
+ * Contact		    :	info@VenomVendor.com
+ * URL              :	https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)	    :	2014-Present, VenomVendor.
+ * License		    :	This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ *					License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *					Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ **/
+
 package vee.HexWhale.LenDen.aUI.Fragments;
 
 import android.annotation.SuppressLint;
@@ -21,163 +35,167 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 public class NiceSupportMapFragment extends SupportMapFragment {
 
-	private int detectedBestPixelFormat = -1;
-	private View drawingView;
+    private int detectedBestPixelFormat = -1;
+    private View drawingView;
 
-	//Many thanks to Pepsi1x1 for his contribution to this Texture View detection flag
-	private boolean hasTextureViewSupport = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
-	private boolean isRGBA_8888ByDefault = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
+    // Many thanks to Pepsi1x1 for his contribution to this Texture View
+    // detection flag
+    private boolean hasTextureViewSupport = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+    private boolean isRGBA_8888ByDefault = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
 
-	private boolean preventParentScrolling = true;
+    private boolean preventParentScrolling = true;
 
-	private View searchAndFindDrawingView(ViewGroup group) {
-		int childCount = group.getChildCount();
-		for (int i = 0; i < childCount; i++) {
-			View child = group.getChildAt(i);
-			if (child instanceof ViewGroup) {
-				View view = searchAndFindDrawingView((ViewGroup) child);
+    private View searchAndFindDrawingView(ViewGroup group) {
+        int childCount = group.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View child = group.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                View view = searchAndFindDrawingView((ViewGroup) child);
 
-				if (view != null) {
-					return view;
-				}
-			}
+                if (view != null) {
+                    return view;
+                }
+            }
 
-			if (child instanceof SurfaceView) {
-				return (View) child;
-			}
+            if (child instanceof SurfaceView) {
+                return (View) child;
+            }
 
-			if (hasTextureViewSupport) { // if we have support for texture view
-				if (child instanceof TextureView) {
-					return (View) child;
-				}
-			}
-		}
-		return null;
-	}
+            if (hasTextureViewSupport) { // if we have support for texture view
+                if (child instanceof TextureView) {
+                    return (View) child;
+                }
+            }
+        }
+        return null;
+    }
 
-	private int detectBestPixelFormat () {
+    private int detectBestPixelFormat() {
 
-		//Skip check if this is a new device as it will be RGBA_8888 by default.
-		if (isRGBA_8888ByDefault) {
-			return PixelFormat.RGBA_8888;
-		}
+        // Skip check if this is a new device as it will be RGBA_8888 by
+        // default.
+        if (isRGBA_8888ByDefault) {
+            return PixelFormat.RGBA_8888;
+        }
 
-		Context context = this.getActivity();
-		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
+        Context context = this.getActivity();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
 
-		//Get display pixel format
-		@SuppressWarnings("deprecation")
-		int displayFormat = display.getPixelFormat();
+        // Get display pixel format
+        @SuppressWarnings("deprecation")
+        int displayFormat = display.getPixelFormat();
 
-		if ( PixelFormat.formatHasAlpha(displayFormat) ) {
-			return displayFormat;
-		} else {
-			return PixelFormat.RGB_565;//Fallback for those who don't support Alpha
-		}
-	}
+        if (PixelFormat.formatHasAlpha(displayFormat)) {
+            return displayFormat;
+        } else {
+            return PixelFormat.RGB_565;// Fallback for those who don't support
+                                       // Alpha
+        }
+    }
 
-	@SuppressLint("NewApi")
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @SuppressLint("NewApi")
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
 
-		ViewGroup view = (ViewGroup) super.onCreateView(inflater, container,
-				savedInstanceState);
+        ViewGroup view = (ViewGroup) super.onCreateView(inflater, container,
+                savedInstanceState);
 
-		//Transparent Color For Views, android.R.color.transparent dosn't work on all devices
-		int transparent =  0x00000000;
+        // Transparent Color For Views, android.R.color.transparent dosn't work
+        // on all devices
+        int transparent = 0x00000000;
 
-		view.setBackgroundColor(transparent); // Set Root View to be
-												// transparent
-												// to prevent black screen on
-												// load
+        view.setBackgroundColor(transparent); // Set Root View to be
+                                              // transparent
+                                              // to prevent black screen on
+                                              // load
 
-		drawingView = searchAndFindDrawingView(view); // Find the view the map
-														// is using for Open GL
+        drawingView = searchAndFindDrawingView(view); // Find the view the map
+                                                      // is using for Open GL
 
-		if (drawingView == null)
-			return view; // If we didn't get anything then abort
+        if (drawingView == null)
+            return view; // If we didn't get anything then abort
 
-		drawingView.setBackgroundColor(transparent); // Stop black artifact from
-													// being left behind on
-													// scroll
+        drawingView.setBackgroundColor(transparent); // Stop black artifact from
+                                                     // being left behind on
+                                                     // scroll
 
-		// Create On Touch Listener for MapView Parent Scrolling Fix - Many
-		// thanks to Gemerson Ribas (gmribas) for help with this fix.
-		OnTouchListener touchListener = new OnTouchListener() {
-			public boolean onTouch(View view, MotionEvent event) {
+        // Create On Touch Listener for MapView Parent Scrolling Fix - Many
+        // thanks to Gemerson Ribas (gmribas) for help with this fix.
+        OnTouchListener touchListener = new OnTouchListener() {
+            public boolean onTouch(View view, MotionEvent event) {
 
-				int action = event.getAction();
+                int action = event.getAction();
 
-				switch (action) {
+                switch (action) {
 
-				case MotionEvent.ACTION_DOWN:
-					// Disallow Parent to intercept touch events.
-					view.getParent().requestDisallowInterceptTouchEvent(
-							preventParentScrolling);
-					break;
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow Parent to intercept touch events.
+                        view.getParent().requestDisallowInterceptTouchEvent(
+                                preventParentScrolling);
+                        break;
 
-				case MotionEvent.ACTION_UP:
-					// Allow Parent to intercept touch events.
-					view.getParent().requestDisallowInterceptTouchEvent(
-							!preventParentScrolling);
-					break;
+                    case MotionEvent.ACTION_UP:
+                        // Allow Parent to intercept touch events.
+                        view.getParent().requestDisallowInterceptTouchEvent(
+                                !preventParentScrolling);
+                        break;
 
-				}
+                }
 
-				// Handle View touch events.
-				view.onTouchEvent(event);
-				return false;
-			}
-		};
+                // Handle View touch events.
+                view.onTouchEvent(event);
+                return false;
+            }
+        };
 
-		// texture view
-		if (hasTextureViewSupport) { // If we support texture view and the
-										// drawing view is a TextureView then
-										// tweak it and return the fragment view
+        // texture view
+        if (hasTextureViewSupport) { // If we support texture view and the
+                                     // drawing view is a TextureView then
+                                     // tweak it and return the fragment view
 
-			if (drawingView instanceof TextureView) {
+            if (drawingView instanceof TextureView) {
 
-				TextureView textureView = (TextureView) drawingView;
+                TextureView textureView = (TextureView) drawingView;
 
-				// Stop Containing Views from moving when a user is interacting
-				// with Map View Directly
-				textureView.setOnTouchListener(touchListener);
+                // Stop Containing Views from moving when a user is interacting
+                // with Map View Directly
+                textureView.setOnTouchListener(touchListener);
 
-				return view;
-			}
+                return view;
+            }
 
-		}
+        }
 
-		// Otherwise continue onto legacy surface view hack
-		final SurfaceView surfaceView = (SurfaceView) drawingView;
+        // Otherwise continue onto legacy surface view hack
+        final SurfaceView surfaceView = (SurfaceView) drawingView;
 
-		// Fix for reducing black view flash issues
-		SurfaceHolder holder = surfaceView.getHolder();
+        // Fix for reducing black view flash issues
+        SurfaceHolder holder = surfaceView.getHolder();
 
-		//Detect Display Format if we havn't already
-		if (detectedBestPixelFormat == -1) {
-			detectedBestPixelFormat = detectBestPixelFormat();
-		}
+        // Detect Display Format if we havn't already
+        if (detectedBestPixelFormat == -1) {
+            detectedBestPixelFormat = detectBestPixelFormat();
+        }
 
-		//Use detected best pixel format
-		holder.setFormat(detectedBestPixelFormat);
+        // Use detected best pixel format
+        holder.setFormat(detectedBestPixelFormat);
 
-		// Stop Containing Views from moving when a user is interacting with
-		// Map View Directly
-		surfaceView.setOnTouchListener(touchListener);
+        // Stop Containing Views from moving when a user is interacting with
+        // Map View Directly
+        surfaceView.setOnTouchListener(touchListener);
         GoogleMapOptions options = new GoogleMapOptions();
         options.zOrderOnTop(true);
         NiceSupportMapFragment.newInstance(options);
-		return view;
-	}
+        return view;
+    }
 
-	public boolean getPreventParentScrolling() {
-		return preventParentScrolling;
-	}
+    public boolean getPreventParentScrolling() {
+        return preventParentScrolling;
+    }
 
-	public void setPreventParentScrolling(boolean value) {
-		preventParentScrolling = value;
-	}
+    public void setPreventParentScrolling(boolean value) {
+        preventParentScrolling = value;
+    }
 
 }

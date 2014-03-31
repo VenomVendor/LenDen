@@ -328,12 +328,13 @@ public class CirclePageIndicator extends View implements PageIndicator {
                             mViewPager.setCurrentItem(mCurrentPage - 1);
                         }
                         return true;
-                    } else if ((mCurrentPage < count - 1) && (ev.getX() > halfWidth + sixthWidth)) {
-                        if (action != MotionEvent.ACTION_CANCEL) {
-                            mViewPager.setCurrentItem(mCurrentPage + 1);
+                    } else
+                        if ((mCurrentPage < count - 1) && (ev.getX() > halfWidth + sixthWidth)) {
+                            if (action != MotionEvent.ACTION_CANCEL) {
+                                mViewPager.setCurrentItem(mCurrentPage + 1);
+                            }
+                            return true;
                         }
-                        return true;
-                    }
                 }
 
                 mIsDragging = false;
@@ -453,7 +454,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
 
     /**
      * Determines the width of this view
-     *
+     * 
      * @param measureSpec
      *            A measureSpec packed into an int
      * @return The width of the view, honoring constraints from measureSpec
@@ -470,7 +471,8 @@ public class CirclePageIndicator extends View implements PageIndicator {
             // Calculate the width according the views count
             final int count = mViewPager.getAdapter().getCount();
             result = (int) (getPaddingLeft() + getPaddingRight() + (count * 2 * mRadius) + (count - 1) * mRadius + 1);
-            // Respect AT_MOST value if that was what is called for by measureSpec
+            // Respect AT_MOST value if that was what is called for by
+            // measureSpec
             if (specMode == MeasureSpec.AT_MOST) {
                 result = Math.min(result, specSize);
             }
@@ -480,7 +482,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
 
     /**
      * Determines the height of this view
-     *
+     * 
      * @param measureSpec
      *            A measureSpec packed into an int
      * @return The height of the view, honoring constraints from measureSpec
@@ -496,7 +498,8 @@ public class CirclePageIndicator extends View implements PageIndicator {
         } else {
             // Measure the height
             result = (int) (2 * mRadius + getPaddingTop() + getPaddingBottom() + 1);
-            // Respect AT_MOST value if that was what is called for by measureSpec
+            // Respect AT_MOST value if that was what is called for by
+            // measureSpec
             if (specMode == MeasureSpec.AT_MOST) {
                 result = Math.min(result, specSize);
             }

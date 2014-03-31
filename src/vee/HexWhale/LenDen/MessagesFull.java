@@ -1,17 +1,17 @@
 /**
- * ***Copyright(c) : 2014-Present, VenomVendor.***
- * Author : VenomVendor
- * Dated : 21 Feb, 2014 4:41:51 PM
- * Project : LenDen-Android
- * Client : LenDen
- * Contact : info@VenomVendor.com
- * URL : https://www.google.co.in/search?q=VenomVendor
- * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
- * (CC BY-NC 3.0).
- * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c)  :   2014-Present, VenomVendor.***
+ * Author           :   VenomVendor
+ * Dated            :   21 Feb, 2014 4:41:51 PM
+ * Project          :   LenDen-Android
+ * Client           :   LenDen
+ * Contact          :   info@VenomVendor.com
+ * URL              :   https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)     :   2014-Present, VenomVendor.
+ * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
+
 
 package vee.HexWhale.LenDen;
 
@@ -92,11 +92,11 @@ public class MessagesFull extends FragmentActivity {
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
         mDataFromUrl.setAccessToken();
 
-
         mDataFromUrl.GetString(TYPE.MESSSAGES_USER, getBody(TYPE.MESSSAGES_USER), GetData.getUrl(URL.MESSSAGES_USER));
 
         // TODO-REMOVE
-        //mDataFromUrl.GetString(TYPE.MESSSAGES_USER, null, "http://dl.dropboxusercontent.com/u/40690073/LenDen-API/gettoken.json");
+        // mDataFromUrl.GetString(TYPE.MESSSAGES_USER, null,
+        // "http://dl.dropboxusercontent.com/u/40690073/LenDen-API/gettoken.json");
 
     }
 

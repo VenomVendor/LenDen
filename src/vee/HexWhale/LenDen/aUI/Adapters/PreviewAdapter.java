@@ -1,17 +1,17 @@
 /**
- * ***Copyright(c) : 2014-Present, VenomVendor.***
- * Author : VenomVendor
- * Dated : 17 Feb, 2014 3:28:57 AM
- * Project : LenDen-Android
- * Client : LenDen
- * Contact : info@VenomVendor.com
- * URL : https://www.google.co.in/search?q=VenomVendor
- * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
- * (CC BY-NC 3.0).
- * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c)  :   2014-Present, VenomVendor.***
+ * Author           :   VenomVendor
+ * Dated            :   17 Feb, 2014 3:28:57 AM
+ * Project          :   LenDen-Android
+ * Client           :   LenDen
+ * Contact          :   info@VenomVendor.com
+ * URL              :   https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)     :   2014-Present, VenomVendor.
+ * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
+
 
 package vee.HexWhale.LenDen.aUI.Adapters;
 
@@ -178,49 +178,49 @@ public class PreviewAdapter extends BaseAdapter {
     private void initilizeImageCache() {
         optionsIcon =
                 new DisplayImageOptions.Builder()
-        .showImageForEmptyUri(R.drawable.noimage)
-        .showImageOnFail(R.drawable.noimage)
-        .resetViewBeforeLoading(false)
-        .cacheInMemory(true)
-        .cacheOnDisc(true)
-        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-        .bitmapConfig(Bitmap.Config.RGB_565)
-        .displayer(new RoundedBitmapDisplayer(10))
-        .displayer(new FadeInBitmapDisplayer(0))
-        .build();
+                        .showImageForEmptyUri(R.drawable.noimage)
+                        .showImageOnFail(R.drawable.noimage)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
 
         optionsDp =
                 new DisplayImageOptions.Builder()
-        .showImageForEmptyUri(R.drawable.signup_dp)
-        .showImageOnFail(R.drawable.signup_dp)
-        .resetViewBeforeLoading(false)
-        .cacheInMemory(true)
-        .cacheOnDisc(true)
-        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-        .bitmapConfig(Bitmap.Config.RGB_565)
-        .displayer(new RoundedBitmapDisplayer(10))
-        .displayer(new FadeInBitmapDisplayer(0))
-        .build();
+                        .showImageForEmptyUri(R.drawable.signup_dp)
+                        .showImageOnFail(R.drawable.signup_dp)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
 
         final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(sActivity.getApplicationContext())
-        .defaultDisplayImageOptions(optionsIcon)
-        .threadPriority(Thread.NORM_PRIORITY)
-        .threadPoolSize(3)
-        .denyCacheImageMultipleSizesInMemory()
-        .discCache(new UnlimitedDiscCache(cacheDir))
-        // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
-        .tasksProcessingOrder(QueueProcessingType.FIFO)
-        .build();
+                .defaultDisplayImageOptions(optionsIcon)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
 
         final ImageLoaderConfiguration configDP = new ImageLoaderConfiguration.Builder(sActivity.getApplicationContext())
-        .defaultDisplayImageOptions(optionsDp)
-        .threadPriority(Thread.NORM_PRIORITY)
-        .threadPoolSize(3)
-        .denyCacheImageMultipleSizesInMemory()
-        .discCache(new UnlimitedDiscCache(cacheDir))
-        // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
-        .tasksProcessingOrder(QueueProcessingType.FIFO)
-        .build();
+                .defaultDisplayImageOptions(optionsDp)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
 
         ImageLoader.getInstance().init(config); // Do it on Application start
         ImageLoader.getInstance().init(configDP); // Do it on Application start

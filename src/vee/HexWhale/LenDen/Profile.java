@@ -1,17 +1,17 @@
 /**
- * ***Copyright(c) : 2014-Present, VenomVendor.***
- * Author : VenomVendor
- * Dated : 17 Feb, 2014 3:28:57 AM
- * Project : LenDen-Android
- * Client : LenDen
- * Contact : info@VenomVendor.com
- * URL : https://www.google.co.in/search?q=VenomVendor
- * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
- * (CC BY-NC 3.0).
- * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c)  :   2014-Present, VenomVendor.***
+ * Author           :   VenomVendor
+ * Dated            :   17 Feb, 2014 3:28:58 AM
+ * Project          :   LenDen-Android
+ * Client           :   LenDen
+ * Contact          :   info@VenomVendor.com
+ * URL              :   https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)     :   2014-Present, VenomVendor.
+ * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
+ *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
+
 
 package vee.HexWhale.LenDen;
 
@@ -107,7 +107,7 @@ public class Profile extends MenuBar {
         else {
             mName.setText(mPrefs.getStringInPref(KEY.MY_F_NAME) + " " + mPrefs.getStringInPref(KEY.MY_L_NAME));
             mEmail.setText(mPrefs.getStringInPref(KEY.MY_E_MAIL));
-            System.out.println(""+mPrefs.getStringInPref(KEY.MY_I_URL));
+            System.out.println("" + mPrefs.getStringInPref(KEY.MY_I_URL));
             imageLoader.displayImage(mPrefs.getStringInPref(KEY.MY_I_URL), mDp, optionsDp);
             mDataFromUrl.GetString(TYPE.PROFILE_ITEMS_STATS, getBody(TYPE.PROFILE_ITEMS_STATS), GetData.getUrl(URL.PROFILE_ITEMS_STATS));
         }
@@ -247,7 +247,7 @@ public class Profile extends MenuBar {
                 System.out.println(mJsonObject.toString());
                 return mJsonObject.toString();
             }
-            catch (JSONException e) {
+            catch (final JSONException e) {
                 e.printStackTrace();
             }
 

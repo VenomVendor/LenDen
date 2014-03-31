@@ -141,7 +141,7 @@ public class GetTokens {
                             if (mAccessToken.getStatus().equalsIgnoreCase("success")) {
                                 mPrefs.setStringInPref(KEY.ACCESS_TOKEN, mAccessToken.getResponse().getAccess_token());
                                 mPrefs
-                                .setStringInPref(KEY.REFRESH_TOKEN, mAccessToken.getResponse().getRefresh_token());
+                                        .setStringInPref(KEY.REFRESH_TOKEN, mAccessToken.getResponse().getRefresh_token());
                                 mFetcherListener.finishedParsing(type);
                             }
                             else {
