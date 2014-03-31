@@ -25,6 +25,7 @@ import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
 import vee.HexWhale.LenDen.Parsers.Messages.CreateMessage;
 import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
 import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
+import vee.HexWhale.LenDen.Parsers.Profile.GetEditProfile;
 import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
 import vee.HexWhale.LenDen.Parsers.ProfileItems.GetProfileItems;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.GetSearchCategory;
@@ -46,6 +47,9 @@ public class SettersNGetters {
     private static GetItemStats itemStats;
     private static GetProfileItems profileItems;
     private static CreateMessage createMessage;
+    private static GetEditProfile editProfile;
+
+
 
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
@@ -165,6 +169,14 @@ public class SettersNGetters {
 
     public static void setCreateMessage(CreateMessage createMessage) {
         SettersNGetters.createMessage = createMessage;
+    }
+
+    public static GetEditProfile getEditProfile() {
+        return editProfile;
+    }
+
+    public static void setEditProfile(GetEditProfile editProfile) {
+        SettersNGetters.editProfile = editProfile;
     }
 
 }

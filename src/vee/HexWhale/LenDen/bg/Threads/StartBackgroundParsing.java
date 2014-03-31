@@ -33,6 +33,7 @@ import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
 import vee.HexWhale.LenDen.Parsers.Messages.CreateMessage;
 import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
 import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
+import vee.HexWhale.LenDen.Parsers.Profile.GetEditProfile;
 import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
 import vee.HexWhale.LenDen.Parsers.ProfileItems.GetProfileItems;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.GetSearchCategory;
@@ -84,12 +85,12 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
         return;
     }
 
-    private void parseString(String mParams) {
+    private void parseString(String resultJsonString) {
         mFetcherListener.startedParsing(type);
         try {
             switch (type) {
                 case TYPE.AUTHORIZE:
-                    SettersNGetters.setAuthCode(StartBackgroundParsing.objectMapper.readValue(mParams, GetAuthCode.class));
+                    SettersNGetters.setAuthCode(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetAuthCode.class));
                     if (SettersNGetters.getAuthCode().getStatus().equalsIgnoreCase(STRING.SUCCESS))
                     {
                         mTokens.getAccessToken();
@@ -100,7 +101,7 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
                     }
                     break;
                 case TYPE.ACCESSTOKEN:
-                    SettersNGetters.setAccessToken(StartBackgroundParsing.objectMapper.readValue(mParams, GetAccessToken.class));
+                    SettersNGetters.setAccessToken(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetAccessToken.class));
                     if (!SettersNGetters.getAccessToken().getStatus().equalsIgnoreCase(STRING.SUCCESS))
                     {
                         SettersNGetters.setAccessToken(null);
@@ -111,7 +112,7 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
                 case TYPE.REFRESH:
                     // SAME AS GETACCESSTOKEN < GET REFRESH TOKEN FROM
                     // AccessToken
-                    SettersNGetters.setAccessToken(StartBackgroundParsing.objectMapper.readValue(mParams, GetAccessToken.class));
+                    SettersNGetters.setAccessToken(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetAccessToken.class));
                     if (!SettersNGetters.getAccessToken().getStatus().equalsIgnoreCase(STRING.SUCCESS))
                     {
                         SettersNGetters.setAccessToken(null);
@@ -121,92 +122,98 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
                 case TYPE.LOGIN_EMAIL:
                     // SAME AS GETACCESSTOKEN RESULT < GET LOGIN PARAMS FROM
                     // AccessToken
-                    SettersNGetters.setLoggedInViaEmail(StartBackgroundParsing.objectMapper.readValue(mParams, GetAccessToken.class));
+                    SettersNGetters.setLoggedInViaEmail(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetAccessToken.class));
 
                     validateToken(SettersNGetters.isLoggedInViaEmail().getError_code());
                     break;
                 case TYPE.REGISTER_EMAIL:
                     // SAME AS GETACCESSTOKEN RESULT < GET REGISTER PARAMS FROM
                     // AccessToken
-                    SettersNGetters.setRegistered(StartBackgroundParsing.objectMapper.readValue(mParams, GetAccessToken.class));
+                    SettersNGetters.setRegistered(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetAccessToken.class));
 
                     validateToken(SettersNGetters.isRegistered().getError_code());
 
                     break;
 
                 case TYPE.CATEGORIES:
-                    SettersNGetters.setCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetCategory.class));
+                    SettersNGetters.setCategory(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetCategory.class));
 
                     validateToken(SettersNGetters.getCategory().getError_code());
 
                     break;
 
                 case TYPE.ITEM_CATEGORIES:
-                    SettersNGetters.setItemCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetItemCategory.class));
+                    SettersNGetters.setItemCategory(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetItemCategory.class));
 
                     validateToken(SettersNGetters.getItemCategory().getError_code());
 
                     break;
 
                 case TYPE.ITEM_DETAILS:
-                    SettersNGetters.setDetailedCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetDetailedCategory.class));
+                    SettersNGetters.setDetailedCategory(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetDetailedCategory.class));
 
                     validateToken(SettersNGetters.getDetailedCategory().getError_code());
 
                     break;
                 case TYPE.ITEMS:
-                    SettersNGetters.setSearchCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetSearchCategory.class));
+                    SettersNGetters.setSearchCategory(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetSearchCategory.class));
 
                     validateToken(SettersNGetters.getSearchCategory().getError_code());
 
                     break;
 
                 case TYPE.FAVORITE:
-                    SettersNGetters.setFavCategory(StartBackgroundParsing.objectMapper.readValue(mParams, GetFavCategory.class));
+                    SettersNGetters.setFavCategory(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetFavCategory.class));
 
                     validateToken(SettersNGetters.getFavCategory().getError_code());
 
                     break;
 
                 case TYPE.MESSSAGES:
-                    SettersNGetters.setMessages(StartBackgroundParsing.objectMapper.readValue(mParams, GetMessages.class));
+                    SettersNGetters.setMessages(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetMessages.class));
 
                     validateToken(SettersNGetters.getMessages().getError_code());
 
                     break;
 
                 case TYPE.MESSSAGES_USER:
-                    SettersNGetters.setMessagesFull(StartBackgroundParsing.objectMapper.readValue(mParams, GetMessagesFull.class));
+                    SettersNGetters.setMessagesFull(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetMessagesFull.class));
 
                     validateToken(SettersNGetters.getMessagesFull().getError_code());
 
                     break;
 
                 case TYPE.PROFILE_ME:
-                    SettersNGetters.setProfile(StartBackgroundParsing.objectMapper.readValue(mParams, GetProfile.class));
-
+                    SettersNGetters.setProfile(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetProfile.class));
                     validateToken(SettersNGetters.getProfile().getError_code());
 
                     break;
 
                 case TYPE.MESSSAGES_CREATE:
-                    SettersNGetters.setCreateMessage(StartBackgroundParsing.objectMapper.readValue(mParams, CreateMessage.class));
+                    SettersNGetters.setCreateMessage(StartBackgroundParsing.objectMapper.readValue(resultJsonString, CreateMessage.class));
 
                     validateToken(SettersNGetters.getCreateMessage().getError_code());
 
                     break;
 
                 case TYPE.PROFILE_ITEMS:
-                    SettersNGetters.setProfileItems(StartBackgroundParsing.objectMapper.readValue(mParams, GetProfileItems.class));
+                    SettersNGetters.setProfileItems(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetProfileItems.class));
 
                     validateToken(SettersNGetters.getProfileItems().getError_code());
 
                     break;
 
                 case TYPE.PROFILE_ITEMS_STATS:
-                    SettersNGetters.setItemStats(StartBackgroundParsing.objectMapper.readValue(mParams, GetItemStats.class));
+                    SettersNGetters.setItemStats(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetItemStats.class));
 
                     validateToken(SettersNGetters.getItemStats().getError_code());
+
+                    break;
+
+                case TYPE.PROFILE_EDIT:
+                    SettersNGetters.setEditProfile(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetEditProfile.class));
+
+                    validateToken(SettersNGetters.getEditProfile().getError_code());
 
                     break;
 

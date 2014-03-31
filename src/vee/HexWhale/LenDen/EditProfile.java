@@ -19,10 +19,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore.MediaColumns;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
@@ -36,6 +38,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.L;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -45,14 +58,24 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import vee.HexWhale.LenDen.Parsers.Profile.GetEditProfile;
 import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
 import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
+import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.HEADERS;
+import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
+import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
 import vee.HexWhale.LenDen.Utils.Constants.API.URL;
 import vee.HexWhale.LenDen.Utils.Constants.KEY;
+import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
+import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
+import vee.HexWhale.LenDen.bg.Threads.TagGen;
+import vee.HexWhale.LenDen.bg.Threads.Validator;
 
 import java.io.File;
 import java.util.Locale;
@@ -60,28 +83,170 @@ import java.util.Locale;
 public class EditProfile extends FragmentActivity {
 
     boolean enableEdit = false;
+    static boolean isChanged = false;
     View tempView = null;
     final static int tempID = 23;
     String picturePath;
     GlobalSharedPrefs mPrefs;
 
+    static boolean updatedText = true;
+    static boolean updatedImage = true;
+
     GetProfile profile;
-    ImageView menu_right;
+    GetDataFromUrl mDataFromUrl;
+    DisplayImageOptions optionsDp;
+    File cacheDir = new File(Environment.getExternalStorageDirectory(), STRING.CACHE_LOC);
+    ImageLoader imageLoader;
+    ImageView menu_right, edit_profile_dp;
+    private String tag = "UNKNOWN";
     EditText firstName, lastName, eMail;
+    String tempFName, tempLName, tempEmail;
+    GetEditProfile editProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.edit_profile);
-
+        tag = TagGen.getTag(getClass());
         ((TextView) findViewById(R.id.menu_center)).setText(("edit profile").toUpperCase(Locale.UK));
         firstName = (EditText) findViewById(R.id.edit_profile_name);
         lastName = (EditText) findViewById(R.id.edit_profile_lname);
         eMail = (EditText) findViewById(R.id.edit_profile_mail);
+
+        edit_profile_dp = (ImageView) findViewById(R.id.edit_profile_dp);
+
         menu_right = (ImageView) findViewById(R.id.menu_right);
         menu_right.setVisibility(View.INVISIBLE);
-        // edit_profile_name
+        initilizeImageCache();
         mPrefs = new GlobalSharedPrefs(this);
+        mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
+
+        if (mPrefs.getStringInPref(KEY.MY_F_NAME) != null || mPrefs.getStringInPref(KEY.MY_F_NAME) != "")
+        {
+            firstName.setText(mPrefs.getStringInPref(KEY.MY_F_NAME));
+            lastName.setText(mPrefs.getStringInPref(KEY.MY_L_NAME));
+            eMail.setText(mPrefs.getStringInPref(KEY.MY_E_MAIL));
+            imageLoader.displayImage("" + mPrefs.getStringInPref(KEY.MY_I_URL), edit_profile_dp, optionsDp);
+
+            try {
+                tempFName = firstName.getText().toString();
+                tempLName = lastName.getText().toString();
+                tempEmail = eMail.getText().toString();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return;
+        }
+
+        mDataFromUrl.setAccessToken();
+        mDataFromUrl.GetString(TYPE.PROFILE_ME, getBody(TYPE.PROFILE_ME), GetData.getUrl(URL.PROFILE_ME));
+
+    }
+
+    private final FetcherListener mFetcherListener = new FetcherListener() {
+
+        @Override
+        public void tokenError(String tokenError) {
+            ToastL(tokenError);
+
+        }
+
+        @Override
+        public void startedParsing(int type) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void finishedParsing(int typ) {
+
+            switch (typ) {
+
+                case TYPE.PROFILE_ME:
+
+                    profile = SettersNGetters.getProfile();
+
+                    if (profile == null) {
+                        ToastL("{ Unknown Profile }");
+                        return;
+                    }
+                    mPrefs.setStringInPref(KEY.MY_F_NAME, profile.getResponse().getFirst_name());
+                    mPrefs.setStringInPref(KEY.MY_L_NAME, profile.getResponse().getLast_name());
+                    mPrefs.setStringInPref(KEY.MY_E_MAIL, profile.getResponse().getEmail());
+                    mPrefs.setStringInPref(KEY.MY_I_URL, "" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()));
+
+                    firstName.setText(profile.getResponse().getFirst_name());
+                    lastName.setText(profile.getResponse().getLast_name());
+                    eMail.setText(profile.getResponse().getEmail());
+                    imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()), edit_profile_dp, optionsDp);
+
+                    try {
+                        tempFName = firstName.getText().toString();
+                        tempLName = lastName.getText().toString();
+                        tempEmail = eMail.getText().toString();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+
+                case TYPE.PROFILE_EDIT:
+
+                    editProfile = SettersNGetters.getEditProfile();
+                    if (profile == null) {
+                        ToastL("{ Unable to Update }");
+                        return;
+                    }
+
+                    if (editProfile.getStatus().equalsIgnoreCase(STRING.SUCCESS))
+                    {
+                        updatedText = true;
+                        if (updatedImage && updatedText)
+                        {
+                            ToastL("{ Updated Successfully }");
+                            finish();
+                            AnimNext();
+                        }
+                    }
+                    else {
+
+                        ToastL("{ Couldn't update profile. \n Try again later. }");
+
+                    }
+            }
+
+        }
+
+        @Override
+        public void finishedFetching(int type, String response) {
+            LogR(response);
+
+        }
+
+        @Override
+        public void errorFetching(int type, VolleyError error) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeParsing(int type) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void ParsingException(Exception e) {
+            // TODO Auto-generated method stub
+
+        }
+    };
+
+    protected void LogR(String msg) {
+        Log.wtf(tag, msg);
     }
 
     public void Finish(View v) {
@@ -91,8 +256,63 @@ public class EditProfile extends FragmentActivity {
 
     public void Submit(View v) {
         // finish();
-        new UploadImage().execute(picturePath);
-        AnimNext();
+
+        if (!Validator.hasMinChars(firstName, 3).equalsIgnoreCase("k"))
+        {
+            firstName.setError(Validator.hasMinChars(firstName, 3));
+            return;
+        }
+
+        if (!Validator.hasMinChars(lastName, 3).equalsIgnoreCase("k"))
+        {
+            lastName.setError(Validator.hasMinChars(lastName, 3));
+            return;
+        }
+
+        if (!Validator.isvalidEmail(eMail).equalsIgnoreCase("k"))
+        {
+            eMail.setError(Validator.isvalidEmail(eMail));
+            return;
+        }
+
+        if (!tempFName.equalsIgnoreCase(firstName.getText().toString())
+                || !tempLName.equalsIgnoreCase(lastName.getText().toString())
+                || !tempEmail.equalsIgnoreCase(eMail.getText().toString()))
+        {
+            updatedText = false;
+            mDataFromUrl.setAccessToken();
+            mDataFromUrl.GetString(TYPE.PROFILE_EDIT, getBody(TYPE.PROFILE_EDIT), GetData.getUrl(URL.PROFILE_EDIT));
+        }
+
+        if (isChanged)
+        {
+            updatedImage = false;
+            new UploadImage().execute(picturePath);
+        }
+
+    }
+
+    private String getBody(int typ) {
+        switch (typ) {
+            case TYPE.PROFILE_EDIT:
+                JSONObject mJsonObject = null;
+                mJsonObject = new JSONObject();
+
+                try {
+                    mJsonObject.put(STRING.FIRSTNAME, firstName.getText().toString());
+                    mJsonObject.put(STRING.LASTNAME, lastName.getText().toString());
+                    mJsonObject.put(STRING.EMAIL, eMail.getText().toString());
+                    System.out.println(mJsonObject.toString());
+                    return mJsonObject.toString();
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+
+        }
+        return null;
     }
 
     @Override
@@ -207,6 +427,8 @@ public class EditProfile extends FragmentActivity {
             cursor.close();
             ((ImageView) tempView).setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
+            isChanged = true;
+
         }
         else {
             ToastL("Unable to select image...");
@@ -245,13 +467,32 @@ public class EditProfile extends FragmentActivity {
                 resEntity = response.getEntity();
 
                 if (resEntity != null) {
+
                     final String response_str = EntityUtils.toString(resEntity);
+
                     Log.i("RESPONSE", response_str);
+
                     runOnUiThread(new Runnable() {
                         public void run() {
                             try {
-                                Toast.makeText(getApplicationContext(), "Upload Complete. Check the server uploads directory.", Toast.LENGTH_LONG)
-                                        .show();
+
+                                JSONObject mObject = new JSONObject(response_str);
+
+                                String statis = mObject.getString(STRING.STATUS);
+                                if (statis.equalsIgnoreCase(STRING.SUCCESS))
+                                {
+                                    updatedImage = true;
+                                    if (updatedImage && updatedText)
+                                    {
+                                        ToastL("{ Updated Successfully }");
+                                        finish();
+                                        AnimNext();
+                                    }
+                                }
+                                else {
+                                    ToastL("{ Couldn't update Image \n Try again Later. }");
+                                }
+
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
@@ -268,4 +509,32 @@ public class EditProfile extends FragmentActivity {
 
     }
 
+    private void initilizeImageCache() {
+        L.disableLogging();
+        optionsDp =
+                new DisplayImageOptions.Builder()
+                        .showImageForEmptyUri(R.drawable.signup_dp)
+                        .showImageOnFail(R.drawable.signup_dp)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
+
+        final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(optionsDp)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
+
+        ImageLoader.getInstance().init(config); // Do it on Application start
+        imageLoader = ImageLoader.getInstance();
+    }
 }

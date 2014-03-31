@@ -44,11 +44,13 @@ import org.json.JSONObject;
 import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
 import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
 import vee.HexWhale.LenDen.Parsers.ProfileItems.GetProfileItems;
+import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
 import vee.HexWhale.LenDen.Utils.Constants.API.URL;
+import vee.HexWhale.LenDen.Utils.Constants.KEY;
 import vee.HexWhale.LenDen.aUI.MenuBar;
 import vee.HexWhale.LenDen.aUI.Adapters.ProfileListAdapter;
 import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
@@ -75,12 +77,14 @@ public class Profile extends MenuBar {
     GetItemStats itemStats;
     GetProfileItems profileItems;
     LocationFinder myLocation;
+    GlobalSharedPrefs mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.profile);
         tag = TagGen.getTag(getClass());
+        mPrefs = new GlobalSharedPrefs(this);
         initilizeImageCache();
         myLocation = new LocationFinder(getApplicationContext());
         mView = (TextView) findViewById(R.id.no_item);
@@ -94,6 +98,13 @@ public class Profile extends MenuBar {
         mEmail = (TextView) findViewById(R.id.profile_loc);
 
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
+
+        if (mPrefs.getStringInPref(KEY.MY_F_NAME) != null || mPrefs.getStringInPref(KEY.MY_F_NAME) != "")
+        {
+            mDataFromUrl.setAccessToken();
+            mDataFromUrl.GetString(TYPE.PROFILE_ITEMS_STATS, getBody(TYPE.PROFILE_ITEMS_STATS), GetData.getUrl(URL.PROFILE_ITEMS_STATS));
+            return;
+        }
         mDataFromUrl.setAccessToken();
         mDataFromUrl.GetString(TYPE.PROFILE_ME, getBody(TYPE.PROFILE_ME), GetData.getUrl(URL.PROFILE_ME));
 
@@ -134,6 +145,11 @@ public class Profile extends MenuBar {
                         ToastL("{ Unknown Profile }");
                         return;
                     }
+                    mPrefs.setStringInPref(KEY.MY_F_NAME, profile.getResponse().getFirst_name());
+                    mPrefs.setStringInPref(KEY.MY_L_NAME, profile.getResponse().getLast_name());
+                    mPrefs.setStringInPref(KEY.MY_E_MAIL, profile.getResponse().getEmail());
+                    mPrefs.setStringInPref(KEY.MY_I_URL, "" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()));
+
                     mName.setText(profile.getResponse().getFirst_name() + " " + profile.getResponse().getLast_name());
                     mEmail.setText(profile.getResponse().getEmail());
                     imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()), mDp, optionsDp);

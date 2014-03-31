@@ -67,6 +67,10 @@ public final class Constants {
             public final static String MESSAGE = "message";
             public final static String PICTURE = "picture";
             public final static String PREVIEW = "PREVIEW";
+            public final static String STATUS = "status";
+
+
+
 
         }
 
@@ -98,6 +102,7 @@ public final class Constants {
             public final static String PROFILE_ITEMS = ITEMS;
             public final static String PROFILE_ITEMS_STATS = "items/me/stats/";
             public final static String PROFILE_PIC = "users/me/photo/upload/";
+            public final static String PROFILE_EDIT = "users/me/edit/";
 
         }
 
@@ -123,6 +128,7 @@ public final class Constants {
             public final static int PROFILE_ITEMS = 19;
             public final static int PROFILE_ITEMS_STATS = 20;
             public final static int PROFILE_PIC = 21;
+            public final static int PROFILE_EDIT = 22;
         }
 
     }
@@ -134,6 +140,10 @@ public final class Constants {
         public final static String REFRESH_TOKEN = "REFRESHTOKEN";
         public final static String LAST_JSON = "LASTJSON";
         public final static String OPENED_TIMES_COUNT = "OPENEDTIMESCOUNT";
+        public final static String MY_F_NAME = "MYFNAME";
+        public final static String MY_L_NAME = "MYLNAME";
+        public final static String MY_E_MAIL = "MYEMAIL";
+        public final static String MY_I_URL = "MYIURL";
 
     }
 
