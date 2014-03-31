@@ -299,6 +299,7 @@ public class SignUp extends FragmentActivity {
     /**
      * @param text
      */
+    @SuppressWarnings("unused")
     private void ToastS(String text) {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }

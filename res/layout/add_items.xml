@@ -167,7 +167,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="0dp"
-                        android:src="@drawable/s_arrow" />
+                        android:src="@drawable/s_arrow"
+                        android:visibility="invisible" />
 
                     <ImageView
                         android:id="@+id/add_items_arrow_e"
@@ -177,8 +178,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="0dp"
-                        android:src="@drawable/e_arrow"
-                        android:visibility="invisible" />
+                        android:src="@drawable/e_arrow" />
 
                     <ImageView
                         android:id="@+id/add_items_arrow_b"

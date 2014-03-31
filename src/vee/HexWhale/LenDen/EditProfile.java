@@ -83,7 +83,7 @@ import java.util.Locale;
 public class EditProfile extends FragmentActivity {
 
     boolean enableEdit = false;
-    static boolean isChanged = false;
+    boolean isChanged = false;
     View tempView = null;
     final static int tempID = 23;
     String picturePath;
@@ -114,7 +114,7 @@ public class EditProfile extends FragmentActivity {
         eMail = (EditText) findViewById(R.id.edit_profile_mail);
 
         edit_profile_dp = (ImageView) findViewById(R.id.edit_profile_dp);
-
+        edit_profile_dp.setFocusable(true);
         menu_right = (ImageView) findViewById(R.id.menu_right);
         menu_right.setVisibility(View.INVISIBLE);
         initilizeImageCache();
@@ -131,7 +131,7 @@ public class EditProfile extends FragmentActivity {
             lastName.setText(mPrefs.getStringInPref(KEY.MY_L_NAME));
             eMail.setText(mPrefs.getStringInPref(KEY.MY_E_MAIL));
             imageLoader.displayImage("" + mPrefs.getStringInPref(KEY.MY_I_URL), edit_profile_dp, optionsDp);
-
+            edit_profile_dp.setFocusable(true);
             try {
                 tempFName = firstName.getText().toString();
                 tempLName = lastName.getText().toString();
@@ -202,7 +202,10 @@ public class EditProfile extends FragmentActivity {
 
                     if (editProfile.getStatus().equalsIgnoreCase(STRING.SUCCESS))
                     {
-                        mPrefs.setStringInPref(KEY.MY_F_NAME, "");
+                        mPrefs.setStringInPref(KEY.MY_F_NAME, firstName.getText().toString());
+                        mPrefs.setStringInPref(KEY.MY_L_NAME, lastName.getText().toString());
+                        mPrefs.setStringInPref(KEY.MY_E_MAIL, eMail.getText().toString());
+
                         updatedText = true;
                         if (updatedImage && updatedText)
                         {
@@ -257,7 +260,7 @@ public class EditProfile extends FragmentActivity {
             return;
         }
 
-        if (!Validator.hasMinChars(lastName, 3).equalsIgnoreCase("k"))
+        if (!Validator.hasMinChars(lastName, 1).equalsIgnoreCase("k"))
         {
             lastName.setError(Validator.hasMinChars(lastName, 1));
             return;
@@ -393,6 +396,7 @@ public class EditProfile extends FragmentActivity {
                 editText.setTextColor(getResources().getColor(R.color.blue_normal));
                 editText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
                 editText.setFocusable(true);
+                editText.setSelected(true);
             }
             else {
                 menu_right.setVisibility(View.INVISIBLE);

@@ -45,8 +45,6 @@ import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
 
-import java.util.Locale;
-
 public class Preview extends MenuBar {
 
     ListView mListView;

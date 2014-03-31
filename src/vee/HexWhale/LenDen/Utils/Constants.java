@@ -50,6 +50,7 @@ public final class Constants {
             public final static String FIRSTNAME = "first_name";
             public final static String LASTNAME = "last_name";
             public final static String SUCCESS = "success";
+            public final static String ERROR = "Error : ";
             public final static String FAILED = "failed";
             public final static String PAGE = "page";
             public final static String OFFSET = "offset";
@@ -106,6 +107,7 @@ public final class Constants {
             public final static String PROFILE_PIC = "users/me/photo/upload/";
             public final static String PROFILE_EDIT = "users/me/edit/";
             public final static String CHANGE_PASSWORD = "users/me/change/password/";
+            public final static String FORGOT_PASSWORD = "users/forgot/password/";
 
         }
 
@@ -133,6 +135,7 @@ public final class Constants {
             public final static int PROFILE_PIC = 21;
             public final static int PROFILE_EDIT = 22;
             public final static int CHANGE_PASSWORD = 23;
+            public final static int FORGOT_PASSWORD = 24;
         }
 
     }

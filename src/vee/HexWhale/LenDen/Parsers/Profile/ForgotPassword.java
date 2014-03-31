@@ -1,7 +1,7 @@
 /**
  * ***Copyright(c)	:	2014-Present, VenomVendor.***
  * Author		:	VenomVendor
- * Dated		:	1 Apr, 2014 12:40:44 AM
+ * Dated		:	1 Apr, 2014 12:40:45 AM
  * Project		:	LenDen-Android
  * Client		:	LenDen
  * Contact		:	info@VenomVendor.com
@@ -14,7 +14,7 @@
 
 package vee.HexWhale.LenDen.Parsers.Profile;
 
-public class GetEditProfile {
+public class ForgotPassword {
     private String error_code;
     private String error_message;
     private String status;

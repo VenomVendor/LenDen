@@ -34,6 +34,7 @@ import vee.HexWhale.LenDen.Parsers.Messages.CreateMessage;
 import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
 import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
 import vee.HexWhale.LenDen.Parsers.Profile.ChangePassword;
+import vee.HexWhale.LenDen.Parsers.Profile.ForgotPassword;
 import vee.HexWhale.LenDen.Parsers.Profile.GetEditProfile;
 import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
 import vee.HexWhale.LenDen.Parsers.ProfileItems.GetProfileItems;
@@ -225,6 +226,13 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
 
                     break;
 
+                case TYPE.FORGOT_PASSWORD:
+                    SettersNGetters.setForgotPassword(StartBackgroundParsing.objectMapper.readValue(resultJsonString, ForgotPassword.class));
+
+                    validateToken(SettersNGetters.getForgotPassword().getError_code());
+
+                    break;
+
             }
         }
         catch (final Exception e) {
@@ -313,7 +321,10 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
 
                     SettersNGetters.setChangePassword(null);
                     break;
+                case TYPE.FORGOT_PASSWORD:
 
+                    SettersNGetters.setForgotPassword(null);
+                    break;
             }
 
         }

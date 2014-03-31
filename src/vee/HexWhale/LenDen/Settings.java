@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,12 +40,10 @@ import org.json.JSONObject;
 import vee.HexWhale.LenDen.Parsers.Profile.ChangePassword;
 import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
-import vee.HexWhale.LenDen.Utils.Constants.KEY;
-import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
 import vee.HexWhale.LenDen.Utils.Constants.API.URL;
-import vee.HexWhale.LenDen.aUI.Adapters.ProfileListAdapter;
+import vee.HexWhale.LenDen.Utils.Constants.KEY;
 import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
@@ -89,7 +88,6 @@ public class Settings extends FragmentActivity {
 
         @Override
         public void startedParsing(int type) {
-            // TODO Auto-generated method stub
 
         }
 
@@ -129,19 +127,16 @@ public class Settings extends FragmentActivity {
 
         @Override
         public void errorFetching(int type, VolleyError error) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void beforeParsing(int type) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void ParsingException(Exception e) {
-            // TODO Auto-generated method stub
 
         }
     };
@@ -198,7 +193,6 @@ public class Settings extends FragmentActivity {
 
         justAnotherMethod("");
 
-        AnimNext();
     }
 
     protected void justAnotherMethod(String oldPassword) {
@@ -269,7 +263,7 @@ public class Settings extends FragmentActivity {
         {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setTitle("Warning!");
-            alertDialog.setMessage("Password cannot have 'WhiteSpace'\n would you like to update?");
+            alertDialog.setMessage(Html.fromHtml("Password can't have <b><font =\"#FF0000\">'WhiteSpace'</font></b>\n would you like to update?"));
             alertDialog.setPositiveButton("Yes",
                     new DialogInterface.OnClickListener() {
                         @Override

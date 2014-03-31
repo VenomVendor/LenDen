@@ -47,7 +47,7 @@ public class WalkThrough extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.walkthrough);
+        setContentView(R.layout.walkthrough);
         scheduleTaskExecutor = Executors.newScheduledThreadPool(1);
         pager = (ViewPager) findViewById(R.id.pager);
         mRL = (RelativeLayout) findViewById(R.id.wlk_thrg_rel_lyt);
@@ -167,13 +167,13 @@ public class WalkThrough extends Activity {
 
     public void Signup(View v) {
         shutDown();
-        this.startActivity(new Intent(getApplicationContext(), SignUp.class));
+        startActivity(new Intent(getApplicationContext(), SignUp.class));
         AnimNext();
     }
 
     public void Login(View v) {
         shutDown();
-        this.startActivity(new Intent(getApplicationContext(), Login.class));
+        startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
         AnimNext();
     }

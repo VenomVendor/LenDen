@@ -46,7 +46,8 @@ public class AddItems extends FragmentActivity {
     }
 
     public void Sales(View v) {
-        setEnabled(1);
+        // setEnabled(1); TODO UnComment Later
+        ToastL("Disabled Now");
     }
 
     public void Exchage(View v) {
@@ -54,7 +55,8 @@ public class AddItems extends FragmentActivity {
     }
 
     public void Both(View v) {
-        setEnabled(3);
+        // setEnabled(3); TODO UnComment Later
+        ToastL("Disabled Now");
     }
 
     private void setEnabled(int i) {

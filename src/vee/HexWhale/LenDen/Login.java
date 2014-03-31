@@ -16,12 +16,18 @@
 package vee.HexWhale.LenDen;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
+import vee.HexWhale.LenDen.Parsers.Profile.ForgotPassword;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
@@ -50,6 +57,10 @@ public class Login extends FragmentActivity {
     EditText mUserName, mPassword;
     GetDataFromUrl mDataFromUrl;
     int type = -1;
+
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    String tempEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +95,82 @@ public class Login extends FragmentActivity {
 
     }
 
+    public void FrgotPassword(View v)
+    {
+
+        builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle("Edit Password");
+        final EditText input = new EditText(this);
+        input.setHint("Min 3 Chars");
+        input.setInputType(EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        builder.setView(input);
+
+        input.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s != null)
+                {
+                    if (Validator.isvalidEmail(input).equalsIgnoreCase("k"))
+                    {
+                        dialog.getButton(Dialog.BUTTON_POSITIVE).setEnabled(true);
+                    }
+                    else {
+                        dialog.getButton(Dialog.BUTTON_POSITIVE).setEnabled(false);
+                    }
+                }
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                if (input != null)
+                {
+                    goOutSideWithEmail(input.getText().toString().trim());
+                }
+            }
+        });
+
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog = builder.create();
+        dialog.show();
+        dialog.getButton(Dialog.BUTTON_POSITIVE).setEnabled(false);
+
+    }
+
+    protected void goOutSideWithEmail(String email) {
+
+        this.tempEmail = email;
+
+        mDataFromUrl.setAccessToken();
+        mDataFromUrl.GetString(TYPE.FORGOT_PASSWORD, getBody(TYPE.FORGOT_PASSWORD), GetData.getUrl(URL.FORGOT_PASSWORD));
+    }
+
+    public void SignUp(View v)
+    {
+        startActivity(new Intent(getApplicationContext(), SignUp.class));
+        AnimNext();
+
+    }
+
     private void SigninI() {
         if (!NetworkConnection.isAvail(getApplicationContext())) {
             ToastL("No internet Connection");
@@ -96,13 +183,27 @@ public class Login extends FragmentActivity {
     private String getBody(int tokenType) {
         JSONObject mJsonObject = null;
         mJsonObject = new JSONObject();
-        try {
-            mJsonObject.put(STRING.PASSWORD, mPassword.getText().toString().trim());
-            mJsonObject.put(STRING.EMAIL, mUserName.getText().toString().trim());
-            return mJsonObject.toString();
-        }
-        catch (final JSONException e) {
-            e.printStackTrace();
+        switch (tokenType) {
+            case TYPE.LOGIN_EMAIL:
+                try {
+                    mJsonObject.put(STRING.PASSWORD, mPassword.getText().toString().trim());
+                    mJsonObject.put(STRING.EMAIL, mUserName.getText().toString().trim());
+                    return mJsonObject.toString();
+                }
+                catch (final JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case TYPE.FORGOT_PASSWORD:
+                try {
+                    mJsonObject.put(STRING.EMAIL, tempEmail);
+                    return mJsonObject.toString();
+                }
+                catch (final JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
 
         return null;
@@ -114,7 +215,7 @@ public class Login extends FragmentActivity {
         @Override
         public void finishedFetching(int type, String response) {
 
-            Login.this.LogR("+++ " + response);
+            LogR("+++ " + response);
 
         }
 
@@ -122,10 +223,10 @@ public class Login extends FragmentActivity {
         public void errorFetching(int type, VolleyError error) {
             try {
                 error.printStackTrace();
-                Login.this.LogR("---" + "Error");
+                LogR("---" + "Error");
             }
             finally {
-                Login.this.ToastL("Error");
+                ToastL("Error");
             }
 
         }
@@ -148,41 +249,60 @@ public class Login extends FragmentActivity {
         @SuppressLint("InlinedApi")
         @Override
         public void finishedParsing(int typ) {
-            if (typ == TYPE.LOGIN_EMAIL) {
-                final GetAccessToken mEmail = SettersNGetters.isLoggedInViaEmail();
 
-                if (mEmail != null) {
-                    if (mEmail.getStatus().equalsIgnoreCase("success")) {
+            switch (typ) {
+                case TYPE.LOGIN_EMAIL:
 
-                        final Intent intent = new Intent(Login.this.getApplicationContext(), Home.class);
+                    final GetAccessToken mEmail = SettersNGetters.isLoggedInViaEmail();
 
-                        if (Build.VERSION.SDK_INT >= 11) {
-                            System.out.println("FLAG_ACTIVITY_CLEAR_TASK");
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    if (mEmail != null) {
+                        if (mEmail.getStatus().equalsIgnoreCase(STRING.SUCCESS)) {
+
+                            final Intent intent = new Intent(getApplicationContext(), Home.class);
+
+                            if (Build.VERSION.SDK_INT >= 11) {
+                                System.out.println("FLAG_ACTIVITY_CLEAR_TASK");
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            }
+                            else {
+                                System.out.println("FLAG_ACTIVITY_CLEAR_TOP");
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            }
+
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                            startActivity(intent);
+                            finish();
+                            AnimNext();
                         }
                         else {
-                            System.out.println("FLAG_ACTIVITY_CLEAR_TOP");
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            ToastL(STRING.ERROR + mEmail.getError_message());
                         }
-
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                        Login.this.startActivity(intent);
-                        Login.this.finish();
-                        Login.this.AnimNext();
                     }
                     else {
-                        Login.this.ToastL("Error : " + mEmail.getError_message());
+                        ToastL("{Unknown ERROR }");
                     }
-                }
-                else {
-                    Login.this.ToastL("{ ERROR }");
-                }
 
-            }
-            else {
-                Login.this.ToastL("{ ERROR }");
+                    break;
+
+                case TYPE.FORGOT_PASSWORD:
+                    ForgotPassword mForgotPassword = SettersNGetters.getForgotPassword();
+
+                    if (mForgotPassword == null)
+                    {
+                        ToastL("{ Unknown Error }");
+                        return;
+                    }
+                    if (mForgotPassword.getStatus().equalsIgnoreCase(STRING.SUCCESS))
+                    {
+                        ToastL("New password sent to\n" + "{ " + tempEmail + " }");
+                        return;
+                    }
+                    else {
+                        ToastL(STRING.ERROR + mForgotPassword.getError_message());
+                    }
+                    break;
             }
         }
 

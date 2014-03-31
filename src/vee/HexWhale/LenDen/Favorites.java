@@ -209,7 +209,6 @@ public class Favorites extends MenuBar {
         return;
     }
 
-    @SuppressWarnings("unused")
     private void AnimNext() {
         overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
