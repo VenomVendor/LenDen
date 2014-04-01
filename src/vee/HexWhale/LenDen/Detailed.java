@@ -1,17 +1,17 @@
 /**
- * ***Copyright(c)  :   2014-Present, VenomVendor.***
- * Author           :   VenomVendor
- * Dated            :   18 Feb, 2014 4:25:32 PM
- * Project          :   LenDen-Android
- * Client           :   LenDen
- * Contact          :   info@VenomVendor.com
- * URL              :   https://www.google.co.in/search?q=VenomVendor
- * Copyright(c)     :   2014-Present, VenomVendor.
- * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
- *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c) : 2014-Present, VenomVendor.***
+ * Author : VenomVendor
+ * Dated : 18 Feb, 2014 4:25:32 PM
+ * Project : LenDen-Android
+ * Client : LenDen
+ * Contact : info@VenomVendor.com
+ * URL : https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c) : 2014-Present, VenomVendor.
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
+ * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
-
 
 package vee.HexWhale.LenDen;
 
@@ -19,6 +19,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -34,6 +35,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.L;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +52,7 @@ import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.Items;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
+import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
 import vee.HexWhale.LenDen.Utils.Constants.API.URL;
@@ -55,6 +66,7 @@ import vee.HexWhale.LenDen.bg.Threads.NetworkConnection;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
 import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
 
+import java.io.File;
 import java.util.Locale;
 
 public class Detailed extends FragmentActivity implements WebViewSizeChanged {
@@ -64,9 +76,12 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
     private String sItemId;
     private TextView mFavCnt, mLikeCnt, mUserName, mTitle, mCategory, mPrice;
     GetDataFromUrl mDataFromUrl;
+    private ImageView mDp;
     GetItemCategory mItemCategory;
     GetDetailedCategory mDetailedCategory;
-
+    DisplayImageOptions optionsDp;
+    File cacheDir = new File(Environment.getExternalStorageDirectory(), STRING.CACHE_LOC);
+    ImageLoader imageLoader;
     Items mItems;
     vee.HexWhale.LenDen.Parsers.DetailedCategory.Items mDetailedItems;
     private String tag = "UNKNOWN";
@@ -80,7 +95,7 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
         setContentView(R.layout.detailed);
 
         ((ImageView) findViewById(R.id.menu_right)).setImageResource(R.drawable.detailed_up);
-
+        initilizeImageCache();
         mWebView = (NoScrollWebView) findViewById(R.id.webiew);
 
         mFavCnt = (TextView) findViewById(R.id.detailed_list_fav);
@@ -90,6 +105,8 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
         mCategory = (TextView) findViewById(R.id.detailed_list_categ);
         mPrice = (TextView) findViewById(R.id.detailed_price);
         mPager = (ViewPager) findViewById(R.id.pager);
+
+        mDp = (ImageView) findViewById(R.id.detailed_dp);
 
         if (!NetworkConnection.isAvail(getApplicationContext())) {
             ToastL("No internet Connection");
@@ -126,6 +143,7 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
         mTitle.setText("" + mItems.getTitle());
         mCategory.setText("" + mItems.getCategory_name());
         mPrice.setText("$" + mItems.getSelling_price());
+        imageLoader.displayImage("" + GetData.getImageUrl(IMAGEURL.DP + mItems.getUser_id()), mDp, optionsDp);
 
         setWebViewUI();
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
@@ -327,4 +345,33 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
         System.out.println("XTXoldHeight " + oldHeight);
     }
 
+    private void initilizeImageCache() {
+        L.disableLogging();
+
+        optionsDp =
+                new DisplayImageOptions.Builder()
+                        .showImageForEmptyUri(R.drawable.signup_dp)
+                        .showImageOnFail(R.drawable.signup_dp)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
+
+        final ImageLoaderConfiguration configDP = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(optionsDp)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
+
+        ImageLoader.getInstance().init(configDP); // Do it on Application start
+        imageLoader = ImageLoader.getInstance();
+    }
 }

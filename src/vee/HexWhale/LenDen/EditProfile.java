@@ -1,17 +1,17 @@
 /**
- * ***Copyright(c)  :   2014-Present, VenomVendor.***
- * Author           :   VenomVendor
- * Dated            :   17 Feb, 2014 3:29:01 AM
- * Project          :   LenDen-Android
- * Client           :   LenDen
- * Contact          :   info@VenomVendor.com
- * URL              :   https://www.google.co.in/search?q=VenomVendor
- * Copyright(c)     :   2014-Present, VenomVendor.
- * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
- *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c) : 2014-Present, VenomVendor.***
+ * Author : VenomVendor
+ * Dated : 17 Feb, 2014 3:29:01 AM
+ * Project : LenDen-Android
+ * Client : LenDen
+ * Contact : info@VenomVendor.com
+ * URL : https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c) : 2014-Present, VenomVendor.
+ * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
+ * (CC BY-NC 3.0).
+ * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
  **/
-
 
 package vee.HexWhale.LenDen;
 
@@ -44,6 +44,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.MemoryCacheUtil;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
@@ -174,12 +175,12 @@ public class EditProfile extends FragmentActivity {
                     mPrefs.setStringInPref(KEY.MY_F_NAME, profile.getResponse().getFirst_name());
                     mPrefs.setStringInPref(KEY.MY_L_NAME, profile.getResponse().getLast_name());
                     mPrefs.setStringInPref(KEY.MY_E_MAIL, profile.getResponse().getEmail());
-                    mPrefs.setStringInPref(KEY.MY_I_URL, "" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()));
+                    mPrefs.setStringInPref(KEY.MY_I_URL, "" + GetData.getImageUrl(IMAGEURL.DP + profile.getResponse().getId()));
 
                     firstName.setText(profile.getResponse().getFirst_name());
                     lastName.setText(profile.getResponse().getLast_name());
                     eMail.setText(profile.getResponse().getEmail());
-                    imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()), mDpic, optionsDp);
+                    imageLoader.displayImage("" + GetData.getImageUrl(IMAGEURL.DP + profile.getResponse().getId()), mDpic, optionsDp);
 
                     try {
                         tempFName = firstName.getText().toString();
@@ -350,19 +351,19 @@ public class EditProfile extends FragmentActivity {
             if (enableEdit)
             {
                 view.animate().translationX(50)
-                .alpha(0.23f)
-                .scaleX(0.90f)
-                .scaleY(0.90f)
-                .setDuration(350)
-                .setListener(null);
+                        .alpha(0.23f)
+                        .scaleX(0.90f)
+                        .scaleY(0.90f)
+                        .setDuration(350)
+                        .setListener(null);
             }
             else {
                 view.animate().translationX(0)
-                .alpha(1f)
-                .scaleX(1f)
-                .scaleY(1f)
-                .setDuration(350)
-                .setListener(null);
+                        .alpha(1f)
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .setDuration(350)
+                        .setListener(null);
             }
         }
         else {
@@ -481,6 +482,12 @@ public class EditProfile extends FragmentActivity {
                                 if (statis.equalsIgnoreCase(STRING.SUCCESS))
                                 {
                                     EditProfile.updatedImage = true;
+                                    File imageFile = imageLoader.getDiscCache().get(mPrefs.getStringInPref(KEY.MY_I_URL));
+                                    if (imageFile.exists()) {
+                                        imageFile.delete();
+                                    }
+                                    MemoryCacheUtil.removeFromCache(mPrefs.getStringInPref(KEY.MY_I_URL), imageLoader.getMemoryCache());
+
                                     if (EditProfile.updatedImage && EditProfile.updatedText)
                                     {
                                         ToastL("{ Updated Successfully }");
@@ -512,26 +519,26 @@ public class EditProfile extends FragmentActivity {
         L.disableLogging();
         optionsDp =
                 new DisplayImageOptions.Builder()
-        .showImageForEmptyUri(R.drawable.camera)
-        .showImageOnFail(R.drawable.camera)
-        .resetViewBeforeLoading(false)
-        .cacheInMemory(true)
-        .cacheOnDisc(true)
-        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-        .bitmapConfig(Bitmap.Config.RGB_565)
-        .displayer(new RoundedBitmapDisplayer(10))
-        .displayer(new FadeInBitmapDisplayer(0))
-        .build();
+                        .showImageForEmptyUri(R.drawable.camera)
+                        .showImageOnFail(R.drawable.camera)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
 
         final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-        .defaultDisplayImageOptions(optionsDp)
-        .threadPriority(Thread.NORM_PRIORITY)
-        .threadPoolSize(3)
-        .denyCacheImageMultipleSizesInMemory()
-        .discCache(new UnlimitedDiscCache(cacheDir))
-        // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
-        .tasksProcessingOrder(QueueProcessingType.FIFO)
-        .build();
+                .defaultDisplayImageOptions(optionsDp)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
 
         ImageLoader.getInstance().init(config); // Do it on Application start
         imageLoader = ImageLoader.getInstance();

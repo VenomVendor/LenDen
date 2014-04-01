@@ -137,7 +137,7 @@ public class MessagesFullAdapter extends BaseAdapter {
             holder.mMeName.setText("" + mOneSingleFullMsg.getUser_first_name());
             holder.mMeTime.setText("" + mOneSingleFullMsg.getDate_time());
             // TODO-DP
-            imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + mOneSingleFullMsg.getUser_id()), holder.mMeDP, optionsDp);
+            imageLoader.displayImage("" + GetData.getImageUrl(IMAGEURL.DP + mOneSingleFullMsg.getUser_id()), holder.mMeDP, optionsDp);
 
             holder.mRecLyt.setVisibility(View.GONE);
 
@@ -147,7 +147,7 @@ public class MessagesFullAdapter extends BaseAdapter {
             holder.mRecName.setText("" + mOneSingleFullMsg.getUser_first_name());
             holder.mRecTime.setText("" + mOneSingleFullMsg.getDate_time());
             // TODO-mRecDP
-            imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + mOneSingleFullMsg.getUser_id()), holder.mRecDP, optionsDp);
+            imageLoader.displayImage("" + GetData.getImageUrl(IMAGEURL.DP + mOneSingleFullMsg.getUser_id()), holder.mRecDP, optionsDp);
 
             holder.mMeLyt.setVisibility(View.GONE);
 

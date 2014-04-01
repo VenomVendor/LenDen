@@ -33,6 +33,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.L;
 
 import vee.HexWhale.LenDen.R;
 import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
@@ -139,10 +140,10 @@ public class FavoritesAdapter extends BaseAdapter {
 
         // if (position > (totalCount - 2) && !noMoreTopics)
         // /items/<item_id>/picture/<num:int>/
-        imageLoader.displayImage("" + GetData.getUrl("items/" + mItems.getItem_id() + "/picture/" + 1), holder.sIcon, optionsIcon);
+        imageLoader.displayImage("" + GetData.getImageUrl("items/" + mItems.getItem_id() + IMAGEURL.PICTURE + 1), holder.sIcon, optionsIcon);
 
         // /users/photo/<user_id>/
-        imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + mItems.getUser_id()), holder.sDP, optionsDp);
+        imageLoader.displayImage("" + GetData.getImageUrl(IMAGEURL.DP + mItems.getUser_id()), holder.sDP, optionsDp);
         holder.sPrice.setText("$" + mItems.getSelling_price());
 
         if (mTadeMode == 1) {
@@ -176,6 +177,7 @@ public class FavoritesAdapter extends BaseAdapter {
     }
 
     private void initilizeImageCache() {
+	L.disableLogging();
         optionsIcon =
                 new DisplayImageOptions.Builder()
                         .showImageForEmptyUri(R.drawable.noimage)

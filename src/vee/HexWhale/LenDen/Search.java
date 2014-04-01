@@ -119,7 +119,7 @@ public class Search extends FragmentActivity {
 
                 if (actionId == EditorInfo.IME_ACTION_SEARCH ||
                         actionId == EditorInfo.IME_ACTION_DONE) {
-                    fetchDataforSearch(v.getText().toString());
+                    fetchDataforSearch(v.getText().toString().trim());
                     return true;
                 }
                 return false;

@@ -34,6 +34,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.L;
 
 import vee.HexWhale.LenDen.R;
 import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
@@ -127,7 +128,7 @@ public class MessagesAdapter extends BaseAdapter {
         }
 
         // /users/photo/<user_id>/
-        imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + individualMessage.getPartner_id()), holder.sDP, optionsDp);
+        imageLoader.displayImage("" + GetData.getImageUrl(IMAGEURL.DP + individualMessage.getPartner_id()), holder.sDP, optionsDp);
         return convertView;
     }
 
@@ -137,6 +138,7 @@ public class MessagesAdapter extends BaseAdapter {
     }
 
     private void initilizeImageCache() {
+	L.disableLogging();
         optionsDp =
                 new DisplayImageOptions.Builder()
                         .showImageForEmptyUri(R.drawable.signup_dp)

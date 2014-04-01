@@ -34,8 +34,10 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.L;
 
 import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
 
@@ -75,7 +77,7 @@ public class DetailedPager extends PagerAdapter {
 
         final ImageView sImg = (ImageView) sView.findViewById(R.id.detailed_pager_img);
 
-        imageLoader.displayImage("" + GetData.getUrl("items/" + itemId + "/picture/" + (position + 1)), sImg, options);
+        imageLoader.displayImage("" + GetData.getImageUrl("items/" + itemId + IMAGEURL.PICTURE + (position + 1)), sImg, options);
 
         ((ViewPager) container).addView(sView, 0);
 
@@ -88,6 +90,7 @@ public class DetailedPager extends PagerAdapter {
     }
 
     private void initilizeImageCache() {
+	L.disableLogging();
         options = new DisplayImageOptions.Builder().showImageForEmptyUri(R.drawable.noimage).showImageOnFail(R.drawable.noimage)
                 .resetViewBeforeLoading(false).cacheInMemory(true).cacheOnDisc(true).imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565).displayer(new RoundedBitmapDisplayer(10)).displayer(new FadeInBitmapDisplayer(0)).build();

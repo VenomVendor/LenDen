@@ -152,11 +152,11 @@ public class Profile extends MenuBar {
                     mPrefs.setStringInPref(KEY.MY_F_NAME, profile.getResponse().getFirst_name());
                     mPrefs.setStringInPref(KEY.MY_L_NAME, profile.getResponse().getLast_name());
                     mPrefs.setStringInPref(KEY.MY_E_MAIL, profile.getResponse().getEmail());
-                    mPrefs.setStringInPref(KEY.MY_I_URL, "" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()));
+                    mPrefs.setStringInPref(KEY.MY_I_URL, "" + GetData.getImageUrl(IMAGEURL.DP + profile.getResponse().getId()));
 
                     mName.setText(profile.getResponse().getFirst_name() + " " + profile.getResponse().getLast_name());
                     mEmail.setText(profile.getResponse().getEmail());
-                    imageLoader.displayImage("" + GetData.getUrl(IMAGEURL.DP + profile.getResponse().getId()), mDp, optionsDp);
+                    imageLoader.displayImage("" + GetData.getImageUrl(IMAGEURL.DP + profile.getResponse().getId()), mDp, optionsDp);
 
                     break;
 

@@ -129,7 +129,7 @@ public class ProfileListAdapter extends BaseAdapter {
         holder.sLikeCnt.setText("" + mItems.getLike_count());
 
         // /items/<item_id>/picture/<num:int>/
-        imageLoader.displayImage("" + GetData.getUrl("items/" + mItems.getItem_id() + "/picture/" + 1), holder.sIcon, optionsIcon);
+        imageLoader.displayImage("" + GetData.getImageUrl("items/" + mItems.getItem_id() + "/picture/" + 1), holder.sIcon, optionsIcon);
 
         holder.sPrice.setText("$" + mItems.getSelling_price());
 
