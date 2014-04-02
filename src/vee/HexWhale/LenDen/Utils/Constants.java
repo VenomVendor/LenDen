@@ -49,7 +49,7 @@ public final class Constants {
             public final static String SECRET = "client_secret";
             public final static String AUTH = "auth_code";
             public final static String REFRESH = "refresh_token";
-            public final static String EMAIL = "fbEmail";
+            public final static String EMAIL = "email";
             public final static String PASSWORD = "password";
             public final static String FIRSTNAME = "first_name";
             public final static String LASTNAME = "last_name";
@@ -75,9 +75,12 @@ public final class Constants {
             public final static String STATUS = "status";
             public final static String CURRENT_PASSWORD = "current_password";
             public final static String NEW_PASSWORD = "new_password";
-            public final static String FB_EMAIL = "email";
             public final static String FB_GENDER = "gender";
-
+            public final static String FB_ID = "fb_id";
+            public final static String FB_USERNAME = "fb_user_name";
+            public final static String FB_TOKEN = "fb_token";
+            public final static String USER_ALREADY_EXISTS = "User already exists";
+            public final static String USER_ALREADY_EXISTS_ERROR = "users-4";
         }
 
         public final static class IMAGEURL {
@@ -90,9 +93,9 @@ public final class Constants {
             public final static String AUTHORIZE = "tokens/authorize/";
             public final static String ACCESSTOKEN = "tokens/issue/";
             public final static String REFRESH = "tokens/refresh/";
-            public final static String REGISTER_EMAIL = "users/register/fbEmail/";
+            public final static String REGISTER_EMAIL = "users/register/email/";
             public final static String REGISTER_FB = "users/register/facebook/";
-            public final static String LOGIN_EMAIL = "users/login/fbEmail/";
+            public final static String LOGIN_EMAIL = "users/login/email/";
             public final static String LOGIN_FB = "users/login/facebook/";
             public final static String LOGOUT = "users/logout/";
             public final static String CATEGORIES = "categories/";
@@ -102,7 +105,7 @@ public final class Constants {
             public final static String ITEMS = "items/";
             public final static String FAVORITE = "items/me/favorite/";
             public final static String MESSSAGES = "messages/";
-            public final static String MESSSAGES_USER = "messages/fbUserName/";
+            public final static String MESSSAGES_USER = "messages/user/";
             public final static String MESSSAGES_CREATE = "messages/create/";
             public final static String PROFILE_ME = "users/me/";
             public final static String PROFILE_ITEMS = URL.ITEMS;
@@ -111,6 +114,8 @@ public final class Constants {
             public final static String PROFILE_EDIT = "users/me/edit/";
             public final static String CHANGE_PASSWORD = "users/me/change/password/";
             public final static String FORGOT_PASSWORD = "users/forgot/password/";
+            public final static String FB_REGISTER = "users/register/facebook/";
+            public final static String FB_LOGIN = "users/login/facebook/";
 
         }
 
@@ -139,12 +144,13 @@ public final class Constants {
             public final static int PROFILE_EDIT = 22;
             public final static int CHANGE_PASSWORD = 23;
             public final static int FORGOT_PASSWORD = 24;
+            public final static int FB_REGISTER = 25;
+            public final static int FB_LOGIN = 26;
         }
 
     }
 
     public class KEY {
-
         public final static String AUTH_CODE = "AUTHCODE";
         public final static String ACCESS_TOKEN = "ACCESSTOKEN";
         public final static String REFRESH_TOKEN = "REFRESHTOKEN";
@@ -154,22 +160,30 @@ public final class Constants {
         public final static String MY_L_NAME = "MYLNAME";
         public final static String MY_E_MAIL = "MYEMAIL";
         public final static String MY_I_URL = "MYIURL";
+        public final static String LOGIN_TYPE = "LOGINTYPE";
+    }
 
+    public class LOGIN_TYPE
+    {
+        public final static int REGISTER = 1;
+        public final static int EMAIL = 2;
+        public final static int FACEBOOK = 5;
+        public final static int HACKED = 0;
     }
 
     public final static int[] gridImages = {
-        R.drawable.bp5_crop1, R.drawable.bp5_crop2, R.drawable.bp5_crop3, R.drawable.bp5_crop4, R.drawable.bp5_crop5, R.drawable.bp5_crop6
+            R.drawable.bp5_crop1, R.drawable.bp5_crop2, R.drawable.bp5_crop3, R.drawable.bp5_crop4, R.drawable.bp5_crop5, R.drawable.bp5_crop6
     };
 
     public final static int[] menuImages = {
-        R.drawable.add_items, R.drawable.search, R.drawable.favorites, R.drawable.messages, R.drawable.profile, R.drawable.settings
+            R.drawable.add_items, R.drawable.search, R.drawable.favorites, R.drawable.messages, R.drawable.profile, R.drawable.settings
     };
     public final static String[] menuText = {
-        "Add items", "Search", "Favorites", "Messages", "Profile", "Settings"
+            "Add items", "Search", "Favorites", "Messages", "Profile", "Settings"
     };
 
     public final static Class<?>[] menuclass = {
-        AddItems.class, Search.class, Favorites.class, Messages.class, Profile.class, Settings.class
+            AddItems.class, Search.class, Favorites.class, Messages.class, Profile.class, Settings.class
     };
 
 }

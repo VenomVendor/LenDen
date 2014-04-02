@@ -32,10 +32,10 @@ import java.util.List;
 
 /**
  * Used for Login/Signingup user via Facebook.
- * 
+ *
  * @author VenomVendor<br>
  *         <b>SDK Used</b> <a
- *         href="https://developers.facebook.com/docs/android/downloads/">facebook-android-sdk</a><br>
+ *         href="https://developers.facebook.com/docs/android/downloads/">facebook-android-sdk-3.8</a><br>
  *         <b>Direct Download</b> <a
  *         href="https://developers.facebook.com/resources/facebook-android-sdk-3.8.zip"
  *         >facebook-sdk-3.8.zip</a>&emsp;
@@ -55,11 +55,11 @@ public class Facebook {
     private final Session.StatusCallback statusCallback = new SessionStatusCallback();
 
     /** The Constant PERMISSIONS. */
-    private static final List<String> PERMISSIONS = Arrays.asList(STRING.FB_EMAIL);
+    private static final List<String> PERMISSIONS = Arrays.asList(STRING.EMAIL);
 
     /**
      * Instantiates a new facebook.
-     * 
+     *
      * @param mActivity the m activity
      * @param mListener the m listener
      */
@@ -110,7 +110,7 @@ public class Facebook {
 
     /**
      * Open login form.
-     * 
+     *
      * @param session the session
      */
     private void openLoginForm(Session session) {
@@ -137,7 +137,7 @@ public class Facebook {
 
     /**
      * Log r.
-     * 
+     *
      * @param msg the msg
      */
     private void LogR(String msg) {
@@ -154,7 +154,7 @@ public class Facebook {
      * <code>addFacebookListener<code> method. When
      * the facebook event occurs, that object's appropriate
      * method is invoked.
-     * 
+     *
      * @see FacebookEvent
      */
     public interface FacebookListener {
@@ -166,7 +166,7 @@ public class Facebook {
 
         /**
          * Call.
-         * 
+         *
          * @param session the session
          * @param state the state
          * @param exception the exception

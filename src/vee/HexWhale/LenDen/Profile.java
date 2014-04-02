@@ -102,7 +102,7 @@ public class Profile extends MenuBar {
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
         mDataFromUrl.setAccessToken();
 
-        if (mPrefs.getStringInPref(KEY.MY_F_NAME).equalsIgnoreCase("") || mPrefs.getStringInPref(KEY.MY_F_NAME) == null)
+        if (mPrefs.getStringInPref(KEY.MY_E_MAIL).equalsIgnoreCase("") || mPrefs.getStringInPref(KEY.MY_E_MAIL) == null)
         {
             mDataFromUrl.GetString(TYPE.PROFILE_ME, getBody(TYPE.PROFILE_ME), GetData.getUrl(URL.PROFILE_ME));
         }

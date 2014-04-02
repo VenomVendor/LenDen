@@ -32,6 +32,7 @@ import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
 import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
+import vee.HexWhale.LenDen.Parsers.Login.FBRegLogin;
 import vee.HexWhale.LenDen.Parsers.Messages.CreateMessage;
 import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
 import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
@@ -232,6 +233,20 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
                     SettersNGetters.setForgotPassword(StartBackgroundParsing.objectMapper.readValue(resultJsonString, ForgotPassword.class));
 
                     validateToken(SettersNGetters.getForgotPassword().getError_code());
+
+                    break;
+
+                case TYPE.FB_REGISTER:
+                    SettersNGetters.setFbRegLogin(StartBackgroundParsing.objectMapper.readValue(resultJsonString, FBRegLogin.class));
+
+                    validateToken(SettersNGetters.getFbRegLogin().getError_code());
+
+                    break;
+
+                case TYPE.FB_LOGIN:
+                    SettersNGetters.setFbRegLogin(StartBackgroundParsing.objectMapper.readValue(resultJsonString, FBRegLogin.class));
+
+                    validateToken(SettersNGetters.getFbRegLogin().getError_code());
 
                     break;
 

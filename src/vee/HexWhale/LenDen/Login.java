@@ -42,6 +42,7 @@ import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
 import vee.HexWhale.LenDen.Utils.Constants.API.URL;
 import vee.HexWhale.LenDen.Utils.Constants.KEY;
+import vee.HexWhale.LenDen.Utils.Constants.LOGIN_TYPE;
 import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
@@ -282,6 +283,13 @@ public class Login extends FragmentActivity {
 
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+                            if (mPrefs.getIntInPref(KEY.LOGIN_TYPE) != LOGIN_TYPE.EMAIL)
+                            {
+                                mPrefs.setStringInPref(KEY.MY_F_NAME, "");
+                                mPrefs.setStringInPref(KEY.MY_L_NAME, "");
+                                mPrefs.setStringInPref(KEY.MY_E_MAIL, "");
+                            }
+                            mPrefs.setIntInPref(KEY.LOGIN_TYPE, LOGIN_TYPE.EMAIL);
                             startActivity(intent);
                             finish();
                             AnimNext();

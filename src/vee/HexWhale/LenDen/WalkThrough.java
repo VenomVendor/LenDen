@@ -14,9 +14,11 @@
 
 package vee.HexWhale.LenDen;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -30,17 +32,31 @@ import android.widget.Toast;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
+import com.android.volley.VolleyError;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import vee.HexWhale.LenDen.Parsers.Login.FBRegLogin;
+import vee.HexWhale.LenDen.Storage.GlobalSharedPrefs;
+import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
+import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
+import vee.HexWhale.LenDen.Utils.Constants.API.URL;
+import vee.HexWhale.LenDen.Utils.Constants.KEY;
+import vee.HexWhale.LenDen.Utils.Constants.LOGIN_TYPE;
 import vee.HexWhale.LenDen.aUI.Facebook;
 import vee.HexWhale.LenDen.aUI.Facebook.FacebookListener;
 import vee.HexWhale.LenDen.aUI.Pagers.WalkThroughPager;
+import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
+import vee.HexWhale.LenDen.bg.Threads.GetData;
+import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
 import vee.HexWhale.LenDen.viewpagerindicator.CirclePageIndicator;
 import vee.HexWhale.LenDen.viewpagerindicator.PageIndicator;
@@ -55,19 +71,127 @@ public class WalkThrough extends Activity {
     PageIndicator mIndicator;
     RelativeLayout mRL;
     private ScheduledExecutorService scheduleTaskExecutor;
-    String fbEmail, fbUserName;
+    private static String fbFirstName, fbLastName, fbEmail, fbID, fbUserName, fbAccessToken;
+
+    // XXX _INIT
+    private GetDataFromUrl mDataFromUrl;
+    GlobalSharedPrefs mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         tag = TagGen.getTag(this.getClass());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.walkthrough);
+        mPrefs = new GlobalSharedPrefs(this);
         scheduleTaskExecutor = Executors.newScheduledThreadPool(1);
         pager = (ViewPager) findViewById(R.id.pager);
         mRL = (RelativeLayout) findViewById(R.id.wlk_thrg_rel_lyt);
-
+        mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
         InitilizePager(); // XXX 1
     }
+
+    private final FetcherListener mFetcherListener = new FetcherListener() {
+
+        @Override
+        public void finishedFetching(int type, String response) {
+
+            LogR("+++ " + response);
+
+        }
+
+        @Override
+        public void errorFetching(int type, VolleyError error) {
+            try {
+                error.printStackTrace();
+                LogR("---" + "Error");
+            }
+            finally {
+                ToastL("Error");
+            }
+
+        }
+
+        @Override
+        public void beforeParsing(int type) {
+
+        }
+
+        @Override
+        public void startedParsing(int type) {
+
+        }
+
+        @Override
+        public void ParsingException(Exception e) {
+            e.printStackTrace();
+        }
+
+        @SuppressLint("InlinedApi")
+        @Override
+        public void finishedParsing(int typ) {
+            final FBRegLogin fbRegLgn = SettersNGetters.getFbRegLogin();
+
+            if (fbRegLgn != null) {
+                if (fbRegLgn.getStatus().equalsIgnoreCase(STRING.SUCCESS)) {
+
+                    final Intent intent = new Intent(getApplicationContext(), Home.class);
+
+                    if (Build.VERSION.SDK_INT >= 11) {
+                        System.out.println("FLAG_ACTIVITY_CLEAR_TASK");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    }
+                    else {
+                        System.out.println("FLAG_ACTIVITY_CLEAR_TOP");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    }
+
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if (mPrefs.getIntInPref(KEY.LOGIN_TYPE) != LOGIN_TYPE.FACEBOOK
+                            || !fbEmail.equalsIgnoreCase(mPrefs.getStringInPref(KEY.MY_E_MAIL)))
+                    {
+                        mPrefs.setStringInPref(KEY.MY_F_NAME, "");
+                        mPrefs.setStringInPref(KEY.MY_L_NAME, "");
+                        mPrefs.setStringInPref(KEY.MY_E_MAIL, "");
+                    }
+
+                    mPrefs.setIntInPref(KEY.LOGIN_TYPE, LOGIN_TYPE.FACEBOOK);
+
+                    startActivity(intent);
+                    finish();
+                    AnimNext();
+                }
+                else {
+                    switch (typ) {
+                        case TYPE.FB_REGISTER:
+
+                            if (fbRegLgn.getError_message().equalsIgnoreCase(STRING.USER_ALREADY_EXISTS)
+                                    || fbRegLgn.getError_code().equalsIgnoreCase(STRING.USER_ALREADY_EXISTS_ERROR))
+                            {
+                                mDataFromUrl.setAccessToken();
+                                mDataFromUrl.GetString(TYPE.FB_LOGIN, getBody(TYPE.FB_LOGIN), GetData.getUrl(URL.FB_LOGIN));
+                            } else {
+                                ToastL(STRING.ERROR + fbRegLgn.getError_message());
+                            }
+
+                            break;
+                        case TYPE.FB_LOGIN:
+                            ToastL(STRING.ERROR + fbRegLgn.getError_message());
+                            break;
+                    }
+
+                }
+            }
+            else {
+                ToastL("{Unknown ERROR }");
+            }
+        }
+
+        @Override
+        public void tokenError(String tokenError) {
+            ToastL(tokenError);
+        }
+    };
 
     public void LoginSignupFB(View view)
     {
@@ -96,15 +220,20 @@ public class WalkThrough extends Activity {
                         LogR("user :::::::::" + user);
 
                         if (user != null && session.getAccessToken() != null) {
+
+                            fbFirstName = user.getFirstName();
+                            fbLastName = user.getLastName();
+                            fbID = user.getId();
                             fbUserName = user.getUsername();
-                            System.out.println("fbUserName : " + fbUserName);
+                            fbAccessToken = session.getAccessToken();
+
                             try {
-                                fbEmail = user.getProperty(STRING.FB_EMAIL).toString();
+                                fbEmail = user.getProperty(STRING.EMAIL).toString();
                             }
                             catch (final Exception e) {
                                 e.printStackTrace();
                                 try {
-                                    final String fbSafeEmail = user.asMap().get(STRING.FB_EMAIL).toString();
+                                    final String fbSafeEmail = user.asMap().get(STRING.EMAIL).toString();
                                     fbEmail = fbSafeEmail;
                                 }
                                 catch (final Exception e2) {
@@ -112,8 +241,7 @@ public class WalkThrough extends Activity {
                                     fbEmail = null;
                                 }
                             }
-                            ToastL("EMAIL : " + fbEmail + "\nUSERNAME : " + fbUserName);
-                            LogR("EMAIL : " + fbEmail + "\nUSERNAME : " + fbUserName);
+                            startFBLogin();
                         }
                         else {
                             ToastL("Unable to Login...\nPlease try again later.");
@@ -137,11 +265,66 @@ public class WalkThrough extends Activity {
         }
     };
 
+    private void startFBLogin() {
+
+        mDataFromUrl.setAccessToken();
+        mDataFromUrl.GetString(TYPE.FB_REGISTER, getBody(TYPE.FB_REGISTER), GetData.getUrl(URL.FB_REGISTER));
+
+    }
+
+    private String getBody(int tokenType) {
+
+        JSONObject mJsonObject = null;
+        mJsonObject = new JSONObject();
+
+        switch (tokenType) {
+            case TYPE.FB_REGISTER:
+                try {
+                    mJsonObject.put(STRING.FIRSTNAME, fbFirstName);
+                    if (fbLastName.equalsIgnoreCase(fbFirstName))
+                    {
+                        fbLastName = " ";
+                    }
+                    mJsonObject.put(STRING.LASTNAME, fbLastName);
+                    mJsonObject.put(STRING.EMAIL, fbEmail);
+                    mJsonObject.put(STRING.FB_ID, fbID);
+                    mJsonObject.put(STRING.FB_TOKEN, fbAccessToken);
+                    mJsonObject.put(STRING.FB_USERNAME, fbUserName);
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+
+                LogR(mJsonObject.toString());
+                //ToastL(fbFirstName + "\n" + fbLastName + "\n" + fbID + "\n" + fbUserName + "\n" + fbEmail + "\n" + fbAccessToken);
+                LogW(fbFirstName + "\n" + fbLastName + "\n" + fbID + "\n" + fbUserName + "\n" + fbEmail + "\n" + fbAccessToken);
+
+                break;
+
+            case TYPE.FB_LOGIN:
+                try {
+                    mJsonObject.put(STRING.EMAIL, fbEmail);
+                    mJsonObject.put(STRING.FB_USERNAME, fbUserName);
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                LogR(mJsonObject.toString());
+                break;
+
+        }
+
+        return mJsonObject.toString();
+    }
+
     /**
      * <b>LogOut/Flush</b> the "session" stored in the APP.<br>
      * <b>REASON 1 :</b> User wants to logout.<br>
      * <b>REASON 2 :</b> Prev session is stored in the APP & is Invalid for current login.<br>
-     * <b>REASON 3 :</b> User removed access for our app in his "<a href="https://www.facebook.com/settings?tab=applications">App Settings</a>".
+     * <b>REASON 3 :</b> User removed access for our app in his
+     * "<a href="https://www.facebook.com/settings?tab=applications">App Settings</a>".
      */
     private void sFBLogout() {
         Session session = Session.getActiveSession();
@@ -309,6 +492,17 @@ public class WalkThrough extends Activity {
         if (Constants.enableLog)
         {
             Log.wtf(tag, msg);
+        }
+    }
+
+    /*******************************************************************/
+    /**
+     * @param RED
+     */
+    private void LogW(String msg) {
+        if (Constants.enableLog)
+        {
+            Log.w(tag, msg);
         }
     }
 

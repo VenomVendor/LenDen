@@ -24,6 +24,7 @@ import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
 import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
+import vee.HexWhale.LenDen.Parsers.Login.FBRegLogin;
 import vee.HexWhale.LenDen.Parsers.Messages.CreateMessage;
 import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
 import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
@@ -38,8 +39,8 @@ public class SettersNGetters {
 
     private static GetAuthCode authCode;
     private static GetAccessToken accessToken;
-    private static GetAccessToken isLoggedInEmail;
-    private static GetAccessToken isRegistered;
+    private static GetAccessToken isLoggedInEmail; //TODO-USE NEW PACKAGE FOR THIS
+    private static GetAccessToken isRegistered; //TODO-USE NEW PACKAGE FOR THIS
     private static GetCategory category;
     private static GetItemCategory itemCategory;
     private static GetDetailedCategory detailedCategory;
@@ -54,6 +55,7 @@ public class SettersNGetters {
     private static GetEditProfile editProfile;
     private static ChangePassword changePassword;
     private static ForgotPassword forgotPassword;
+    private static FBRegLogin fbRegLogin;
 
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
@@ -197,6 +199,14 @@ public class SettersNGetters {
 
     public static void setForgotPassword(ForgotPassword forgotPassword) {
         SettersNGetters.forgotPassword = forgotPassword;
+    }
+
+    public static FBRegLogin getFbRegLogin() {
+        return fbRegLogin;
+    }
+
+    public static void setFbRegLogin(FBRegLogin fbRegLogin) {
+        SettersNGetters.fbRegLogin = fbRegLogin;
     }
 
 }
