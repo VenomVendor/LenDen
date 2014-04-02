@@ -1,15 +1,18 @@
 /**
- * ***Copyright(c)  :   2014-Present, VenomVendor.***
- * Author           :   VenomVendor
- * Dated            :   21 Feb, 2014 4:41:51 PM
- * Project          :   LenDen-Android
- * Client           :   LenDen
- * Contact          :   info@VenomVendor.com
- * URL              :   https://www.google.co.in/search?q=VenomVendor
- * Copyright(c)     :   2014-Present, VenomVendor.
- * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
- *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c)	:	2014-Present, VenomVendor.***
+ * Author			:	VenomVendor
+ * Dated			:	21 Feb, 2014 4:41:51 PM
+ * Project			:	LenDen-Android
+ * Client			:	LenDen
+ * Contact			:	info@VenomVendor.com
+ * URL				:	https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)		:	2014-Present, VenomVendor.
+ * License			:	This work is licensed under Attribution-NonCommercial 3.0 Unported
+ *						License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *						Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ *
+
+
  **/
 
 package vee.HexWhale.LenDen.aUI.Adapters;
@@ -180,26 +183,26 @@ public class MessagesFullAdapter extends BaseAdapter {
         L.disableLogging();
         optionsDp =
                 new DisplayImageOptions.Builder()
-                        .showImageForEmptyUri(R.drawable.signup_dp)
-                        .showImageOnFail(R.drawable.signup_dp)
-                        .resetViewBeforeLoading(false)
-                        .cacheInMemory(true)
-                        .cacheOnDisc(true)
-                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-                        .bitmapConfig(Bitmap.Config.RGB_565)
-                        .displayer(new RoundedBitmapDisplayer(10))
-                        .displayer(new FadeInBitmapDisplayer(0))
-                        .build();
+        .showImageForEmptyUri(R.drawable.signup_dp)
+        .showImageOnFail(R.drawable.signup_dp)
+        .resetViewBeforeLoading(false)
+        .cacheInMemory(true)
+        .cacheOnDisc(true)
+        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+        .bitmapConfig(Bitmap.Config.RGB_565)
+        .displayer(new RoundedBitmapDisplayer(10))
+        .displayer(new FadeInBitmapDisplayer(0))
+        .build();
 
         final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(sActivity.getApplicationContext())
-                .defaultDisplayImageOptions(optionsDp)
-                .threadPriority(Thread.NORM_PRIORITY)
-                .threadPoolSize(3)
-                .denyCacheImageMultipleSizesInMemory()
-                .discCache(new UnlimitedDiscCache(cacheDir))
-                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.FIFO)
-                .build();
+        .defaultDisplayImageOptions(optionsDp)
+        .threadPriority(Thread.NORM_PRIORITY)
+        .threadPoolSize(3)
+        .denyCacheImageMultipleSizesInMemory()
+        .discCache(new UnlimitedDiscCache(cacheDir))
+        // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+        .tasksProcessingOrder(QueueProcessingType.FIFO)
+        .build();
 
         ImageLoader.getInstance().init(config); // Do it on Application start
         imageLoader = ImageLoader.getInstance();

@@ -1,17 +1,19 @@
 /**
- * ***Copyright(c)  :   2014-Present, VenomVendor.***
- * Author           :   VenomVendor
- * Dated            :   17 Feb, 2014 3:28:57 AM
- * Project          :   LenDen-Android
- * Client           :   LenDen
- * Contact          :   info@VenomVendor.com
- * URL              :   https://www.google.co.in/search?q=VenomVendor
- * Copyright(c)     :   2014-Present, VenomVendor.
- * License          :   This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
- *                      License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- *                      Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
- **/
+ * ***Copyright(c)	:	2014-Present, VenomVendor.***
+ * Author			:	VenomVendor
+ * Dated			:	17 Feb, 2014 3:28:57 AM
+ * Project			:	LenDen-Android
+ * Client			:	LenDen
+ * Contact			:	info@VenomVendor.com
+ * URL				:	https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)		:	2014-Present, VenomVendor.
+ * License			:	This work is licensed under Attribution-NonCommercial 3.0 Unported
+ *						License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *						Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ *
 
+
+ **/
 
 package vee.HexWhale.LenDen;
 
@@ -267,21 +269,21 @@ public class Settings extends FragmentActivity {
             alertDialog.setMessage(Html.fromHtml("Password can't have <b><font =\"#FF0000\">'WhiteSpace'</font></b>\n would you like to update?"));
             alertDialog.setPositiveButton("Yes",
                     new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                            justAnotherMethod(oldPassword);
+                    justAnotherMethod(oldPassword);
 
-                        }
-                    });
+                }
+            });
             alertDialog.setNegativeButton("No",
                     new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
 
-                        }
-                    });
+                }
+            });
 
             alertDialog.show();
             return;

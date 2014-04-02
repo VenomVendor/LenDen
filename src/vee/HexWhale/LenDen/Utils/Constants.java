@@ -1,16 +1,18 @@
 /**
- * ***Copyright(c) : 2014-Present, VenomVendor.***
- * Author : VenomVendor
- * Dated : 17 Feb, 2014 3:28:57 AM
- * Project : LenDen-Android
- * Client : LenDen
- * Contact : info@VenomVendor.com
- * URL : https://www.google.co.in/search?q=VenomVendor
- * Copyright(c) : 2014-Present, VenomVendor.
- * License : This work is licensed under Attribution-NonCommercial 3.0 Unported
- * (CC BY-NC 3.0).
- * License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- * Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c)	:	2014-Present, VenomVendor.***
+ * Author			:	VenomVendor
+ * Dated			:	17 Feb, 2014 3:28:57 AM
+ * Project			:	LenDen-Android
+ * Client			:	LenDen
+ * Contact			:	info@VenomVendor.com
+ * URL				:	https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)		:	2014-Present, VenomVendor.
+ * License			:	This work is licensed under Attribution-NonCommercial 3.0 Unported
+ *						License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *						Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ *
+
+
  **/
 
 package vee.HexWhale.LenDen.Utils;
@@ -24,6 +26,8 @@ import vee.HexWhale.LenDen.Search;
 import vee.HexWhale.LenDen.Settings;
 
 public final class Constants {
+
+    public final static boolean enableLog = true;
 
     public final static class API {
 
@@ -45,7 +49,7 @@ public final class Constants {
             public final static String SECRET = "client_secret";
             public final static String AUTH = "auth_code";
             public final static String REFRESH = "refresh_token";
-            public final static String EMAIL = "email";
+            public final static String EMAIL = "fbEmail";
             public final static String PASSWORD = "password";
             public final static String FIRSTNAME = "first_name";
             public final static String LASTNAME = "last_name";
@@ -71,6 +75,8 @@ public final class Constants {
             public final static String STATUS = "status";
             public final static String CURRENT_PASSWORD = "current_password";
             public final static String NEW_PASSWORD = "new_password";
+            public final static String FB_EMAIL = "email";
+            public final static String FB_GENDER = "gender";
 
         }
 
@@ -84,9 +90,9 @@ public final class Constants {
             public final static String AUTHORIZE = "tokens/authorize/";
             public final static String ACCESSTOKEN = "tokens/issue/";
             public final static String REFRESH = "tokens/refresh/";
-            public final static String REGISTER_EMAIL = "users/register/email/";
+            public final static String REGISTER_EMAIL = "users/register/fbEmail/";
             public final static String REGISTER_FB = "users/register/facebook/";
-            public final static String LOGIN_EMAIL = "users/login/email/";
+            public final static String LOGIN_EMAIL = "users/login/fbEmail/";
             public final static String LOGIN_FB = "users/login/facebook/";
             public final static String LOGOUT = "users/logout/";
             public final static String CATEGORIES = "categories/";
@@ -96,7 +102,7 @@ public final class Constants {
             public final static String ITEMS = "items/";
             public final static String FAVORITE = "items/me/favorite/";
             public final static String MESSSAGES = "messages/";
-            public final static String MESSSAGES_USER = "messages/user/";
+            public final static String MESSSAGES_USER = "messages/fbUserName/";
             public final static String MESSSAGES_CREATE = "messages/create/";
             public final static String PROFILE_ME = "users/me/";
             public final static String PROFILE_ITEMS = URL.ITEMS;
@@ -152,18 +158,18 @@ public final class Constants {
     }
 
     public final static int[] gridImages = {
-            R.drawable.bp5_crop1, R.drawable.bp5_crop2, R.drawable.bp5_crop3, R.drawable.bp5_crop4, R.drawable.bp5_crop5, R.drawable.bp5_crop6
+        R.drawable.bp5_crop1, R.drawable.bp5_crop2, R.drawable.bp5_crop3, R.drawable.bp5_crop4, R.drawable.bp5_crop5, R.drawable.bp5_crop6
     };
 
     public final static int[] menuImages = {
-            R.drawable.add_items, R.drawable.search, R.drawable.favorites, R.drawable.messages, R.drawable.profile, R.drawable.settings
+        R.drawable.add_items, R.drawable.search, R.drawable.favorites, R.drawable.messages, R.drawable.profile, R.drawable.settings
     };
     public final static String[] menuText = {
-            "Add items", "Search", "Favorites", "Messages", "Profile", "Settings"
+        "Add items", "Search", "Favorites", "Messages", "Profile", "Settings"
     };
 
     public final static Class<?>[] menuclass = {
-            AddItems.class, Search.class, Favorites.class, Messages.class, Profile.class, Settings.class
+        AddItems.class, Search.class, Favorites.class, Messages.class, Profile.class, Settings.class
     };
 
 }

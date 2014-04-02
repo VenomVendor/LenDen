@@ -1,15 +1,17 @@
 /**
- * ***Copyright(c)  :	2014-Present, VenomVendor.***
- * Author           :	VenomVendor
- * Dated            :	1 Apr, 2014 3:41:21 AM
- * Project          :	LenDen-Android
- * Client           :	LenDen
- * Contact		    :	info@VenomVendor.com
- * URL              :	https://www.google.co.in/search?q=VenomVendor
- * Copyright(c)	    :	2014-Present, VenomVendor.
- * License		    :	This work is licensed under Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0).
- *					License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- *					Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * ***Copyright(c)	:	2014-Present, VenomVendor.***
+ * Author			:	VenomVendor
+ * Dated			:	1 Apr, 2014 3:41:21 AM
+ * Project			:	LenDen-Android
+ * Client			:	LenDen
+ * Contact			:	info@VenomVendor.com
+ * URL				:	https://www.google.co.in/search?q=VenomVendor
+ * Copyright(c)		:	2014-Present, VenomVendor.
+ * License			:	This work is licensed under Attribution-NonCommercial 3.0 Unported
+ *						License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *						Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
+ * *
+
  **/
 
 package vee.HexWhale.LenDen.aUI.Fragments;
@@ -40,17 +42,17 @@ public class NiceSupportMapFragment extends SupportMapFragment {
 
     // Many thanks to Pepsi1x1 for his contribution to this Texture View
     // detection flag
-    private boolean hasTextureViewSupport = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
-    private boolean isRGBA_8888ByDefault = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
+    private final boolean hasTextureViewSupport = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+    private final boolean isRGBA_8888ByDefault = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
 
     private boolean preventParentScrolling = true;
 
     private View searchAndFindDrawingView(ViewGroup group) {
-        int childCount = group.getChildCount();
+        final int childCount = group.getChildCount();
         for (int i = 0; i < childCount; i++) {
-            View child = group.getChildAt(i);
+            final View child = group.getChildAt(i);
             if (child instanceof ViewGroup) {
-                View view = searchAndFindDrawingView((ViewGroup) child);
+                final View view = searchAndFindDrawingView((ViewGroup) child);
 
                 if (view != null) {
                     return view;
@@ -58,12 +60,12 @@ public class NiceSupportMapFragment extends SupportMapFragment {
             }
 
             if (child instanceof SurfaceView) {
-                return (View) child;
+                return child;
             }
 
             if (hasTextureViewSupport) { // if we have support for texture view
                 if (child instanceof TextureView) {
-                    return (View) child;
+                    return child;
                 }
             }
         }
@@ -78,54 +80,58 @@ public class NiceSupportMapFragment extends SupportMapFragment {
             return PixelFormat.RGBA_8888;
         }
 
-        Context context = this.getActivity();
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
+        final Context context = getActivity();
+        final WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        final Display display = wm.getDefaultDisplay();
 
         // Get display pixel format
         @SuppressWarnings("deprecation")
-        int displayFormat = display.getPixelFormat();
+        final int displayFormat = display.getPixelFormat();
 
         if (PixelFormat.formatHasAlpha(displayFormat)) {
             return displayFormat;
         } else {
             return PixelFormat.RGB_565;// Fallback for those who don't support
-                                       // Alpha
+            // Alpha
         }
     }
 
+    @Override
     @SuppressLint("NewApi")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        ViewGroup view = (ViewGroup) super.onCreateView(inflater, container,
+        final ViewGroup view = (ViewGroup) super.onCreateView(inflater, container,
                 savedInstanceState);
 
         // Transparent Color For Views, android.R.color.transparent dosn't work
         // on all devices
-        int transparent = 0x00000000;
+        final int transparent = 0x00000000;
 
         view.setBackgroundColor(transparent); // Set Root View to be
-                                              // transparent
-                                              // to prevent black screen on
-                                              // load
+        // transparent
+        // to prevent black screen on
+        // load
 
         drawingView = searchAndFindDrawingView(view); // Find the view the map
-                                                      // is using for Open GL
+        // is using for Open GL
 
         if (drawingView == null)
+        {
             return view; // If we didn't get anything then abort
+        }
 
         drawingView.setBackgroundColor(transparent); // Stop black artifact from
-                                                     // being left behind on
-                                                     // scroll
+        // being left behind on
+        // scroll
 
         // Create On Touch Listener for MapView Parent Scrolling Fix - Many
         // thanks to Gemerson Ribas (gmribas) for help with this fix.
-        OnTouchListener touchListener = new OnTouchListener() {
+        final OnTouchListener touchListener = new OnTouchListener() {
+            @Override
             public boolean onTouch(View view, MotionEvent event) {
 
-                int action = event.getAction();
+                final int action = event.getAction();
 
                 switch (action) {
 
@@ -151,14 +157,15 @@ public class NiceSupportMapFragment extends SupportMapFragment {
 
         // texture view
         if (hasTextureViewSupport) { // If we support texture view and the
-                                     // drawing view is a TextureView then
-                                     // tweak it and return the fragment view
+            // drawing view is a TextureView then
+            // tweak it and return the fragment view
 
             if (drawingView instanceof TextureView) {
 
-                TextureView textureView = (TextureView) drawingView;
+                final TextureView textureView = (TextureView) drawingView;
 
-                // Stop Containing Views from moving when a user is interacting
+                // Stop Containing Views from moving when a fbUserName is
+                // interacting
                 // with Map View Directly
                 textureView.setOnTouchListener(touchListener);
 
@@ -171,7 +178,7 @@ public class NiceSupportMapFragment extends SupportMapFragment {
         final SurfaceView surfaceView = (SurfaceView) drawingView;
 
         // Fix for reducing black view flash issues
-        SurfaceHolder holder = surfaceView.getHolder();
+        final SurfaceHolder holder = surfaceView.getHolder();
 
         // Detect Display Format if we havn't already
         if (detectedBestPixelFormat == -1) {
@@ -181,12 +188,13 @@ public class NiceSupportMapFragment extends SupportMapFragment {
         // Use detected best pixel format
         holder.setFormat(detectedBestPixelFormat);
 
-        // Stop Containing Views from moving when a user is interacting with
+        // Stop Containing Views from moving when a fbUserName is interacting
+        // with
         // Map View Directly
         surfaceView.setOnTouchListener(touchListener);
-        GoogleMapOptions options = new GoogleMapOptions();
+        final GoogleMapOptions options = new GoogleMapOptions();
         options.zOrderOnTop(true);
-        NiceSupportMapFragment.newInstance(options);
+        SupportMapFragment.newInstance(options);
         return view;
     }
 
