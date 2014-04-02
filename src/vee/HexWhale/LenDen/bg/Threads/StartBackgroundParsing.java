@@ -42,6 +42,7 @@ import vee.HexWhale.LenDen.Parsers.Profile.GetEditProfile;
 import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
 import vee.HexWhale.LenDen.Parsers.ProfileItems.GetProfileItems;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.GetSearchCategory;
+import vee.HexWhale.LenDen.Parsers.SubCategories.GetSubCategory;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
@@ -144,6 +145,13 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
                     SettersNGetters.setCategory(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetCategory.class));
 
                     validateToken(SettersNGetters.getCategory().getError_code());
+
+                    break;
+
+                case TYPE.SUB_CATEGORIES:
+                    SettersNGetters.setSubCategory(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetSubCategory.class));
+
+                    validateToken(SettersNGetters.getSubCategory().getError_code());
 
                     break;
 

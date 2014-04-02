@@ -36,57 +36,62 @@ public final class Constants {
         public final static String SECRET = "266aec96e90af9450eb4ad450309b3";
 
         public final static class HEADERS {
+            public final static String ACCESS_TOKEN = "access_token";
             public final static String CONTENT_TYPE = "Content-Type";
             public final static String JSON = "application/json";
-            public final static String ACCESS_TOKEN = "access_token";
             public final static String MULTIPART = "multipart/form-data parameters";
             public final static String PICTURE = "picture";
         }
 
         public final static class STRING {
-            public final static String CACHE_LOC = "data/.vee.HexWhale.LenDen/.imgCache";
-            public final static String KEY = "client_key";
-            public final static String SECRET = "client_secret";
             public final static String AUTH = "auth_code";
-            public final static String REFRESH = "refresh_token";
+            public final static String CACHE_LOC = "data/.vee.HexWhale.LenDen/.imgCache";
+            public final static String CATEGORY_ID = "category_id";
+            public final static String CURRENT_PASSWORD = "current_password";
+            public final static String DESCRIPTION = "description";
             public final static String EMAIL = "email";
-            public final static String PASSWORD = "password";
-            public final static String FIRSTNAME = "first_name";
-            public final static String LASTNAME = "last_name";
-            public final static String SUCCESS = "success";
             public final static String ERROR = "Error : ";
             public final static String FAILED = "failed";
-            public final static String PAGE = "page";
-            public final static String OFFSET = "offset";
-            public final static String CATEGORY_ID = "category_id";
-            public final static String ITEM_ID = "item_id";
-            public final static String POSITION = "position";
-            public final static String TITLE = "title";
-            public final static String DESCRIPTION = "description";
-            public final static String PRICE = "price";
-            public final static String LATITUDE = "latitude";
-            public final static String LONGITUDE = "longitude";
-            public final static String RANGE = "range";
-            public final static String SEARCH = "search";
-            public final static String PARTNER_ID = "partner_id";
-            public final static String MESSAGE = "message";
-            public final static String PICTURE = "picture";
-            public final static String PREVIEW = "PREVIEW";
-            public final static String STATUS = "status";
-            public final static String CURRENT_PASSWORD = "current_password";
-            public final static String NEW_PASSWORD = "new_password";
             public final static String FB_GENDER = "gender";
             public final static String FB_ID = "fb_id";
-            public final static String FB_USERNAME = "fb_user_name";
             public final static String FB_TOKEN = "fb_token";
+            public final static String FB_USERNAME = "fb_user_name";
+            public final static String FIRSTNAME = "first_name";
+            public final static String ITEM_ID = "item_id";
+            public final static String KEY = "client_key";
+            public final static String LASTNAME = "last_name";
+            public final static String LATITUDE = "latitude";
+            public final static String LONGITUDE = "longitude";
+            public final static String MESSAGE = "message";
+            public final static String NEW_PASSWORD = "new_password";
+            public final static String OFFSET = "offset";
+            public final static String ORIGINAL_PRICE = "original_price";
+            public final static String PAGE = "page";
+            public final static String PARTNER_ID = "partner_id";
+            public final static String PASSWORD = "password";
+            public final static String PICTURE = "picture";
+            public final static String POSITION = "position";
+            public final static String PREVIEW = "PREVIEW";
+            public final static String PRICE = "price";
+            public final static String RANGE = "range";
+            public final static String REFRESH = "refresh_token";
+            public final static String SEARCH = "search";
+            public final static String SECRET = "client_secret";
+            public final static String SELLING_PRICE = "selling_price";
+            public final static String STATUS = "status";
+            public final static String SUBCATEGORY_ID = "subcategory_id";
+            public final static String SUCCESS = "success";
+            public final static String TITLE = "title";
+            public final static String TRADE_MODE = "trade_mode";
             public final static String USER_ALREADY_EXISTS = "User already exists";
             public final static String USER_ALREADY_EXISTS_ERROR = "users-4";
+
         }
 
         public final static class IMAGEURL {
+            public final static String DP = "users/photo/";
             public final static String ICON = "/icon/";
             public final static String PICTURE = "/picture/";
-            public final static String DP = "users/photo/";
         }
 
         public final static class URL {
@@ -116,6 +121,8 @@ public final class Constants {
             public final static String FORGOT_PASSWORD = "users/forgot/password/";
             public final static String FB_REGISTER = "users/register/facebook/";
             public final static String FB_LOGIN = "users/login/facebook/";
+            public final static String SUB_CATEGORIES = "categories/subcategories/";
+            public final static String ITEMS_CREATE = "items/create/";
 
         }
 
@@ -146,29 +153,31 @@ public final class Constants {
             public final static int FORGOT_PASSWORD = 24;
             public final static int FB_REGISTER = 25;
             public final static int FB_LOGIN = 26;
+            public final static int SUB_CATEGORIES = 27;
+            public final static int ITEMS_CREATE = 28;
         }
 
     }
 
     public class KEY {
-        public final static String AUTH_CODE = "AUTHCODE";
         public final static String ACCESS_TOKEN = "ACCESSTOKEN";
-        public final static String REFRESH_TOKEN = "REFRESHTOKEN";
+        public final static String AUTH_CODE = "AUTHCODE";
         public final static String LAST_JSON = "LASTJSON";
-        public final static String OPENED_TIMES_COUNT = "OPENEDTIMESCOUNT";
-        public final static String MY_F_NAME = "MYFNAME";
-        public final static String MY_L_NAME = "MYLNAME";
-        public final static String MY_E_MAIL = "MYEMAIL";
-        public final static String MY_I_URL = "MYIURL";
         public final static String LOGIN_TYPE = "LOGINTYPE";
+        public final static String MY_E_MAIL = "MYEMAIL";
+        public final static String MY_F_NAME = "MYFNAME";
+        public final static String MY_I_URL = "MYIURL";
+        public final static String MY_L_NAME = "MYLNAME";
+        public final static String OPENED_TIMES_COUNT = "OPENEDTIMESCOUNT";
+        public final static String REFRESH_TOKEN = "REFRESHTOKEN";
     }
 
     public class LOGIN_TYPE
     {
-        public final static int REGISTER = 1;
         public final static int EMAIL = 2;
         public final static int FACEBOOK = 5;
         public final static int HACKED = 0;
+        public final static int REGISTER = 1;
     }
 
     public final static int[] gridImages = {

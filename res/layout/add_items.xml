@@ -192,73 +192,82 @@
                         android:visibility="invisible" />
                 </LinearLayout>
 
-                <TextView
+                <EditText
+                    android:id="@+id/add_item_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="#F5F5F5"
+                    android:hint="Title"
+                    android:minHeight="48dp"
                     android:padding="10dp"
-                    android:text="Title"
                     android:textColor="#9E9E9E" />
 
-                <TextView
+                <Spinner
+                    android:id="@+id/add_item_cate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:background="#F5F5F5"
                     android:drawableEnd="@drawable/arrow"
-                    android:padding="10dp"
-                    android:text="Category"
+                    android:minHeight="48dp"
                     android:textColor="#9E9E9E" />
 
-                <TextView
+                <Spinner
+                    android:id="@+id/add_item_sub_cate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:background="#F5F5F5"
                     android:drawableEnd="@drawable/arrow"
-                    android:padding="10dp"
-                    android:text="Sub Category"
+                    android:minHeight="48dp"
                     android:textColor="#9E9E9E" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/add_item_price_org"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:background="#F5F5F5"
-                    android:drawableEnd="@drawable/arrow"
+                    android:hint="Original Price in $"
+                    android:inputType="numberDecimal"
+                    android:minHeight="48dp"
                     android:padding="10dp"
-                    android:text="Original Price"
                     android:textColor="#9E9E9E" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/add_item_price_sellg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:background="#F5F5F5"
-                    android:drawableEnd="@drawable/arrow"
+                    android:hint="Selling Price $"
+                    android:inputType="numberDecimal"
+                    android:minHeight="48dp"
                     android:padding="10dp"
-                    android:text="Selling Price"
                     android:textColor="#9E9E9E" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/add_item_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:background="#F5F5F5"
-                    android:drawableEnd="@drawable/arrow"
+                    android:hint="Location"
+                    android:minHeight="48dp"
                     android:padding="10dp"
-                    android:text="Location"
                     android:textColor="#9E9E9E" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/add_item_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:background="#F5F5F5"
+                    android:gravity="top|left"
+                    android:hint="Description"
                     android:minHeight="150dp"
                     android:padding="10dp"
-                    android:text="Description"
                     android:textColor="#9E9E9E" />
             </LinearLayout>
         </ScrollView>

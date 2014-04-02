@@ -34,6 +34,7 @@ import vee.HexWhale.LenDen.Parsers.Profile.GetEditProfile;
 import vee.HexWhale.LenDen.Parsers.Profile.GetProfile;
 import vee.HexWhale.LenDen.Parsers.ProfileItems.GetProfileItems;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.GetSearchCategory;
+import vee.HexWhale.LenDen.Parsers.SubCategories.GetSubCategory;
 
 public class SettersNGetters {
 
@@ -56,6 +57,7 @@ public class SettersNGetters {
     private static ChangePassword changePassword;
     private static ForgotPassword forgotPassword;
     private static FBRegLogin fbRegLogin;
+    private static GetSubCategory subCategory;
 
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
@@ -207,6 +209,14 @@ public class SettersNGetters {
 
     public static void setFbRegLogin(FBRegLogin fbRegLogin) {
         SettersNGetters.fbRegLogin = fbRegLogin;
+    }
+
+    public static GetSubCategory getSubCategory() {
+        return subCategory;
+    }
+
+    public static void setSubCategory(GetSubCategory subCategory) {
+        SettersNGetters.subCategory = subCategory;
     }
 
 }
