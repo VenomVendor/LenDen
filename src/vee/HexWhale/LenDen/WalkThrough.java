@@ -118,6 +118,7 @@ public class WalkThrough extends Activity {
                         else {
                             ToastL("Unable to Login...\nPlease try again later.");
                             LogR("::USER NULL::");
+                            sFBLogout();
                         }
                     }
 
@@ -135,6 +136,19 @@ public class WalkThrough extends Activity {
             ToastL("AlreadyLoggedIn");
         }
     };
+
+    /**
+     * <b>LogOut/Flush</b> the "session" stored in the APP.<br>
+     * <b>REASON 1 :</b> User wants to logout.<br>
+     * <b>REASON 2 :</b> Prev session is stored in the APP & is Invalid for current login.<br>
+     * <b>REASON 3 :</b> User removed access for our app in his "<a href="https://www.facebook.com/settings?tab=applications">App Settings</a>".
+     */
+    private void sFBLogout() {
+        Session session = Session.getActiveSession();
+        if (!session.isClosed()) {
+            session.closeAndClearTokenInformation();
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
