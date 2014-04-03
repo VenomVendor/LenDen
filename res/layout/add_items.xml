@@ -29,56 +29,56 @@
                 android:orientation="vertical" >
 
                 <vee.HexWhale.LenDen.aUI.SquareImageView
+                    android:id="@+id/add_item_img_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:baselineAlignBottom="true"
                     android:cropToPadding="true"
-                    android:onClick="OpenImage"
                     android:scaleType="centerCrop"
                     android:src="@drawable/camera" />
 
                 <vee.HexWhale.LenDen.aUI.SquareImageView
+                    android:id="@+id/add_item_img_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:adjustViewBounds="true"
                     android:baselineAlignBottom="true"
                     android:cropToPadding="true"
-                    android:onClick="OpenImage"
                     android:scaleType="centerCrop"
                     android:src="@drawable/camera" />
 
                 <vee.HexWhale.LenDen.aUI.SquareImageView
+                    android:id="@+id/add_item_img_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:adjustViewBounds="true"
                     android:baselineAlignBottom="true"
                     android:cropToPadding="true"
-                    android:onClick="OpenImage"
                     android:scaleType="centerCrop"
                     android:src="@drawable/camera" />
 
                 <vee.HexWhale.LenDen.aUI.SquareImageView
+                    android:id="@+id/add_item_img_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:adjustViewBounds="true"
                     android:baselineAlignBottom="true"
                     android:cropToPadding="true"
-                    android:onClick="OpenImage"
                     android:scaleType="centerCrop"
                     android:src="@drawable/camera" />
 
                 <vee.HexWhale.LenDen.aUI.SquareImageView
+                    android:id="@+id/add_item_img_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:adjustViewBounds="true"
                     android:baselineAlignBottom="true"
                     android:cropToPadding="true"
-                    android:onClick="OpenImage"
                     android:scaleType="centerCrop"
                     android:src="@drawable/camera" />
             </LinearLayout>
@@ -201,6 +201,7 @@
                     android:hint="Title"
                     android:minHeight="48dp"
                     android:padding="10dp"
+                    android:singleLine="true"
                     android:textColor="#9E9E9E" />
 
                 <Spinner
@@ -233,6 +234,7 @@
                     android:inputType="numberDecimal"
                     android:minHeight="48dp"
                     android:padding="10dp"
+                    android:singleLine="true"
                     android:textColor="#9E9E9E" />
 
                 <EditText
@@ -245,6 +247,7 @@
                     android:inputType="numberDecimal"
                     android:minHeight="48dp"
                     android:padding="10dp"
+                    android:singleLine="true"
                     android:textColor="#9E9E9E" />
 
                 <EditText
@@ -256,6 +259,7 @@
                     android:hint="Location"
                     android:minHeight="48dp"
                     android:padding="10dp"
+                    android:singleLine="true"
                     android:textColor="#9E9E9E" />
 
                 <EditText

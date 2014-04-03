@@ -18,6 +18,7 @@
 package vee.HexWhale.LenDen.Storage;
 
 import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
+import vee.HexWhale.LenDen.Parsers.AddItems.GetAddItems;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
 import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
 import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
@@ -58,7 +59,7 @@ public class SettersNGetters {
     private static ForgotPassword forgotPassword;
     private static FBRegLogin fbRegLogin;
     private static GetSubCategory subCategory;
-
+    private static GetAddItems addItems;
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
     }
@@ -217,6 +218,14 @@ public class SettersNGetters {
 
     public static void setSubCategory(GetSubCategory subCategory) {
         SettersNGetters.subCategory = subCategory;
+    }
+
+    public static GetAddItems getAddItems() {
+        return addItems;
+    }
+
+    public static void setAddItems(GetAddItems addItems) {
+        SettersNGetters.addItems = addItems;
     }
 
 }

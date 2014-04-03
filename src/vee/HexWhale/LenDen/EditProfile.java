@@ -336,7 +336,7 @@ public class EditProfile extends FragmentActivity {
         {
             tempView = view;
             final Intent mIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            this.startActivityForResult(mIntent, AddItems.tempID);
+            this.startActivityForResult(mIntent, EditProfile.tempID);
         }
     }
 
@@ -415,7 +415,7 @@ public class EditProfile extends FragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AddItems.tempID && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == EditProfile.tempID && resultCode == Activity.RESULT_OK && data != null) {
             final Uri selectedImage = data.getData();
             final String[] filePathColumn = {
                     MediaColumns.DATA

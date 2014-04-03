@@ -70,6 +70,11 @@ public final class Constants {
             public final static String PARTNER_ID = "partner_id";
             public final static String PASSWORD = "password";
             public final static String PICTURE = "picture";
+            public final static String PICTURE_1 = "picture1";
+            public final static String PICTURE_2 = "picture2";
+            public final static String PICTURE_3 = "picture3";
+            public final static String PICTURE_4 = "picture4";
+            public final static String PICTURE_5 = "picture5";
             public final static String POSITION = "position";
             public final static String PREVIEW = "PREVIEW";
             public final static String PRICE = "price";
@@ -123,6 +128,8 @@ public final class Constants {
             public final static String FB_LOGIN = "users/login/facebook/";
             public final static String SUB_CATEGORIES = "categories/subcategories/";
             public final static String ITEMS_CREATE = "items/create/";
+            public final static String ITEMS_CREATE_UPLOAD = "items/pictures/upload/";
+
 
         }
 

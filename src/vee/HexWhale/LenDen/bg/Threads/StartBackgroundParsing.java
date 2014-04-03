@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import vee.HexWhale.LenDen.Parsers.AccessToken.GetAccessToken;
+import vee.HexWhale.LenDen.Parsers.AddItems.GetAddItems;
 import vee.HexWhale.LenDen.Parsers.AuthCode.GetAuthCode;
 import vee.HexWhale.LenDen.Parsers.Categories.GetCategory;
 import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
@@ -258,6 +259,13 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
 
                     break;
 
+                case TYPE.ITEMS_CREATE:
+                    SettersNGetters.setAddItems(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetAddItems.class));
+
+                    validateToken(SettersNGetters.getAddItems().getError_code());
+
+                    break;
+
             }
         }
         catch (final Exception e) {
@@ -350,6 +358,12 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
 
                     SettersNGetters.setForgotPassword(null);
                     break;
+
+                case TYPE.ITEMS_CREATE:
+
+                    SettersNGetters.setAddItems(null);
+                    break;
+
             }
 
         }

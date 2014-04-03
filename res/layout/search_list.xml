@@ -21,6 +21,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
+        android:minHeight="90dp"
         android:padding="5dp" >
 
         <TextView
@@ -39,7 +40,6 @@
             android:maxLines="1"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:text="A  text..."
             android:textColor="@color/black"
             android:textSize="@dimen/search_list_title" >
 
@@ -57,7 +57,6 @@
             android:ellipsize="marquee"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:text="Type"
             android:textColor="@color/list_txt"
             android:textSize="@dimen/search_list_type" />
 
@@ -69,7 +68,6 @@
             android:layout_alignParentTop="true"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:text="$45"
             android:textColor="@color/menu_bg"
             android:textSize="@dimen/search_list_price" />
 
@@ -93,7 +91,6 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="1dp"
                     android:drawableStart="@drawable/small_fav"
-                    android:text="05"
                     android:textColor="@color/list_txt"
                     android:textSize="@dimen/search_list_extras" />
 
@@ -104,7 +101,6 @@
                     android:layout_marginLeft="10dp"
                     android:drawablePadding="1dp"
                     android:drawableStart="@drawable/small_like"
-                    android:text="03"
                     android:textColor="@color/list_txt"
                     android:textSize="@dimen/search_list_extras" />
             </LinearLayout>
@@ -123,7 +119,6 @@
                 android:paddingTop="5dp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="SALE"
                 android:textColor="@color/white"
                 android:textSize="@dimen/search_list_extras" />
         </RelativeLayout>

@@ -81,6 +81,8 @@ public class DetailedPager extends PagerAdapter {
 
         imageLoader.displayImage("" + GetData.getImageUrl("items/" + itemId + IMAGEURL.PICTURE + (position + 1)), sImg, options);
 
+        System.out.println("" + GetData.getImageUrl("items/" + itemId + IMAGEURL.PICTURE + (position + 1)));
+
         ((ViewPager) container).addView(sView, 0);
 
         return sView;
@@ -98,16 +100,16 @@ public class DetailedPager extends PagerAdapter {
                 .bitmapConfig(Bitmap.Config.RGB_565).displayer(new RoundedBitmapDisplayer(10)).displayer(new FadeInBitmapDisplayer(0)).build();
 
         final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(sActivity.getApplicationContext())
-        .defaultDisplayImageOptions(options)
-        .threadPriority(Thread.NORM_PRIORITY).threadPoolSize(3).denyCacheImageMultipleSizesInMemory()
-        .discCache(new UnlimitedDiscCache(cacheDir))
-        // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
-        .tasksProcessingOrder(QueueProcessingType.FIFO).writeDebugLogs() // TODO
-        // Remove
-        // for
-        // release
-        // app
-        .build();
+                .defaultDisplayImageOptions(options)
+                .threadPriority(Thread.NORM_PRIORITY).threadPoolSize(3).denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO).writeDebugLogs() // TODO
+                // Remove
+                // for
+                // release
+                // app
+                .build();
         ImageLoader.getInstance().init(config); // Do it on Application start
         imageLoader = ImageLoader.getInstance();
     }

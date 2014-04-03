@@ -35,7 +35,6 @@
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/preview_dp"
             android:gravity="center|left"
-            android:text="VenomVendor"
             android:textColor="@color/list_txt" />
 
         <ImageView
@@ -53,8 +52,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="30dp"
-            android:text="1hour"
+            android:layout_toRightOf="@+id/preview_name"
+            android:singleLine="true"
+            android:layout_marginLeft="5dp"
             android:textColor="@color/list_txt" />
+
     </RelativeLayout>
 
     <View
