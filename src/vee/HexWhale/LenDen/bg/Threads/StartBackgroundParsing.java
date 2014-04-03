@@ -359,6 +359,13 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
                     SettersNGetters.setForgotPassword(null);
                     break;
 
+                case TYPE.FB_LOGIN:
+                    SettersNGetters.setFbRegLogin(null);
+                    break;
+
+                case TYPE.FB_REGISTER:
+                    SettersNGetters.setFbRegLogin(null);
+                    break;
                 case TYPE.ITEMS_CREATE:
 
                     SettersNGetters.setAddItems(null);
