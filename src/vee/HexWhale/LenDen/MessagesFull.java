@@ -10,9 +10,6 @@
  * License			:	This work is licensed under Attribution-NonCommercial 3.0 Unported
  *						License info at http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
  *						Read More at http://creativecommons.org/licenses/by-nc/3.0/legalcode
- *
-
-
  **/
 
 package vee.HexWhale.LenDen;
