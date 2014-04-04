@@ -84,6 +84,7 @@ public class ProfileListAdapter extends BaseAdapter {
         {
             return 0;
         }
+        System.out.println("sItems " + sItems.size());
         return sItems.size();
     }
 
@@ -116,13 +117,13 @@ public class ProfileListAdapter extends BaseAdapter {
             holder.sLikeCnt = (TextView) convertView.findViewById(R.id.search_list_lik);
             holder.sFavCnt = (TextView) convertView.findViewById(R.id.search_list_fav);
             holder.sTypeButton = (TextView) convertView.findViewById(R.id.search_list_type_btn);
+            convertView.setTag(holder);
         }
         else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         final Items mItems = sItems.get(position);
-
         int mTadeMode = mItems.getTrade_mode();
         mTadeMode = 2; // TODO - REMOVE THIS HARDCODED MODE
 
@@ -165,26 +166,26 @@ public class ProfileListAdapter extends BaseAdapter {
         L.disableLogging();
         optionsIcon =
                 new DisplayImageOptions.Builder()
-        .showImageForEmptyUri(R.drawable.noimage)
-        .showImageOnFail(R.drawable.noimage)
-        .resetViewBeforeLoading(false)
-        .cacheInMemory(true)
-        .cacheOnDisc(true)
-        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-        .bitmapConfig(Bitmap.Config.RGB_565)
-        .displayer(new RoundedBitmapDisplayer(10))
-        .displayer(new FadeInBitmapDisplayer(0))
-        .build();
+                        .showImageForEmptyUri(R.drawable.noimage)
+                        .showImageOnFail(R.drawable.noimage)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
 
         final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(sActivity.getApplicationContext())
-        .defaultDisplayImageOptions(optionsIcon)
-        .threadPriority(Thread.NORM_PRIORITY)
-        .threadPoolSize(3)
-        .denyCacheImageMultipleSizesInMemory()
-        .discCache(new UnlimitedDiscCache(cacheDir))
-        // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
-        .tasksProcessingOrder(QueueProcessingType.FIFO)
-        .build();
+                .defaultDisplayImageOptions(optionsIcon)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
 
         ImageLoader.getInstance().init(config); // Do it on Application start
         imageLoader = ImageLoader.getInstance();

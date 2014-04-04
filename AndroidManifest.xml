@@ -76,13 +76,17 @@
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTask" />
         <activity android:name="vee.HexWhale.LenDen.Preview" />
-        <activity android:name="vee.HexWhale.LenDen.EditProfile" android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="vee.HexWhale.LenDen.EditProfile"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name="vee.HexWhale.LenDen.Notifications" />
         <activity android:name="vee.HexWhale.LenDen.Detailed" />
 
         <!-- Menu -->
         <activity android:name="vee.HexWhale.LenDen.AddItems" />
-        <activity android:name="vee.HexWhale.LenDen.Search" android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="vee.HexWhale.LenDen.Search"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name="vee.HexWhale.LenDen.Favorites" />
         <activity android:name="vee.HexWhale.LenDen.Messages" />
         <activity android:name="vee.HexWhale.LenDen.MessagesFull" />

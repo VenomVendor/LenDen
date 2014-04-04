@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -70,6 +71,7 @@ import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
 import vee.HexWhale.LenDen.bg.Threads.LocationFinder;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
 import vee.HexWhale.LenDen.bg.Threads.Validator;
+import vee.HexWhale.LenDen.bg.Threads.LocationFinder.LocListner;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -95,11 +97,12 @@ public class AddItems extends FragmentActivity implements OnClickListener {
     List<String> sublist = new ArrayList<String>();
 
     LocationFinder myLocation;
+    private Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myLocation = new LocationFinder(getApplicationContext());
+        myLocation = new LocationFinder(getApplicationContext(), mLocListner);
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
         this.setContentView(R.layout.add_items);
         mPrefs = new GlobalSharedPrefs(this);
@@ -143,6 +146,20 @@ public class AddItems extends FragmentActivity implements OnClickListener {
         }
         setSpinner(list);
     }
+
+
+    private LocListner mLocListner = new LocListner() {
+
+        @Override
+        public void gotLocation(Location loc) {
+            if (loc == null)
+            {
+                return;
+            }
+            location = loc;
+        }
+    };
+
 
     @Override
     protected void onDestroy() {
@@ -217,7 +234,7 @@ public class AddItems extends FragmentActivity implements OnClickListener {
     private String getBody(int tokenType) {
         JSONObject mJsonObject = null;
         mJsonObject = new JSONObject();
-
+        location = (location == null) ? myLocation.getLocation() : location;
         try {
             switch (tokenType) {
                 case TYPE.CATEGORIES:
@@ -248,11 +265,13 @@ public class AddItems extends FragmentActivity implements OnClickListener {
                     mJsonObject.put(STRING.DESCRIPTION, mDescription.getText().toString());
                     mJsonObject.put(STRING.ORIGINAL_PRICE, mOrgPrice.getText().toString());
                     mJsonObject.put(STRING.SELLING_PRICE, oSellgPrice.getText().toString());
-                    ToastL((myLocation == null) ? "Unknown Latitude" : "" + myLocation.getLocation().getLatitude());
-                    ToastL((myLocation == null) ? "Unknown Longitude" : "" + myLocation.getLocation().getLongitude());
 
-                    mJsonObject.put(STRING.LATITUDE, (myLocation == null) ? "00" : "" + myLocation.getLocation().getLatitude());
-                    mJsonObject.put(STRING.LONGITUDE, (myLocation == null) ? "00" : "" + myLocation.getLocation().getLongitude());
+                    ToastL((location == null) ? "Unknown Latitude, Longitude" : "Latitude" + location.getLatitude() + "\nLongitude" + location.getLongitude());
+
+
+                    mJsonObject.put(STRING.LATITUDE, (location == null) ? "00" : "" + location.getLatitude());
+                    mJsonObject.put(STRING.LONGITUDE, (location == null) ? "00" : "" + location.getLongitude());
+
 
                     mJsonObject.put(STRING.TRADE_MODE, 2);  // TODO - REMOVE HARD CODED VALUE.
 

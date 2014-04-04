@@ -18,6 +18,7 @@
 package vee.HexWhale.LenDen.aUI.Fragments;
 
 import android.app.Activity;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -38,8 +39,11 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 
@@ -53,6 +57,8 @@ import vee.HexWhale.LenDen.aUI.Adapters.HomeGridAdapter;
 import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
+import vee.HexWhale.LenDen.bg.Threads.LocationFinder;
+import vee.HexWhale.LenDen.bg.Threads.LocationFinder.LocListner;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
 
 /**
@@ -62,17 +68,19 @@ public class HomeFrontFragment extends Fragment {
     Activity sActivity;
     GridView mGridView;
     GoogleMap map = null;
-    double latitude = 12.971689;
-    double longitude = 77.594504;
+    double latitude = 0.0;
+    double longitude = 0.0;
     TextView mTextView;
     FrameLayout mapFrame;
     LatLng latlon = null;
     public static boolean googlePlayOn = false;
 
     private static View view;
-
+    LocationFinder myLocation;
     GetDataFromUrl mDataFromUrl;
+    private Location mLocation;
     private String tag = "UNKNOWN";
+    float zoom = 11;
 
     public HomeFrontFragment() {
         setRetainInstance(true);
@@ -85,9 +93,34 @@ public class HomeFrontFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        myLocation.stopUpdates();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        if (savedInstanceState == null) {
+            setRetainInstance(true);
+        } else {
+            map = ((NiceSupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+        }
+
         tag = TagGen.getTag(this.getClass());
+        myLocation = new LocationFinder(sActivity, mLocListner);
+
+        if (myLocation.getLocation() != null)
+        {
+            latitude = myLocation.getLocation().getLatitude();
+            longitude = myLocation.getLocation().getLatitude();
+        }
 
         if (container == null) {
             return null;
@@ -110,6 +143,24 @@ public class HomeFrontFragment extends Fragment {
         return HomeFrontFragment.view;
 
     }
+
+    private LocListner mLocListner = new LocListner() {
+
+        @Override
+        public void gotLocation(Location loc) {
+
+            if (loc == null)
+            {
+                return;
+            }
+            mLocation = loc;
+            LogR("===================== " + mLocation.getLatitude());
+            latitude = mLocation.getLatitude();
+            longitude = mLocation.getLongitude();
+            latlon = new LatLng(latitude, longitude);
+            setUpMapIfNeeded();
+        }
+    };
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -252,39 +303,61 @@ public class HomeFrontFragment extends Fragment {
     /*******************************************************************/
 
     private void setUpMapIfNeeded() {
+
         if (map == null) {
             map = ((NiceSupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
             if (map != null) {
-                // do things to the map
-                map.addMarker(new MarkerOptions().position(latlon).title("xxx").snippet("I am a looooooooooooooong Snippet"));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, 15));
-                // map.getUiSettings().setZoomControlsEnabled(false);
-
-                map.setOnMapClickListener(new OnMapClickListener() {
-
-                    @Override
-                    public void onMapClick(LatLng touchedLatLon) {
-
-                        System.out.println("LatLon : " + touchedLatLon);
-
-                        if (mTextView.getVisibility() == View.VISIBLE) {
-                            mTextView.setVisibility(View.GONE);
-                            final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-                                    0, 5f);
-                            mapFrame.setLayoutParams(mParams);
-                            ((Home) sActivity).HideTop();
-                        }
-                        else {
-                            mTextView.setVisibility(View.VISIBLE);
-                            final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-                                    0, 2f);
-                            mapFrame.setLayoutParams(mParams);
-                            ((Home) sActivity).ShowTop();
-                        }
-
-                    }
-                });
+                setUpMap();
             }
         }
+        else {
+            setUpMap();
+        }
+
     }
+
+    private void setUpMap() {
+
+        ToastL("latlon" + latlon.latitude + ", " + latlon.longitude);
+        // do things to the map
+        map.addMarker(new MarkerOptions().position(latlon).title("xxx").snippet("I am a looooooooooooooong Snippet"));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, zoom));
+        // map.getUiSettings().setZoomControlsEnabled(false);
+
+        map.setOnMapClickListener(new OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng touchedLatLon) {
+
+                System.out.println("LatLon : " + touchedLatLon);
+
+                if (mTextView.getVisibility() == View.VISIBLE) {
+                    mTextView.setVisibility(View.GONE);
+                    final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                            0, 5f);
+                    mapFrame.setLayoutParams(mParams);
+                    ((Home) sActivity).HideTop();
+                }
+                else {
+                    mTextView.setVisibility(View.VISIBLE);
+                    final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                            0, 2f);
+                    mapFrame.setLayoutParams(mParams);
+                    ((Home) sActivity).ShowTop();
+                }
+
+            }
+        });
+
+        map.setOnMarkerClickListener(new OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                LatLng mLatLng = new LatLng((latitude + .03), longitude);
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, zoom), 300, null);
+                return false;
+            }
+        });
+
+    }
+
 }

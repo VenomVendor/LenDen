@@ -19,6 +19,7 @@ package vee.HexWhale.LenDen.bg.Threads;
 
 import android.app.AlarmManager;
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -30,7 +31,6 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
-import java.util.List;
 
 public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener
 {
@@ -39,6 +39,8 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
 
     protected LocationManager locationManager;
     Context mContext;
+    Criteria criteria;
+    private LocListner mLocListner;
 
     private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(1000 * 60 * 5) // 5 seconds
@@ -46,8 +48,9 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
             .setSmallestDisplacement(50)
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-    public LocationFinder(Context mContext) {
+    public LocationFinder(Context mContext , LocListner locListner) {
         this.mContext = mContext;
+        this.mLocListner = locListner;
         locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         setUpLocationClientIfNeeded();
         mLocationClient.connect();
@@ -82,26 +85,26 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
         // Iterate through all the providers on the system, keeping
         // note of the most accurate result within the acceptable time limit.
         // If no result is found within maxTime, return the newest Location.
-        final List<String> matchingProviders = locationManager.getAllProviders();
-        for (final String provider : matchingProviders) {
-            location = locationManager.getLastKnownLocation(provider);
-            if (location != null) {
-                final float accuracy = location.getAccuracy();
-                final long time = location.getTime();
+       // final List<String> matchingProviders = locationManager.getAllProviders();
 
-                if ((time > minTime && accuracy < bestAccuracy)) {
+        location = locationManager.getLastKnownLocation(getCriteria());
+        if (location != null) {
+            final float accuracy = location.getAccuracy();
+            final long time = location.getTime();
+
+            if ((time > minTime && accuracy < bestAccuracy)) {
+                bestResult = location;
+                bestAccuracy = accuracy;
+                bestTime = time;
+            }
+            else
+                if (time < minTime &&
+                        bestAccuracy == Float.MAX_VALUE && time > bestTime) {
                     bestResult = location;
-                    bestAccuracy = accuracy;
                     bestTime = time;
                 }
-                else
-                    if (time < minTime &&
-                            bestAccuracy == Float.MAX_VALUE && time > bestTime) {
-                        bestResult = location;
-                        bestTime = time;
-                    }
-            }
         }
+
 
         // If the best result is beyond the allowed time limit, or the accuracy
         // of the
@@ -112,18 +115,43 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
         // location updates every [minTime] and [minDistance].
         if ((bestTime < minTime || bestAccuracy > minDistance)) {
 
-            for (final String provider : matchingProviders) {
-                locationManager.requestLocationUpdates(provider, 0, 0, (android.location.LocationListener) mListener);
-            }
+            locationManager.requestLocationUpdates( getCriteria(), 0, 0, mListener);
         }
         return bestResult;
     }
 
-    LocationListener mListener = new LocationListener() {
+    private String getCriteria() {
+        this.criteria = new Criteria();
+        this.criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        this.criteria.setAltitudeRequired(false);
+        this.criteria.setBearingRequired(false);
+        this.criteria.setCostAllowed(true);
+        this.criteria.setPowerRequirement(Criteria.POWER_LOW);
+        this.criteria.setSpeedRequired(false);
+        return locationManager.getBestProvider(criteria, true);
+    }
+
+    android.location.LocationListener mListener = new android.location.LocationListener() {
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
 
         @Override
         public void onLocationChanged(Location location) {
             setLocation(location);
+
         }
     };
 
@@ -134,13 +162,14 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
 
     @Override
     public void onConnectionFailed(ConnectionResult result) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void onConnected(Bundle connectionHint) {
         mLocationClient.requestLocationUpdates(LocationFinder.REQUEST, this); // LocationListener
+        setLocation(getLastBestLocation(500, System.currentTimeMillis() - (AlarmManager.INTERVAL_FIFTEEN_MINUTES / 4)));
+        locationManager.requestLocationUpdates(getCriteria(), 0, 0, mListener);
     }
 
     @Override
@@ -152,14 +181,14 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
     {
         if (mLocationClient != null)
         {
-            mLocationClient.removeLocationUpdates(mListener);
+            locationManager.removeUpdates(mListener);
             mLocationClient.removeLocationUpdates(this);
         }
     }
 
     /**
      * <pre>
-     * 
+     *
      * // Add this method
      * &#064;Override
      * protected void onDestroy() {
@@ -173,12 +202,20 @@ public class LocationFinder implements ConnectionCallbacks, OnConnectionFailedLi
         if (location == null)
         {
             setLocation(getLastBestLocation(500, System.currentTimeMillis() - (AlarmManager.INTERVAL_FIFTEEN_MINUTES / 4)));
+
         }
         return location;
     }
 
     public synchronized void setLocation(Location location) {
+        mLocListner.gotLocation(location);
         this.location = location;
+    }
+
+
+    public interface LocListner
+    {
+        public void gotLocation(Location location);
     }
 
 }

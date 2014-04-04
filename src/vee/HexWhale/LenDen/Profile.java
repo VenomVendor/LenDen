@@ -19,6 +19,7 @@ package vee.HexWhale.LenDen;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -60,6 +61,7 @@ import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
 import vee.HexWhale.LenDen.bg.Threads.LocationFinder;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
+import vee.HexWhale.LenDen.bg.Threads.LocationFinder.LocListner;
 
 import java.io.File;
 import java.util.Locale;
@@ -79,6 +81,7 @@ public class Profile extends MenuBar {
     GetItemStats itemStats;
     GetProfileItems profileItems;
     LocationFinder myLocation;
+    private Location location;
     GlobalSharedPrefs mPrefs;
 
     @Override
@@ -88,7 +91,7 @@ public class Profile extends MenuBar {
         tag = TagGen.getTag(getClass());
         mPrefs = new GlobalSharedPrefs(this);
         initilizeImageCache();
-        myLocation = new LocationFinder(getApplicationContext());
+        myLocation = new LocationFinder(getApplicationContext(), mLocListner);
         mView = (TextView) findViewById(R.id.no_item);
         mListView = (ListView) findViewById(android.R.id.list);
         mDp = (ImageView) findViewById(R.id.profile_dp);
@@ -115,6 +118,20 @@ public class Profile extends MenuBar {
         }
         return;
     }
+
+    private LocListner mLocListner = new LocListner() {
+
+        @Override
+        public void gotLocation(Location loc) {
+            if (loc == null)
+            {
+                return;
+            }
+            location = loc;
+        }
+    };
+
+
 
     @Override
     protected void onDestroy() {
@@ -240,11 +257,15 @@ public class Profile extends MenuBar {
         {
             JSONObject mJsonObject = null;
             mJsonObject = new JSONObject();
-            ToastL((myLocation == null) ? "Unknown Latitude" : "" + myLocation.getLocation().getLatitude());
-            ToastL((myLocation == null) ? "Unknown Longitude" : "" + myLocation.getLocation().getLongitude());
+
+            location = (location == null) ? myLocation.getLocation() : location;
+
             try {
-                mJsonObject.put(STRING.LATITUDE, (myLocation == null) ? "00" : "" + myLocation.getLocation().getLatitude());
-                mJsonObject.put(STRING.LONGITUDE, (myLocation == null) ? "00" : "" + myLocation.getLocation().getLongitude());
+                ToastL((location == null) ? "Unknown Latitude, Longitude" : "Latitude" + location.getLatitude() + "\nLongitude" + location.getLongitude());
+
+                mJsonObject.put(STRING.LATITUDE, (location == null) ? "00" : "" + location.getLatitude());
+                mJsonObject.put(STRING.LONGITUDE, (location == null) ? "00" : "" + location.getLongitude());
+
                 mJsonObject.put(STRING.RANGE, "" + 10000);
                 System.out.println(mJsonObject.toString());
                 return mJsonObject.toString();

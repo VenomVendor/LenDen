@@ -18,6 +18,7 @@
 package vee.HexWhale.LenDen;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -59,6 +60,7 @@ import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
 import vee.HexWhale.LenDen.bg.Threads.LocationFinder;
+import vee.HexWhale.LenDen.bg.Threads.LocationFinder.LocListner;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
 
 import java.util.List;
@@ -85,7 +87,9 @@ public class Search extends FragmentActivity {
     List<Items> mItems;
     int type = -1;
     private String tag = "UNKNOWN";
-    LocationFinder myLocation;
+    private LocationFinder myLocation;
+    private Location location;
+    final float zoom = 11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +97,7 @@ public class Search extends FragmentActivity {
         tag = TagGen.getTag(this.getClass());
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.search);
-        myLocation = new LocationFinder(getApplicationContext());
+        myLocation = new LocationFinder(getApplicationContext(), mLocListner);
         mDataFromUrl = new GetDataFromUrl(this, mFetcherListener);
         ((TextView) findViewById(R.id.menu_center)).setText(("search").toUpperCase(Locale.UK));
         // ((ImageView)
@@ -133,6 +137,18 @@ public class Search extends FragmentActivity {
         mapFrame.setLayoutParams(mParams);
 
     }
+
+    private LocListner mLocListner = new LocListner() {
+
+        @Override
+        public void gotLocation(Location loc) {
+            if (loc == null)
+            {
+                return;
+            }
+            location = loc;
+        }
+    };
 
     @Override
     protected void onDestroy() {
@@ -235,15 +251,16 @@ public class Search extends FragmentActivity {
     private String getBody(int mType, String searchText) {
         JSONObject mJsonObject = null;
         mJsonObject = new JSONObject();
+        location = (location == null) ? myLocation.getLocation() : location;
+
         try {
             switch (mType) {
                 case TYPE.ITEMS:
 
-                    ToastL((myLocation == null) ? "Unknown Latitude" : "" + myLocation.getLocation().getLatitude());
-                    ToastL((myLocation == null) ? "Unknown Longitude" : "" + myLocation.getLocation().getLongitude());
+                    ToastL((location == null) ? "Unknown Latitude, Longitude" : "Latitude" + location.getLatitude() + "\nLongitude" + location.getLongitude());
 
-                    mJsonObject.put(STRING.LATITUDE, (myLocation == null) ? "00" : "" + myLocation.getLocation().getLatitude());
-                    mJsonObject.put(STRING.LONGITUDE, (myLocation == null) ? "00" : "" + myLocation.getLocation().getLongitude());
+                    mJsonObject.put(STRING.LATITUDE, (location == null) ? "00" : "" + location.getLatitude());
+                    mJsonObject.put(STRING.LONGITUDE, (location == null) ? "00" : "" + location.getLongitude());
                     mJsonObject.put(STRING.RANGE, "" + 10000);
                     mJsonObject.put(STRING.SEARCH, searchText);
                     break;
@@ -367,7 +384,6 @@ public class Search extends FragmentActivity {
         /*
          * Move Camera to Snippet Location
          */
-        final float zoom = 11;
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, zoom)); // toPosition,
         // ZoomLevel
 
