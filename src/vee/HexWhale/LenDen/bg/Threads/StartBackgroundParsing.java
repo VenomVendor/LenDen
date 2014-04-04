@@ -34,6 +34,7 @@ import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
 import vee.HexWhale.LenDen.Parsers.Login.FBRegLogin;
+import vee.HexWhale.LenDen.Parsers.MapItems.GetMapItems;
 import vee.HexWhale.LenDen.Parsers.Messages.CreateMessage;
 import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
 import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
@@ -263,6 +264,13 @@ public class StartBackgroundParsing extends AsyncTask<String, Integer, String> {
                     SettersNGetters.setAddItems(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetAddItems.class));
 
                     validateToken(SettersNGetters.getAddItems().getError_code());
+
+                    break;
+
+                case TYPE.MAP_ITEMS:
+                    SettersNGetters.setMapItems(StartBackgroundParsing.objectMapper.readValue(resultJsonString, GetMapItems.class));
+
+                    validateToken(SettersNGetters.getMapItems().getError_code());
 
                     break;
 

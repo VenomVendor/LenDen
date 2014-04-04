@@ -118,7 +118,7 @@ public final class Constants {
             public final static String MESSSAGES_USER = "messages/user/";
             public final static String MESSSAGES_CREATE = "messages/create/";
             public final static String PROFILE_ME = "users/me/";
-            public final static String PROFILE_ITEMS = URL.ITEMS;
+            public final static String PROFILE_ITEMS = "items/me/";
             public final static String PROFILE_ITEMS_STATS = "items/me/stats/";
             public final static String PROFILE_PIC = "users/me/photo/upload/";
             public final static String PROFILE_EDIT = "users/me/edit/";
@@ -129,7 +129,7 @@ public final class Constants {
             public final static String SUB_CATEGORIES = "categories/subcategories/";
             public final static String ITEMS_CREATE = "items/create/";
             public final static String ITEMS_CREATE_UPLOAD = "items/pictures/upload/";
-
+            public final static String MAP_ITEMS = URL.ITEMS;
 
         }
 
@@ -162,6 +162,7 @@ public final class Constants {
             public final static int FB_LOGIN = 26;
             public final static int SUB_CATEGORIES = 27;
             public final static int ITEMS_CREATE = 28;
+            public final static int MAP_ITEMS = 29;
         }
 
     }

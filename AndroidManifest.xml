@@ -83,7 +83,9 @@
         <activity android:name="vee.HexWhale.LenDen.Detailed" />
 
         <!-- Menu -->
-        <activity android:name="vee.HexWhale.LenDen.AddItems" />
+        <activity
+            android:name="vee.HexWhale.LenDen.AddItems"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="vee.HexWhale.LenDen.Search"
             android:windowSoftInputMode="stateHidden" />

@@ -19,7 +19,6 @@ package vee.HexWhale.LenDen;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -59,15 +58,14 @@ import vee.HexWhale.LenDen.aUI.Adapters.ProfileListAdapter;
 import vee.HexWhale.LenDen.bg.Threads.FetcherListener;
 import vee.HexWhale.LenDen.bg.Threads.GetData;
 import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
-import vee.HexWhale.LenDen.bg.Threads.LocationFinder;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
-import vee.HexWhale.LenDen.bg.Threads.LocationFinder.LocListner;
 
 import java.io.File;
 import java.util.Locale;
 
 public class Profile extends MenuBar {
 
+    private static final int page = 1;
     ListView mListView;
     GetDataFromUrl mDataFromUrl;
 
@@ -80,8 +78,6 @@ public class Profile extends MenuBar {
     GetProfile profile;
     GetItemStats itemStats;
     GetProfileItems profileItems;
-    LocationFinder myLocation;
-    private Location location;
     GlobalSharedPrefs mPrefs;
 
     @Override
@@ -91,7 +87,6 @@ public class Profile extends MenuBar {
         tag = TagGen.getTag(getClass());
         mPrefs = new GlobalSharedPrefs(this);
         initilizeImageCache();
-        myLocation = new LocationFinder(getApplicationContext(), mLocListner);
         mView = (TextView) findViewById(R.id.no_item);
         mListView = (ListView) findViewById(android.R.id.list);
         mDp = (ImageView) findViewById(R.id.profile_dp);
@@ -119,23 +114,8 @@ public class Profile extends MenuBar {
         return;
     }
 
-    private LocListner mLocListner = new LocListner() {
-
-        @Override
-        public void gotLocation(Location loc) {
-            if (loc == null)
-            {
-                return;
-            }
-            location = loc;
-        }
-    };
-
-
-
     @Override
     protected void onDestroy() {
-        myLocation.stopUpdates();
         super.onDestroy();
     }
 
@@ -257,16 +237,9 @@ public class Profile extends MenuBar {
         {
             JSONObject mJsonObject = null;
             mJsonObject = new JSONObject();
-
-            location = (location == null) ? myLocation.getLocation() : location;
-
             try {
-                ToastL((location == null) ? "Unknown Latitude, Longitude" : "Latitude" + location.getLatitude() + "\nLongitude" + location.getLongitude());
-
-                mJsonObject.put(STRING.LATITUDE, (location == null) ? "00" : "" + location.getLatitude());
-                mJsonObject.put(STRING.LONGITUDE, (location == null) ? "00" : "" + location.getLongitude());
-
-                mJsonObject.put(STRING.RANGE, "" + 10000);
+                mJsonObject.put(STRING.PAGE, "" + Profile.page);
+                mJsonObject.put(STRING.OFFSET, "" + 10);
                 System.out.println(mJsonObject.toString());
                 return mJsonObject.toString();
             }
@@ -328,26 +301,26 @@ public class Profile extends MenuBar {
         L.disableLogging();
         optionsDp =
                 new DisplayImageOptions.Builder()
-        .showImageForEmptyUri(R.drawable.signup_dp)
-        .showImageOnFail(R.drawable.signup_dp)
-        .resetViewBeforeLoading(false)
-        .cacheInMemory(true)
-        .cacheOnDisc(true)
-        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-        .bitmapConfig(Bitmap.Config.RGB_565)
-        .displayer(new RoundedBitmapDisplayer(10))
-        .displayer(new FadeInBitmapDisplayer(0))
-        .build();
+                        .showImageForEmptyUri(R.drawable.signup_dp)
+                        .showImageOnFail(R.drawable.signup_dp)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
 
         final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-        .defaultDisplayImageOptions(optionsDp)
-        .threadPriority(Thread.NORM_PRIORITY)
-        .threadPoolSize(3)
-        .denyCacheImageMultipleSizesInMemory()
-        .discCache(new UnlimitedDiscCache(cacheDir))
-        // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
-        .tasksProcessingOrder(QueueProcessingType.FIFO)
-        .build();
+                .defaultDisplayImageOptions(optionsDp)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
 
         ImageLoader.getInstance().init(config); // Do it on Application start
         imageLoader = ImageLoader.getInstance();

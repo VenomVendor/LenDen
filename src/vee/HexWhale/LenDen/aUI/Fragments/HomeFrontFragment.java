@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.SparseArrayCompat;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -32,24 +33,30 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import vee.HexWhale.LenDen.Home;
 import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Parsers.Categories.Response;
+import vee.HexWhale.LenDen.Parsers.MapItems.GetMapItems;
+import vee.HexWhale.LenDen.Parsers.MapItems.Items;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
+import vee.HexWhale.LenDen.Utils.Constants;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
 import vee.HexWhale.LenDen.Utils.Constants.API.URL;
@@ -60,6 +67,8 @@ import vee.HexWhale.LenDen.bg.Threads.GetDataFromUrl;
 import vee.HexWhale.LenDen.bg.Threads.LocationFinder;
 import vee.HexWhale.LenDen.bg.Threads.LocationFinder.LocListner;
 import vee.HexWhale.LenDen.bg.Threads.TagGen;
+
+import java.util.List;
 
 /**
  * A fragment representing the back of the card.
@@ -78,9 +87,15 @@ public class HomeFrontFragment extends Fragment {
     private static View view;
     LocationFinder myLocation;
     GetDataFromUrl mDataFromUrl;
-    private Location mLocation;
+    GetMapItems mapItems;
+    private Location location;
     private String tag = "UNKNOWN";
     float zoom = 11;
+    protected boolean noTouched = true;
+    Marker markerCurrentLocation;
+    SparseArrayCompat<Marker> tempRack = new SparseArrayCompat<Marker>();
+    List<Response> mResponse;
+    List<Items> list;
 
     public HomeFrontFragment() {
         setRetainInstance(true);
@@ -106,7 +121,7 @@ public class HomeFrontFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        super.onCreateView(inflater, container, savedInstanceState);
         if (savedInstanceState == null) {
             setRetainInstance(true);
         } else {
@@ -153,10 +168,10 @@ public class HomeFrontFragment extends Fragment {
             {
                 return;
             }
-            mLocation = loc;
-            LogR("===================== " + mLocation.getLatitude());
-            latitude = mLocation.getLatitude();
-            longitude = mLocation.getLongitude();
+            location = loc;
+            LogR("===================== " + location.getLatitude());
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
             latlon = new LatLng(latitude, longitude);
             setUpMapIfNeeded();
         }
@@ -183,6 +198,30 @@ public class HomeFrontFragment extends Fragment {
     }
 
     private String getBody(int tokenType) {
+
+        if (tokenType == TYPE.MAP_ITEMS)
+        {
+            JSONObject mJsonObject = null;
+            mJsonObject = new JSONObject();
+            location = (location == null) ? myLocation.getLocation() : location;
+
+            try {
+                ToastL((location == null) ? "Unknown Latitude, Longitude" : "Latitude" + location.getLatitude() + "\nLongitude"
+                        + location.getLongitude());
+
+                mJsonObject.put(STRING.LATITUDE, (location == null) ? "00" : "" + location.getLatitude());
+                mJsonObject.put(STRING.LONGITUDE, (location == null) ? "00" : "" + location.getLongitude());
+
+                mJsonObject.put(STRING.RANGE, "" + 10000);
+                System.out.println(mJsonObject.toString());
+                return mJsonObject.toString();
+            }
+            catch (final JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
         return null;
     }
 
@@ -196,7 +235,17 @@ public class HomeFrontFragment extends Fragment {
 
         @Override
         public void startedParsing(int type) {
-            // TODO Auto-generated method stub
+
+            switch (type) {
+                case TYPE.CATEGORIES:
+                    if (map == null)
+                    {
+                        return;
+                    }
+                    mDataFromUrl.setAccessToken();
+                    mDataFromUrl.GetString(TYPE.MAP_ITEMS, getBody(TYPE.MAP_ITEMS), GetData.getUrl(URL.MAP_ITEMS));
+                    break;
+            }
 
         }
 
@@ -215,34 +264,64 @@ public class HomeFrontFragment extends Fragment {
                     LogR("RESEND REQUEST HERE");
                     sendRequest();
                     return;
-            }
-            /*************** COMMON ***************/
 
-            if (SettersNGetters.getCategory().getStatus().equalsIgnoreCase(STRING.SUCCESS))
-            {
+                    /*************** COMMON ***************/
 
-                final HomeGridAdapter adapter = new HomeGridAdapter(sActivity, SettersNGetters.getCategory().getResponse());
-                final SwingBottomInAnimationAdapter mScaleInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter, 110, 400);
-                mScaleInAnimationAdapter.setAbsListView(mGridView);
-                mGridView.setAdapter(mScaleInAnimationAdapter);
-                mGridView.setOnItemClickListener(new OnItemClickListener() {
+                case TYPE.CATEGORIES:
 
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View parent, int position, long id) {
+                    if (SettersNGetters.getCategory().getStatus().equalsIgnoreCase(STRING.SUCCESS))
+                    {
 
-                        ToastL("" + position);
-                        // final Intent i = new Intent(getActivity(),
-                        // Preview.class);
-                        // startActivity(i);
-                        // AnimNext();
+                        mResponse = SettersNGetters.getCategory().getResponse();
+                        final HomeGridAdapter adapter = new HomeGridAdapter(sActivity, mResponse);
+                        final SwingBottomInAnimationAdapter mScaleInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter, 110, 400);
+                        mScaleInAnimationAdapter.setAbsListView(mGridView);
+                        mGridView.setAdapter(mScaleInAnimationAdapter);
+                        mGridView.setOnItemClickListener(new OnItemClickListener() {
 
+                            @Override
+                            public void onItemClick(AdapterView<?> adapter, View parent, int position, long id) {
+
+                                updateMap(mResponse.get(position).getCategory_id());
+                                ToastL("" + position);
+                                // final Intent i = new Intent(getActivity(),
+                                // Preview.class);
+                                // startActivity(i);
+                                // AnimNext();
+
+                            }
+
+                        });
+                    }
+                    else {
+                        ToastL("{ Error }");
                     }
 
-                });
+                case TYPE.MAP_ITEMS:
+
+                    mapItems = SettersNGetters.getMapItems();
+
+                    if (mapItems == null)
+                    {
+                        ToastL("{ Unknown Error }");
+                        return;
+                    }
+
+                    if (mapItems.getStatus().equalsIgnoreCase(STRING.SUCCESS))
+                    {
+                        list = mapItems.getResponse().getItems();
+                        addMarker();
+
+                       // ///////////////////////ccccc
+
+                    }
+                    else {
+                        ToastL("{ Error }");
+                    }
+
+                    return;
             }
-            else {
-                ToastL("{ Error }");
-            }
+
         }
 
         @Override
@@ -252,13 +331,11 @@ public class HomeFrontFragment extends Fragment {
 
         @Override
         public void errorFetching(int type, VolleyError error) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void beforeParsing(int type) {
-            // TODO Auto-generated method stub
 
         }
 
@@ -271,6 +348,47 @@ public class HomeFrontFragment extends Fragment {
     protected void AnimNext() {
         getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
         return;
+    }
+
+    protected void updateMap(String category_id) {
+
+
+        if (map == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            final Marker tempMarker = tempRack.get(i);
+            if (category_id.equalsIgnoreCase(list.get(i).getCategory_id()))
+            {
+                tempMarker.setVisible(true);
+
+            } else {
+                tempMarker.setVisible(false);
+            }
+        }
+    }
+
+    protected void addMarker() {
+
+        if (map == null)
+        {
+            return;
+        }
+        map.clear();
+        setCurrentLocation();
+
+        for (int i = 0; i < list.size(); i++) {
+            Marker mTemp = map.addMarker(new MarkerOptions()
+                    .position(new LatLng(list.get(i).getLocation_latitude(), list.get(i).getLocation_longitude())).title(list.get(i).getTitle())
+                    .snippet(list.get(i).getDescription())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                    );
+            tempRack.put(i, mTemp);
+
+        }
+
     }
 
     private boolean isGooglePlay() {
@@ -290,14 +408,16 @@ public class HomeFrontFragment extends Fragment {
      * @param RED
      */
     private void LogR(String msg) {
-        Log.wtf(tag, msg);
+        if (Constants.enableLog) {
+            Log.wtf(tag, msg);
+        }
     }
 
     /**
      * @param text
      */
     private void ToastL(String text) {
-        Toast.makeText(sActivity, text, Toast.LENGTH_LONG).show();
+        // Toast.makeText(sActivity, text, Toast.LENGTH_LONG).show();
     }
 
     /*******************************************************************/
@@ -317,24 +437,23 @@ public class HomeFrontFragment extends Fragment {
     }
 
     private void setUpMap() {
-
-        ToastL("latlon" + latlon.latitude + ", " + latlon.longitude);
-        // do things to the map
-        map.addMarker(new MarkerOptions().position(latlon).title("xxx").snippet("I am a looooooooooooooong Snippet"));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, zoom));
-        // map.getUiSettings().setZoomControlsEnabled(false);
-
+        setCurrentLocation();
+        if (noTouched)
+        {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, zoom));
+        }
         map.setOnMapClickListener(new OnMapClickListener() {
 
             @Override
             public void onMapClick(LatLng touchedLatLon) {
 
+                noTouched = false;
+
                 System.out.println("LatLon : " + touchedLatLon);
 
                 if (mTextView.getVisibility() == View.VISIBLE) {
                     mTextView.setVisibility(View.GONE);
-                    final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-                            0, 5f);
+                    final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 5f);
                     mapFrame.setLayoutParams(mParams);
                     ((Home) sActivity).HideTop();
                 }
@@ -358,6 +477,14 @@ public class HomeFrontFragment extends Fragment {
             }
         });
 
+    }
+
+    private void setCurrentLocation() {
+        if (markerCurrentLocation != null)
+        {
+            markerCurrentLocation.remove();
+        }
+        markerCurrentLocation = map.addMarker(new MarkerOptions().position(latlon).title("My Location"));
     }
 
 }

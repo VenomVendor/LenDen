@@ -42,6 +42,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
 
@@ -70,7 +71,7 @@ public class Search extends FragmentActivity {
     GoogleMap map = null;
     double latitude = 12.971689;
     double longitude = 77.594504;
-
+    Marker markerCurrentLocation;
     LatLng latlon = null;
     public static boolean googlePlayOn = false;
     public static boolean isSearchDone = false;
@@ -142,11 +143,17 @@ public class Search extends FragmentActivity {
 
         @Override
         public void gotLocation(Location loc) {
+
             if (loc == null)
             {
                 return;
             }
             location = loc;
+            LogR("===================== " + location.getLatitude());
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+            latlon = new LatLng(latitude, longitude);
+            setUpMapIfNeeded();
         }
     };
 
@@ -248,6 +255,7 @@ public class Search extends FragmentActivity {
         mDataFromUrl.GetString(TYPE.ITEMS, getBody(TYPE.ITEMS, searchText), GetData.getUrl(URL.ITEMS));
     }
 
+
     private String getBody(int mType, String searchText) {
         JSONObject mJsonObject = null;
         mJsonObject = new JSONObject();
@@ -276,6 +284,15 @@ public class Search extends FragmentActivity {
         }
         return null;
     }
+
+    private void setCurrentLocation() {
+        if (markerCurrentLocation != null)
+        {
+            markerCurrentLocation.remove();
+        }
+        markerCurrentLocation = map.addMarker(new MarkerOptions().position(latlon).title("My Location"));
+    }
+
 
     @SuppressWarnings("unused")
     private String getBody(final int mType) {
@@ -361,20 +378,8 @@ public class Search extends FragmentActivity {
     }
 
     private void setUpMap() {
-        /*
-         * Add a Marker Adding marker at 12.971689,77.594504;
-         */
-        // map.getUiSettings().setZoomControlsEnabled(false);
-        map.addMarker(new MarkerOptions().position(latlon)
+        setCurrentLocation();
 
-                /*
-                 * Add Title when clicked on marker
-                 */
-                .title("Title")
-                /*
-                 * Add Snippet when clicked on marker
-                 */
-                .snippet("I am a looooooooooooooong Snippet"));
 
         /*
          * NormalMapView

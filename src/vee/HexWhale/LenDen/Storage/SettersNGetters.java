@@ -26,6 +26,7 @@ import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
 import vee.HexWhale.LenDen.Parsers.ItemStats.GetItemStats;
 import vee.HexWhale.LenDen.Parsers.Login.FBRegLogin;
+import vee.HexWhale.LenDen.Parsers.MapItems.GetMapItems;
 import vee.HexWhale.LenDen.Parsers.Messages.CreateMessage;
 import vee.HexWhale.LenDen.Parsers.Messages.GetMessages;
 import vee.HexWhale.LenDen.Parsers.MessagesFull.GetMessagesFull;
@@ -60,6 +61,11 @@ public class SettersNGetters {
     private static FBRegLogin fbRegLogin;
     private static GetSubCategory subCategory;
     private static GetAddItems addItems;
+    private static GetMapItems mapItems;
+
+
+
+
     public static GetAuthCode getAuthCode() {
         return SettersNGetters.authCode;
     }
@@ -226,6 +232,14 @@ public class SettersNGetters {
 
     public static void setAddItems(GetAddItems addItems) {
         SettersNGetters.addItems = addItems;
+    }
+
+    public static GetMapItems getMapItems() {
+        return mapItems;
+    }
+
+    public static void setMapItems(GetMapItems mapItems) {
+        SettersNGetters.mapItems = mapItems;
     }
 
 }
