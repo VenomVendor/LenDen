@@ -18,6 +18,7 @@
 package vee.HexWhale.LenDen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -26,6 +27,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -49,8 +52,8 @@ import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnima
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import vee.HexWhale.LenDen.Parsers.Common.Items;
 import vee.HexWhale.LenDen.Parsers.SearchCategory.GetSearchCategory;
-import vee.HexWhale.LenDen.Parsers.SearchCategory.Items;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.Utils.Constants.API.TYPE;
@@ -432,6 +435,20 @@ public class Search extends FragmentActivity {
         searchFrame.setVisibility(View.VISIBLE);
         final LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0, 2f);
         mapFrame.setLayoutParams(mParams);
+
+        mListView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final Intent mIntent = new Intent(getApplicationContext(), Detailed.class);
+                ToastL(""+position);
+
+                mIntent.putExtra(STRING.POSITION, position);
+                mIntent.putExtra(STRING.FROM, STRING.SEARCH);
+                startActivity(mIntent);
+                AnimNext();
+            }
+        });
     }
 
     protected void disableList() {

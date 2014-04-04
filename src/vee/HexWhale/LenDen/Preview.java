@@ -157,7 +157,7 @@ public class Preview extends MenuBar {
                             final Intent mIntent = new Intent(getApplicationContext(), Detailed.class);
 
                             mIntent.putExtra(STRING.POSITION, position);
-
+                            mIntent.putExtra(STRING.FROM, STRING.PREVIEW);
                             startActivity(mIntent);
                             AnimNext();
                         }
@@ -180,19 +180,16 @@ public class Preview extends MenuBar {
 
         @Override
         public void errorFetching(int type, VolleyError error) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void beforeParsing(int type) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void ParsingException(Exception e) {
-            // TODO Auto-generated method stub
 
         }
     };

@@ -146,7 +146,7 @@ public class Favorites extends MenuBar {
                             final Intent mIntent = new Intent(getApplicationContext(), Detailed.class);
 
                             mIntent.putExtra(STRING.POSITION, position);
-
+                            mIntent.putExtra(STRING.FROM, STRING.FAVOURITES);
                             startActivity(mIntent);
                             AnimNext();
                         }

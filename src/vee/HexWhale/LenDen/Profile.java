@@ -18,15 +18,18 @@
 package vee.HexWhale.LenDen;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.VolleyError;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingRightInAnimationAdapter;
@@ -129,8 +132,6 @@ public class Profile extends MenuBar {
 
         @Override
         public void startedParsing(int type) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
@@ -200,6 +201,17 @@ public class Profile extends MenuBar {
                     final SwingRightInAnimationAdapter mScaleInAnimationAdapter = new SwingRightInAnimationAdapter(adapter, 40, 400);
                     mScaleInAnimationAdapter.setAbsListView(mListView);
                     mListView.setAdapter(mScaleInAnimationAdapter);
+                    mListView.setOnItemClickListener(new OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            final Intent mIntent = new Intent(getApplicationContext(), Detailed.class);
+                            mIntent.putExtra(STRING.POSITION, position);
+                            mIntent.putExtra(STRING.FROM, STRING.PROFILE);
+                            startActivity(mIntent);
+                            AnimNext();
+                        }
+                    });
                     break;
 
             }
@@ -214,20 +226,14 @@ public class Profile extends MenuBar {
 
         @Override
         public void errorFetching(int type, VolleyError error) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void beforeParsing(int type) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void ParsingException(Exception e) {
-            // TODO Auto-generated method stub
-
         }
     };
 

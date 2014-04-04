@@ -17,6 +17,8 @@
 
 package vee.HexWhale.LenDen.Parsers.SearchCategory;
 
+import vee.HexWhale.LenDen.Parsers.Common.Items;
+
 import java.util.List;
 
 public class Response {

@@ -52,6 +52,12 @@ public final class Constants {
             public final static String EMAIL = "email";
             public final static String ERROR = "Error : ";
             public final static String FAILED = "failed";
+            public final static String FROM = "FROM";
+            public final static String FAVOURITES = "FAVOURITES";
+            public final static String PROFILE = "PROFILE";
+
+
+
             public final static String FB_GENDER = "gender";
             public final static String FB_ID = "fb_id";
             public final static String FB_TOKEN = "fb_token";

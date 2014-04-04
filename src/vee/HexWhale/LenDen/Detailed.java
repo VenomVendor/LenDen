@@ -47,9 +47,9 @@ import com.nostra13.universalimageloader.utils.L;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import vee.HexWhale.LenDen.Parsers.Common.Items;
 import vee.HexWhale.LenDen.Parsers.DetailedCategory.GetDetailedCategory;
 import vee.HexWhale.LenDen.Parsers.ItemCategory.GetItemCategory;
-import vee.HexWhale.LenDen.Parsers.ItemCategory.Items;
 import vee.HexWhale.LenDen.Storage.SettersNGetters;
 import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
@@ -119,19 +119,46 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
             mPosi = mIntent.getIntExtra(STRING.POSITION, 0);
         }
 
-        mItemCategory = SettersNGetters.getItemCategory();
+        try {
+            mItems = null;
+            final String from = mIntent.getStringExtra(STRING.FROM);
+            if (from.equals(STRING.PROFILE))
+            {
+                mItems = SettersNGetters.getProfileItems().getResponse().getItems().get(mPosi);
+            }
 
-        if (mItemCategory == null)
-        {
-            ToastL("Unknown Error");
-            finish();
-            return;
+            if (from.equals(STRING.PREVIEW))
+            {
+                mItems = SettersNGetters.getItemCategory().getResponse().getItems().get(mPosi);
+            }
+
+            if (from.equals(STRING.SEARCH))
+            {
+                mItems = SettersNGetters.getSearchCategory().getResponse().getItems().get(mPosi);
+            }
+
+            if (from.equals(STRING.FAVOURITES))
+            {
+                mItems = SettersNGetters.getFavCategory().getResponse().getItems().get(mPosi);
+            }
+        }
+        catch (Exception e) {
+            mItems = null;
+            e.printStackTrace();
 
         }
+        finally {
 
-        mItems = mItemCategory.getResponse().getItems().get(mPosi);
+            if (mItems == null)
+            {
+                ToastL("Unknown Error");
+                finish();
+                return;
+            }
 
+        }
         sItemId = mItems.getItem_id();
+
         final CirclePageIndicator mCirclePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         mPager.setAdapter(new DetailedPager(this, sItemId));
         mCirclePageIndicator.setViewPager(mPager);
@@ -216,14 +243,10 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
 
         @Override
         public void beforeParsing(int type) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void startedParsing(int type) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
@@ -233,9 +256,7 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
 
         @Override
         public void finishedParsing(int typ) {
-            // if (typ == TYPE.) {
 
-            // XXX TODO STart here
             mDetailedCategory = SettersNGetters.getDetailedCategory();
             if (mDetailedCategory == null)
             {
@@ -349,26 +370,26 @@ public class Detailed extends FragmentActivity implements WebViewSizeChanged {
 
         optionsDp =
                 new DisplayImageOptions.Builder()
-        .showImageForEmptyUri(R.drawable.signup_dp)
-        .showImageOnFail(R.drawable.signup_dp)
-        .resetViewBeforeLoading(false)
-        .cacheInMemory(true)
-        .cacheOnDisc(true)
-        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-        .bitmapConfig(Bitmap.Config.RGB_565)
-        .displayer(new RoundedBitmapDisplayer(10))
-        .displayer(new FadeInBitmapDisplayer(0))
-        .build();
+                        .showImageForEmptyUri(R.drawable.signup_dp)
+                        .showImageOnFail(R.drawable.signup_dp)
+                        .resetViewBeforeLoading(false)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true)
+                        .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                        .bitmapConfig(Bitmap.Config.RGB_565)
+                        .displayer(new RoundedBitmapDisplayer(10))
+                        .displayer(new FadeInBitmapDisplayer(0))
+                        .build();
 
         final ImageLoaderConfiguration configDP = new ImageLoaderConfiguration.Builder(getApplicationContext())
-        .defaultDisplayImageOptions(optionsDp)
-        .threadPriority(Thread.NORM_PRIORITY)
-        .threadPoolSize(3)
-        .denyCacheImageMultipleSizesInMemory()
-        .discCache(new UnlimitedDiscCache(cacheDir))
-        // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
-        .tasksProcessingOrder(QueueProcessingType.FIFO)
-        .build();
+                .defaultDisplayImageOptions(optionsDp)
+                .threadPriority(Thread.NORM_PRIORITY)
+                .threadPoolSize(3)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCache(new UnlimitedDiscCache(cacheDir))
+                // .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .build();
 
         ImageLoader.getInstance().init(configDP); // Do it on Application start
         imageLoader = ImageLoader.getInstance();

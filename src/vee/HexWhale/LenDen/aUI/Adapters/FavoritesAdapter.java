@@ -39,8 +39,8 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.L;
 
 import vee.HexWhale.LenDen.R;
+import vee.HexWhale.LenDen.Parsers.Common.Items;
 import vee.HexWhale.LenDen.Parsers.FavCategory.GetFavCategory;
-import vee.HexWhale.LenDen.Parsers.FavCategory.Items;
 import vee.HexWhale.LenDen.Utils.Constants.API.IMAGEURL;
 import vee.HexWhale.LenDen.Utils.Constants.API.STRING;
 import vee.HexWhale.LenDen.bg.Threads.GetData;

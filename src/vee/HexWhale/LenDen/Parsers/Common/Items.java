@@ -15,7 +15,7 @@
 
  **/
 
-package vee.HexWhale.LenDen.Parsers.ItemCategory;
+package vee.HexWhale.LenDen.Parsers.Common;
 
 public class Items {
     private String category_name;
