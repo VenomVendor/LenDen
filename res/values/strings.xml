@@ -15,5 +15,7 @@
     <string name="new_user">New User Sign Up?</string>
     <string name="map_key">AIzaSyCa7IDId79mX5wO_FYy2rT80CR4kCUxFmQ</string>
     <string name="f_applicationId">409005055784537</string>
+    <string name="font_myrid_pro">MyriadPro-Regular.otf</string>
+    <string name="no_items_favourited">No Items Favourited</string>
 
 </resources>

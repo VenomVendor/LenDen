@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:vee="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +15,7 @@
         android:layout_marginTop="1dp"
         android:padding="10dp" >
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/me_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +27,8 @@
             android:text="Lorem ipsum dolorin ultrices. \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper purus et vehicula ornare.\nMorbi vestibulum quis orci in ultrices. "
             android:textColor="@color/black"
             android:textIsSelectable="true"
-            android:textSize="@dimen/search_list_title" />
+            android:textSize="@dimen/search_list_title"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
         <vee.HexWhale.LenDen.aUI.SquareImageView
             android:id="@+id/me_dp"
@@ -38,23 +40,25 @@
             android:maxHeight="60dp"
             android:src="@drawable/camera" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/me_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/me_msg"
-            android:text="Dennis Ritchie" />
+            android:text="Dennis Ritchie"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/me_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/me_name"
             android:layout_centerHorizontal="true"
-            android:text="TextView"
+            android:text="vee.HexWhale.LenDen.aUI.CustomFontTextView"
             android:textColor="@color/msg_msg"
-            android:textSize="@dimen/msg_time" />
+            android:textSize="@dimen/msg_time"
+            vee:veeTypeface="@string/font_myrid_pro" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -64,7 +68,7 @@
         android:layout_marginTop="1dp"
         android:padding="10dp" >
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/rec_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +80,8 @@
             android:text="ok"
             android:textColor="@color/white"
             android:textIsSelectable="true"
-            android:textSize="@dimen/search_list_title" />
+            android:textSize="@dimen/search_list_title"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
         <vee.HexWhale.LenDen.aUI.SquareImageView
             android:id="@+id/rec_dp"
@@ -88,23 +93,25 @@
             android:maxHeight="60dp"
             android:src="@drawable/camera" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/rec_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/rec_msg"
-            android:text="VenomVendor" />
+            android:text="VenomVendor"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/rec_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rec_name"
             android:layout_centerHorizontal="true"
-            android:text="TextView"
+            android:text="vee.HexWhale.LenDen.aUI.CustomFontTextView"
             android:textColor="@color/msg_msg"
-            android:textSize="@dimen/msg_time" />
+            android:textSize="@dimen/msg_time"
+            vee:veeTypeface="@string/font_myrid_pro" />
     </RelativeLayout>
 
 </LinearLayout>

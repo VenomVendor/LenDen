@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:vee="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DBD2D2"
@@ -13,7 +14,7 @@
         android:id="@+id/dummy_id"
         layout="@layout/bar_top_nav" />
 
-    <EditText
+    <vee.HexWhale.LenDen.aUI.CustomFontEditText
         android:id="@+id/search_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +24,8 @@
         android:imeOptions="actionSearch"
         android:minHeight="48dp"
         android:padding="5dp"
-        android:singleLine="true" />
+        android:singleLine="true"
+        vee:veeTypeface="@string/font_myrid_pro" />
 
     <FrameLayout
         android:id="@+id/mapFrame"
@@ -59,7 +61,7 @@
             android:padding="2dp"
             android:singleLine="true" >
 
-            <TextView
+            <vee.HexWhale.LenDen.aUI.CustomFontTextView
                 android:id="@+id/search_sales_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,9 +70,10 @@
                 android:text="5"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/search_txt_big" />
+                android:textSize="@dimen/search_txt_big"
+                vee:veeTypeface="@string/font_myrid_pro" />
 
-            <TextView
+            <vee.HexWhale.LenDen.aUI.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/search_sales_num"
@@ -79,7 +82,8 @@
                 android:text="sales"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/search_txt" />
+                android:textSize="@dimen/search_txt"
+                vee:veeTypeface="@string/font_myrid_pro" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -90,7 +94,7 @@
             android:background="@drawable/search_sales_exch_bg"
             android:padding="2dp" >
 
-            <TextView
+            <vee.HexWhale.LenDen.aUI.CustomFontTextView
                 android:id="@+id/search_exch_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,9 +103,10 @@
                 android:text="3"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/search_txt_big" />
+                android:textSize="@dimen/search_txt_big"
+                vee:veeTypeface="@string/font_myrid_pro" />
 
-            <TextView
+            <vee.HexWhale.LenDen.aUI.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/search_exch_num"
@@ -110,7 +115,8 @@
                 android:text="exchanges"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/search_txt" />
+                android:textSize="@dimen/search_txt"
+                vee:veeTypeface="@string/font_myrid_pro" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -121,7 +127,7 @@
             android:background="@drawable/search_sales_both_bg"
             android:padding="2dp" >
 
-            <TextView
+            <vee.HexWhale.LenDen.aUI.CustomFontTextView
                 android:id="@+id/search_exch_both"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -130,9 +136,10 @@
                 android:text="2"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/search_txt_big" />
+                android:textSize="@dimen/search_txt_big"
+                vee:veeTypeface="@string/font_myrid_pro" />
 
-            <TextView
+            <vee.HexWhale.LenDen.aUI.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/search_exch_both"
@@ -141,7 +148,8 @@
                 android:text="both"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/search_txt" />
+                android:textSize="@dimen/search_txt"
+                vee:veeTypeface="@string/font_myrid_pro" />
         </RelativeLayout>
     </LinearLayout>
 

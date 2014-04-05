@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:vee="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +26,7 @@
             android:maxHeight="60dp"
             android:src="@drawable/camera" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/rec_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,9 +34,10 @@
             android:layout_toRightOf="@+id/rec_dp"
             android:singleLine="true"
             android:text="VenomVendor"
-            android:textSize="@dimen/search_list_title" />
+            android:textSize="@dimen/search_list_title"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/rec_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,11 +45,12 @@
             android:layout_marginTop="4dp"
             android:layout_toRightOf="@+id/rec_dp"
             android:singleLine="true"
-            android:text="TextView"
+            android:text="vee.HexWhale.LenDen.aUI.CustomFontTextView"
             android:textColor="@color/list_txt"
-            android:textSize="@dimen/search_list_extras" />
+            android:textSize="@dimen/search_list_extras"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/rec_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,9 +61,10 @@
             android:singleLine="true"
             android:text="Intel x86 chip"
             android:textColor="@color/menu_bg"
-            android:textSize="@dimen/search_list_title" />
+            android:textSize="@dimen/search_list_title"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/rec_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,14 +74,15 @@
             android:gravity="left"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper purus et vehicula ornare.\nMorbi vestibulum quis orci in ultrices. "
             android:textColor="@color/msg_msg"
-            android:textSize="@dimen/search_list_type" />
+            android:textSize="@dimen/search_list_type"
+            vee:veeTypeface="@string/font_myrid_pro" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="1dp"
         android:id="@+id/msg_me_lyt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:background="#EDFFFA"
         android:padding="10dp" >
 
@@ -90,7 +95,7 @@
             android:adjustViewBounds="true"
             android:src="@drawable/camera" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/me_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,9 +103,10 @@
             android:layout_toLeftOf="@+id/me_dp"
             android:singleLine="true"
             android:text="Me"
-            android:textSize="@dimen/search_list_title" />
+            android:textSize="@dimen/search_list_title"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/me_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,11 +114,12 @@
             android:layout_marginTop="4dp"
             android:layout_toLeftOf="@+id/me_dp"
             android:singleLine="true"
-            android:text="TextView"
+            android:text="vee.HexWhale.LenDen.aUI.CustomFontTextView"
             android:textColor="@color/list_txt"
-            android:textSize="@dimen/search_list_extras" />
+            android:textSize="@dimen/search_list_extras"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/me_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,7 +129,8 @@
             android:gravity="left"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper purus et vehicula ornare.\nMorbi vestibulum quis orci in ultrices. "
             android:textColor="@color/msg_msg"
-            android:textSize="@dimen/search_list_type" />
+            android:textSize="@dimen/search_list_type"
+            vee:veeTypeface="@string/font_myrid_pro" />
     </RelativeLayout>
 
 </LinearLayout>

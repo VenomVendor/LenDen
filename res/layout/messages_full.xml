@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:vee="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
+    <vee.HexWhale.LenDen.aUI.CustomFontTextView
         android:id="@+id/no_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +14,8 @@
         android:text="No Messages"
         android:textColor="#F00"
         android:textSize="23sp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        vee:veeTypeface="@string/font_myrid_pro" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,19 +40,20 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" >
 
-            <EditText
+            <vee.HexWhale.LenDen.aUI.CustomFontEditText
                 android:id="@+id/send_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/send_btn"
+                android:hint="New message"
                 android:maxHeight="150dp"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 android:scrollbarStyle="outsideOverlay"
                 android:scrollbars="vertical"
-                android:hint="New message" />
+                vee:veeTypeface="@string/font_myrid_pro" />
 
             <Button
                 android:id="@+id/send_btn"

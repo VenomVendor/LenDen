@@ -2,10 +2,14 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Holo.NoActionBar">
-    </style>
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.NoActionBar"></style>
+
+    <declare-styleable name="CustomFontTextView">
+        <attr name="veeTypeface" format="string" />
+    </declare-styleable>
+
+
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">

@@ -11,7 +11,6 @@
     tools:ignore="ContentDescription" >
 
     <ImageView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -84,8 +83,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="LoginSignupFB"
         android:layout_marginBottom="50dp"
+        android:onClick="LoginSignupFB"
         android:src="@drawable/btn_fb" />
 
 </RelativeLayout>

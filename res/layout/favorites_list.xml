@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:vee="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFF"
     android:orientation="vertical"
-    android:paddingRight="2dp" >
+    android:paddingRight="2dp"
+    tools:ignore="ContentDescription" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +26,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/camera" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/preview_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,8 +34,8 @@
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/preview_dp"
             android:gravity="center|left"
-            android:text="VenomVendor"
-            android:textColor="@color/list_txt" />
+            android:textColor="@color/list_txt"
+            vee:veeTypeface="@string/font_myrid_pro" />
     </RelativeLayout>
 
     <View

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:vee="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
         android:minHeight="100dp"
         android:padding="5dp" >
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/msg_list_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,9 +46,10 @@
             android:singleLine="true"
             android:text="VenomVendor"
             android:textColor="@color/white"
-            android:textSize="@dimen/login_txt" />
+            android:textSize="@dimen/login_txt"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/msg_list_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,9 +61,10 @@
             android:singleLine="true"
             android:text="Intel Mother Board"
             android:textColor="@color/white"
-            android:textSize="@dimen/login_txt" />
+            android:textSize="@dimen/login_txt"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/msg_list_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,9 +74,10 @@
             android:layout_marginTop="10dp"
             android:text="kkkkkk"
             android:textColor="@color/white"
-            android:textSize="@dimen/login_txt" />
+            android:textSize="@dimen/login_txt"
+            vee:veeTypeface="@string/font_myrid_pro" />
 
-        <TextView
+        <vee.HexWhale.LenDen.aUI.CustomFontTextView
             android:id="@+id/msg_list_time"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -86,10 +90,11 @@
             android:singleLine="true"
             android:text="Just now"
             android:textColor="@color/white"
-            android:textSize="@dimen/msg_time" />
+            android:textSize="@dimen/msg_time"
+            vee:veeTypeface="@string/font_myrid_pro" />
     </RelativeLayout>
 
-    <TextView
+    <vee.HexWhale.LenDen.aUI.CustomFontTextView
         android:id="@+id/msg_list_unread"
         android:layout_width="18dp"
         android:layout_height="18dp"
@@ -103,6 +108,7 @@
         android:singleLine="true"
         android:text="100"
         android:textColor="@color/white"
-        android:textSize="8sp" />
+        android:textSize="8sp"
+        vee:veeTypeface="@string/font_myrid_pro" />
 
 </RelativeLayout>

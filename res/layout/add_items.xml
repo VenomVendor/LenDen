@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:vee="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
@@ -96,13 +97,14 @@
                 android:orientation="vertical"
                 android:padding="10dp" >
 
-                <TextView
+                <vee.HexWhale.LenDen.aUI.CustomFontTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="I am Interested in"
                     android:textColor="@color/black"
-                    android:textSize="23sp" />
+                    android:textSize="23sp"
+                    vee:veeTypeface="@string/font_myrid_pro" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -110,7 +112,7 @@
                     android:layout_marginTop="5dp"
                     android:weightSum="3" >
 
-                    <TextView
+                    <vee.HexWhale.LenDen.aUI.CustomFontTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -122,9 +124,10 @@
                         android:singleLine="true"
                         android:text="SALES"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/add_item_tiny_menu" />
+                        android:textSize="@dimen/add_item_tiny_menu"
+                        vee:veeTypeface="@string/font_myrid_pro" />
 
-                    <TextView
+                    <vee.HexWhale.LenDen.aUI.CustomFontTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -137,9 +140,10 @@
                         android:singleLine="true"
                         android:text="EXCHANGE"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/add_item_tiny_menu" />
+                        android:textSize="@dimen/add_item_tiny_menu"
+                        vee:veeTypeface="@string/font_myrid_pro" />
 
-                    <TextView
+                    <vee.HexWhale.LenDen.aUI.CustomFontTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -151,7 +155,8 @@
                         android:singleLine="true"
                         android:text="BOTH"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/add_item_tiny_menu" />
+                        android:textSize="@dimen/add_item_tiny_menu"
+                        vee:veeTypeface="@string/font_myrid_pro" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -192,7 +197,7 @@
                         android:visibility="invisible" />
                 </LinearLayout>
 
-                <EditText
+                <vee.HexWhale.LenDen.aUI.CustomFontEditText
                     android:id="@+id/add_item_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -202,7 +207,8 @@
                     android:minHeight="48dp"
                     android:padding="10dp"
                     android:singleLine="true"
-                    android:textColor="#9E9E9E" />
+                    android:textColor="#9E9E9E"
+                    vee:veeTypeface="@string/font_myrid_pro" />
 
                 <Spinner
                     android:id="@+id/add_item_cate"
@@ -224,7 +230,7 @@
                     android:minHeight="48dp"
                     android:textColor="#9E9E9E" />
 
-                <EditText
+                <vee.HexWhale.LenDen.aUI.CustomFontEditText
                     android:id="@+id/add_item_price_org"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -235,9 +241,10 @@
                     android:minHeight="48dp"
                     android:padding="10dp"
                     android:singleLine="true"
-                    android:textColor="#9E9E9E" />
+                    android:textColor="#9E9E9E"
+                    vee:veeTypeface="@string/font_myrid_pro" />
 
-                <EditText
+                <vee.HexWhale.LenDen.aUI.CustomFontEditText
                     android:id="@+id/add_item_price_sellg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -248,9 +255,10 @@
                     android:minHeight="48dp"
                     android:padding="10dp"
                     android:singleLine="true"
-                    android:textColor="#9E9E9E" />
+                    android:textColor="#9E9E9E"
+                    vee:veeTypeface="@string/font_myrid_pro" />
 
-                <EditText
+                <vee.HexWhale.LenDen.aUI.CustomFontEditText
                     android:id="@+id/add_item_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -260,9 +268,10 @@
                     android:minHeight="48dp"
                     android:padding="10dp"
                     android:singleLine="true"
-                    android:textColor="#9E9E9E" />
+                    android:textColor="#9E9E9E"
+                    vee:veeTypeface="@string/font_myrid_pro" />
 
-                <EditText
+                <vee.HexWhale.LenDen.aUI.CustomFontEditText
                     android:id="@+id/add_item_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -272,7 +281,8 @@
                     android:hint="Description"
                     android:minHeight="150dp"
                     android:padding="10dp"
-                    android:textColor="#9E9E9E" />
+                    android:textColor="#9E9E9E"
+                    vee:veeTypeface="@string/font_myrid_pro" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
