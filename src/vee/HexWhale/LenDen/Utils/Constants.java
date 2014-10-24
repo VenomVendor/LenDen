@@ -31,9 +31,9 @@ public final class Constants {
 
     public final static class API {
 
-        public final static String BASE_URL = "http://lddev.lendenapp.com/";
-        public final static String KEY = "592a34a4abadaa52b3c0abb055b689";
-        public final static String SECRET = "266aec96e90af9450eb4ad450309b3";
+        public final static String BASE_URL = "http://ld.lendenapp.com/";
+        public final static String KEY = "ae2fafc680fbce6f93166f1d9c7eae";
+        public final static String SECRET = "50d65976adb25c2110bc69eee1c88a";
 
         public final static class HEADERS {
             public final static String ACCESS_TOKEN = "access_token";
